@@ -1,141 +1,176 @@
-**Student Management System**
+# Student Management System
 
-**Ateneo de Davao University**
+### Ateneo de Davao University
 
-**Ongoing Project**
+## Overview
 
-Overview
+The **Student Management System (SMS)** is a web-based platform designed to manage and organize student records at **Ateneo de Davao University**. The system allows administrators and authorized personnel to efficiently store, update, and retrieve student information in a centralized database.
 
-The Student Management System (SMS) is a web-based platform developed to streamline and digitize the management of student records, academic information, and administrative processes at Ateneo de Davao University.
+The goal of this system is to simplify administrative processes, improve data accuracy, and reduce the need for manual record management.
 
-The system provides administrators, faculty, and authorized personnel with efficient tools to manage student data, monitor enrollment records, track academic information, and maintain organized institutional records.
+---
 
-By centralizing student-related operations into a single platform, the system improves data accuracy, accessibility, and administrative productivity.
+## Features
 
-Objectives
+### Student Information Management
 
-The Student Management System aims to:
+* Add new student records
+* Update existing student profiles
+* View and manage student data
+* Organize students by course, department, and year level
 
-Digitize and centralize student records.
+### Record Organization
 
-Simplify student information management.
+* Centralized database for student records
+* Easy searching and retrieval of student information
+* Structured data storage
 
-Improve administrative efficiency and data accessibility.
+### Administrative Management
 
-Provide secure and structured storage for academic data.
+* Manage and maintain student data
+* Edit or remove outdated records
+* Maintain accurate academic information
 
-Support data-driven decision-making within the university.
+### Security
 
-Key Features
-Student Information Management
+* Authentication system for administrators
+* Restricted access to sensitive student information
+* Secure session management
 
-Add, update, and manage student profiles
+---
 
-Store personal and academic information
+## Technologies Used
 
-Organize students by department, course, and year level
+**Frontend**
 
-Academic Records Management
+* HTML
+* CSS
+* Bootstrap
+* JavaScript
 
-Manage student academic information
+**Backend**
 
-Maintain structured academic data for institutional use
+* PHP
 
-Administrative Tools
+**Database**
 
-Manage student lists and records efficiently
+* MySQL
 
-Enable administrators to update or modify student information
+**Development Environment**
 
-Provide organized data views for better monitoring
+* XAMPP (Apache, MySQL, PHP)
 
-Data Organization
+---
 
-Structured storage of student records
+## System Structure
 
-Easy retrieval and searching of student data
+```
+student-management-system/
+│
+├── assets/             # CSS, JS, images
+├── includes/           # Database connection and shared components
+├── admin               # Admin management and operations
+├── staff               # staff management and operations
+├── students/           # Student management and operations
+├── database/           # SQL database files
+└── index.php           # System entry point
+```
 
-Organized database management
+---
 
-Security and Access Control
+## Installation
 
-Restricted access to authorized users
+### 1. Clone the Repository
 
-Secure management of sensitive student information
+```
+git clone https://github.com/yourusername/student-management-system.git
+```
 
-Session-based authentication
+### 2. Move the Project
 
-System Architecture
-Frontend
+Place the project folder inside your **XAMPP `htdocs` directory**.
 
-HTML
+```
+C:/xampp/htdocs/student-management-system
+```
 
-CSS
+### 3. Setup the Database
 
-Bootstrap
+1. Open **phpMyAdmin**
+2. Create a new database:
 
-JavaScript
+```
+###REDACTED###
+```
 
-Backend
+3. Import the provided SQL file from the `database` folder.
 
-PHP
+### 4. Configure Database Connection
 
-Database
+Edit the database connection file:
 
-MySQL
+```
+includes/conn.php
+```
 
-Development Environment
+Update the credentials if necessary:
 
-XAMPP (Apache, MySQL, PHP)
+```php
+$host = "localhost";
+$dbname = "REDACTED";
+$username = "root";
+$password = "";
+```
 
-System Modules
+### 5. Run the System
 
-Student Module
+Start **Apache** and **MySQL** in XAMPP and open:
 
-Add new students
+```
+http://localhost/student-management-system
+```
 
-Edit student profiles
+---
 
-Manage student records
+## User Roles
 
-Administrative Module
+### Administrator
 
-Manage system users
+* Manage student records
+* Update student information
+* Maintain system data
+* Chat with other faculties and students
 
-Update and maintain student data
+### Authorized Staff
 
-Database Management
+* View and update student records
+* Manage academic information
+* Grade students
+* Chat with other faculties and students
 
-Organized storage of student information
+ ### Verified students
 
-Efficient retrieval of records
+* Pass courseworks and assignments
+* View grades
+* Chat with faculties and other students
 
-Benefits
+---
 
-Reduces manual paperwork
+## Future Improvements
 
-Improves record accuracy
+* Integration with university systems
+* To be continued and recreated
 
-Speeds up administrative processes
+---
 
-Enhances organization of student data
+## License
 
-Provides a scalable digital solution for student record management
+This project was developed for **academic and institutional purposes** for Ateneo de Davao University.
+All rights goes to Ahmad Pandaog Aquino
 
-Future Enhancements
+---
 
-Potential improvements for future versions include:
+## Author
 
-Online enrollment management
-
-Academic performance tracking
-
-Student portal access
-
-Faculty management system
-
-Automated reporting and analytics
-
-Conclusion
-
-The Student Management System for Ateneo de Davao University provides a centralized digital platform for managing student information efficiently and securely. By automating administrative tasks and organizing student records, the system enhances operational efficiency and supports the university’s goal of maintaining accurate and accessible academic data.
+Developed as part of a **Student Management System project** for Ateneo de Davao University.
+All rights goes to Ahmad Pandaog Aquino
