@@ -18,7 +18,7 @@ unset($_SESSION['status_message']);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WMSU - CCS | Student Management System</title>
+    <title>ADDU - CCS | Student Management System</title>
     <link rel="icon" href="../external/img/favicon-32x32.png" type="image/x-icon">
     <!-- Include SweetAlert CSS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -30,7 +30,7 @@ unset($_SESSION['status_message']);
 <body>
     <div class="container-fluid main-container">
         <img src="external/img/ccs_logo-removebg-preview.png" class="img-fluid logo">
-        <h5>WMSU - Student Management System</h5>
+        <h5>ADDU - Student Management System</h5>
         <h5>College of Computing Studies</h5>
         <div class="status-message">
             <?php if (!empty($statusMessage)): ?>
@@ -49,7 +49,6 @@ unset($_SESSION['status_message']);
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 
     <script>
-
         const backbutton = document.getElementById('back-button');
 
         const button = document.getElementById('homepage-button');

@@ -24,7 +24,7 @@ $stmt->execute();
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>WMSU - CCS | Student Management System</title>
+    <title>ADDU - CCS | Student Management System</title>
     <link rel="icon" href="../external/img/favicon-32x32.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -86,7 +86,7 @@ $stmt->execute();
     <div class="wrapper">
         <?php
         include('sidebar.php')
-            ?>
+        ?>
 
         <div class="main">
             <?php include('topbar.php') ?>
@@ -109,7 +109,7 @@ $stmt->execute();
                                 $classAttendanceId = $_GET['classAttendanceId'] ?? null; // Get the meeting ID from the URL
                                 $class_id = $_GET['class_id'] ?? null; // Get the class ID from the URL
                                 $semester = $_GET['semester'] ?? null; // Optional semester parameter
-                                
+
                                 // Ensure `classAttendanceId` is provided before proceeding
                                 if (!$classAttendanceId) {
                                     die("Error: Missing 'classAttendanceId' parameter.");
@@ -142,9 +142,9 @@ $stmt->execute();
                                     // QR Code generation
                                     $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https://" : "http://";
                                     $host = $_SERVER['HTTP_HOST'];
-                             // Dynamically get the server's IP address
-$ipAddress = $_SERVER['SERVER_ADDR'];
-$baseUrl = "https://ccs-sms.com/capstone/attendance/attendance_student_scanning.php";
+                                    // Dynamically get the server's IP address
+                                    $ipAddress = $_SERVER['SERVER_ADDR'];
+                                    $baseUrl = "https://ccs-sms.com/capstone/attendance/attendance_student_scanning.php";
 
                                     // Construct the QR data
                                     $qrData = "$baseUrl?id={$meetingId}&class_id={$classId}&date={$date->format('Y-m-d')}&start_time=$startTime&end_time=$endTime&meetingId=$classAttendanceId";
@@ -211,7 +211,7 @@ $baseUrl = "https://ccs-sms.com/capstone/attendance/attendance_student_scanning.
                                     $student_id = $_SESSION['student_id'];
                                     $meeting_id = $_GET['classAttendanceId'];
                                     $class_id = $_GET['class_id'];  // Assuming $class_id comes from a GET parameter
-                                    
+
 
                                     // SQL query to get attendance status
                                     $sql = "SELECT status FROM attendance WHERE student_id = :student_id AND class_id = :class_id AND meeting_id = :meeting_id";
@@ -228,8 +228,6 @@ $baseUrl = "https://ccs-sms.com/capstone/attendance/attendance_student_scanning.
 
                                         // Fetch the result
                                         $attendanceStatus = $stmt->fetch(PDO::FETCH_ASSOC)['status'] ?? 'Absent';
-
-
                                     } catch (PDOException $e) {
                                         echo "Error: " . $e->getMessage();
                                     }
@@ -238,7 +236,7 @@ $baseUrl = "https://ccs-sms.com/capstone/attendance/attendance_student_scanning.
 
                                     // Current time and class start and end time calculation
                                     $currentDateTime = new DateTime(); // Current date and time
-                                    
+
                                     // Define class meeting date, start and end times
                                     $classStartDateTime = new DateTime($date->format('Y-m-d') . ' ' . $meetingData['start_time']);
                                     $classEndDateTime = new DateTime($date->format('Y-m-d') . ' ' . $meetingData['end_time']);
@@ -260,7 +258,7 @@ $baseUrl = "https://ccs-sms.com/capstone/attendance/attendance_student_scanning.
                 <h4>Attendance Closed</h4>
                 <p>The attendance period for this class has ended.</p>
                  <br>
-         <p>Your attendance status: <span class="alert alert-warning">'.ucfirst($attendanceStatus).'</span></p>
+         <p>Your attendance status: <span class="alert alert-warning">' . ucfirst($attendanceStatus) . '</span></p>
                 <br>
             </div>
         </div>';
@@ -278,7 +276,6 @@ $baseUrl = "https://ccs-sms.com/capstone/attendance/attendance_student_scanning.
              alt="Class Attendance QR Code" style="width: 200px; height: auto;">
     </div>
 </div>';
-
                                     } elseif ($isToday && $qrCodeExists && $isInAttendanceWindow && $attendanceStatus == 'absent') {
                                         // If within the allowed attendance window (between start_time and end_time)
                                         echo '
@@ -293,7 +290,6 @@ $baseUrl = "https://ccs-sms.com/capstone/attendance/attendance_student_scanning.
 alt="Class Attendance QR Code" style="width: 200px; height: auto;">
 </div>
 </div>';
-
                                     } elseif ($isToday && $qrCodeExists && $isInAttendanceWindow && $attendanceStatus == 'present') {
                                         // If within the allowed attendance window (between start_time and end_time)
                                         echo '
@@ -303,10 +299,10 @@ alt="Class Attendance QR Code" style="width: 200px; height: auto;">
       <p>Your attendance status: <span class="alert alert-success">Present</span></p>
 <br>
 </div>';
-                                    }else if($isToday && $qrCodeExists && $isInAttendanceWindow){
+                                    } else if ($isToday && $qrCodeExists && $isInAttendanceWindow) {
 
 
-echo '
+                                        echo '
 <div class="col text-end">
     <div class="text-center mb-3">
         <h4>You can mark attendance now</h4>
@@ -317,8 +313,6 @@ echo '
              alt="Class Attendance QR Code" style="width: 200px; height: auto;">
     </div>
 </div>';
-
-
                                     } else {
                                         // If the time is outside the attendance window
                                         echo '
@@ -402,7 +396,6 @@ echo '
 
                                 // If no data is found, redirect or handle the error
                                 if (!$studentInfo) {
-
                                 }
                             }
                             ?>
@@ -607,7 +600,7 @@ echo '
                                                     foreach ($classes as $class) {
                                                         $class_id = $class['class_id'];
                                                         $subject = htmlspecialchars($class['subject']);
-                                                        ?>
+                                            ?>
                                                         <!-- Subject Title -->
                                                         <div class="subject-section mb-4 text-center">
                                                             <h3 class="subject-title mb-4"><span class="bold">Subject:</span>
@@ -648,7 +641,7 @@ echo '
                                                                         foreach ($activities as $activity) {
                                                                             $dueDate = new DateTime($activity['due_date']);
                                                                             $formattedDueDate = $dueDate->format('F j, Y');
-                                                                            ?>
+                                                                    ?>
                                                                             <tr>
                                                                                 <td><strong><?php echo htmlspecialchars($activity['title']); ?></strong>
                                                                                 </td>
@@ -668,7 +661,7 @@ echo '
                                                                                     </button>
                                                                                 </td>
                                                                             </tr>
-                                                                            <?php
+                                                                    <?php
                                                                         }
                                                                     } else {
                                                                         echo '<tr><td colspan="3" class="text-center text-muted">No activities found for this subject.</td></tr>';
@@ -679,7 +672,7 @@ echo '
 
 
                                                         </div>
-                                                        <?php
+                                            <?php
                                                     }
                                                 } else {
                                                     echo "<p class='text-muted text-center'>This student is not enrolled in any classes.</p>";
@@ -992,7 +985,7 @@ echo '
                                     </div>
 
                                     <script>
-                                        $(document).ready(function () {
+                                        $(document).ready(function() {
                                             $('#attendanceTable').DataTable(); // Initialize DataTable
                                         });
                                     </script>

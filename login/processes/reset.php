@@ -73,7 +73,7 @@ function sendResetPasswordEmail($email, $token)
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
 
-        $mail->setFrom('wmsuccssms@gmail.com', 'WMSU - Student Management System');
+        $mail->setFrom('ADDUccssms@gmail.com', 'ADDU - Student Management System');
         $mail->addAddress($email);
 
         // Reset link
@@ -81,7 +81,7 @@ function sendResetPasswordEmail($email, $token)
 
         // Compose the email content
         $mail->isHTML(true);
-        $mail->Subject = 'WMSU - Student Management System [Password Reset]';
+        $mail->Subject = 'ADDU - Student Management System [Password Reset]';
 
         $mail->Body = "
         <div style='font-family: Arial, sans-serif; text-align: center; padding: 20px; background-color: #f2f2f2; border-radius: 10px;'>
@@ -90,21 +90,21 @@ function sendResetPasswordEmail($email, $token)
     
                 <!-- Text -->
                 <div style='font-size: 24px; color: #2c3e50; font-weight: bold; text-align: center;'>
-                    Western Mindanao State University <br> Student Management System
+                    Ateneo de Davao University <br> Student Management System
                 </div>
     
       
     
             <!-- Main Content -->
             <h2>Password Reset Request</h2>
-        <p>You requested a password reset for your <strong>WMSU - Student Management System</strong> account.</p>
+        <p>You requested a password reset for your <strong>ADDU - Student Management System</strong> account.</p>
         <p>Please click the link below to reset your password:</p>
         <p><a href='$resetLink' style='color: blue;'>Reset Password</a></p>
         <p>If you did not request this, you can ignore this email.</p>
-        <p>Best regards,<br>WMSU Student Management System Team</p>
-            <p style='font-size: 16px; color: #7f8c8d;'>If you have any issues, feel free to contact us at <a href='mailto:support@wmsu.edu.ph' style='color: #2980b9;'>support@wmsu.edu.ph</a></p>
+        <p>Best regards,<br>ADDU Student Management System Team</p>
+            <p style='font-size: 16px; color: #7f8c8d;'>If you have any issues, feel free to contact us at <a href='mailto:support@ADDU.edu.ph' style='color: #2980b9;'>support@ADDU.edu.ph</a></p>
     
-            <div style='font-size: 14px; color: #7f8c8d;'>Best regards,<br>The WMSU Student Management System Team</div>
+            <div style='font-size: 14px; color: #7f8c8d;'>Best regards,<br>The ADDU Student Management System Team</div>
         </div>";
 
         $mail->send();
@@ -114,4 +114,3 @@ function sendResetPasswordEmail($email, $token)
         return false;
     }
 }
-?>

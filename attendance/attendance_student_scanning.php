@@ -65,7 +65,7 @@ if (!isset($_SESSION['student_id'])) {
         <head>
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
-            <title>WMSU - CCS | Student Management System</title>
+            <title>ADDU - CCS | Student Management System</title>
             <link rel="icon" href="../external/img/favicon-32x32.png" type="image/x-icon">
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
                 integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -89,7 +89,7 @@ if (!isset($_SESSION['student_id'])) {
 
             <div class="actual-login-container">
                 <small><a href="index.html" class="gb"><i class="bi bi-arrow-left-circle-fill"></i> Go back</a></small>
-                <img src="external/img/wmsu_Logo-removebg-preview.png" class="img-fluid big-logo">
+                <img src="external/img/ADDU_Logo-removebg-preview.png" class="img-fluid big-logo">
                 <h5 class="bold">STUDENT LOGIN</h5>
 
                 <div class="container-fluid ">
@@ -233,112 +233,113 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['meetingId'])) {
     $date = $_GET['date'] ?? null;
     $latitude = $_POST['latitude'] ?? null;
     $longitude = $_POST['longitude'] ?? null;
-    
-  
+
+
     $studentId = $_SESSION['student_id'];
     $ipAddress = $_SERVER['REMOTE_ADDR'];
-    
-   
+
+
 
     if (!$meetingId || !$classId || !$date) {
         $_SESSION['status_message'] = "Missing required attendance parameters";
         header("Location: ../students/attendance_status.php?meetingId={$meetingId}&classId={$classId}&date={$date}");
         exit;
     }
-    
-   
-    
 
-  // Replace the existing attendance recording section with this:
 
-try {
-    // First check if IP address already exists for this meeting (excluding current student)
-    $ipCheckStmt = $pdo->prepare(
-        "SELECT COUNT(*) FROM attendance 
+
+
+    // Replace the existing attendance recording section with this:
+
+    try {
+        // First check if IP address already exists for this meeting (excluding current student)
+        $ipCheckStmt = $pdo->prepare(
+            "SELECT COUNT(*) FROM attendance 
          WHERE class_id = :class_id 
          AND meeting_id = :meeting_id 
          AND date = :date 
          AND ip_address = :ip_address
          AND student_id != :student_id"
-    );
-    $ipCheckStmt->execute([
-        ':class_id' => $classId,
-        ':meeting_id' => $meetingId,
-        ':date' => $date,
-        ':ip_address' => $ipAddress,
-        ':student_id' => $studentId
-    ]);
+        );
+        $ipCheckStmt->execute([
+            ':class_id' => $classId,
+            ':meeting_id' => $meetingId,
+            ':date' => $date,
+            ':ip_address' => $ipAddress,
+            ':student_id' => $studentId
+        ]);
 
-    if ($ipCheckStmt->fetchColumn() > 0) {
-        $_SESSION['status_message'] = "Attendance cannot be recorded: This IP address has already been used for this session";
-        header("Location: ../students/attendance_status.php?meetingId={$meetingId}&classId={$classId}&date={$date}");
-        exit;
-    }
-
-    // Get meeting details
-    $stmt = $pdo->prepare(
-        "SELECT start_time, end_time, wmsu_radius 
-         FROM classes_meetings 
-         WHERE id = :meetingId AND class_id = :classId"
-    );
-    $stmt->execute([':meetingId' => $meetingId, ':classId' => $classId]);
-    $meetingData = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if (!$meetingData) {
-        $_SESSION['status_message'] = "Invalid meeting or class ID";
-        header("Location: ../students/attendance_status.php?meetingId={$meetingId}&classId={$classId}&date={$date}");
-        exit;
-    }
-
-    $startTime = $meetingData['start_time'];
-    $endTime = $meetingData['end_time'];
-    $wmsuRadius = $meetingData['wmsu_radius'];
-
-    // Modified recordAttendance function
-    function recordAttendance($pdo, $studentId, $classId, $date, $startTime, $endTime, $meetingId, $ipAddress, $latitude = null, $longitude = null) {
-        $currentTime = date('h:i A');
-        $currentTimestamp = strtotime($currentTime);
-        $startTimeStamp = strtotime($date . ' ' . $startTime);
-        $endTimeStamp = strtotime($date . ' ' . $endTime);
-
-        // Determine status
-        $status = 'absent';
-        if ($currentTimestamp >= $startTimeStamp && $currentTimestamp <= ($startTimeStamp + 300)) { // 5 minutes
-            $status = 'present';
-        } elseif ($currentTimestamp > ($startTimeStamp + 300) && $currentTimestamp <= $endTimeStamp) {
-            $status = 'late';
-        } else {
-            $_SESSION['status_message'] = "Attendance cannot be updated. Time is outside the allowed schedule";
-            return false;
+        if ($ipCheckStmt->fetchColumn() > 0) {
+            $_SESSION['status_message'] = "Attendance cannot be recorded: This IP address has already been used for this session";
+            header("Location: ../students/attendance_status.php?meetingId={$meetingId}&classId={$classId}&date={$date}");
+            exit;
         }
 
-        // Check if attendance record already exists
-        $checkStmt = $pdo->prepare(
-            "SELECT COUNT(*) FROM attendance 
+        // Get meeting details
+        $stmt = $pdo->prepare(
+            "SELECT start_time, end_time, ADDU_radius 
+         FROM classes_meetings 
+         WHERE id = :meetingId AND class_id = :classId"
+        );
+        $stmt->execute([':meetingId' => $meetingId, ':classId' => $classId]);
+        $meetingData = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$meetingData) {
+            $_SESSION['status_message'] = "Invalid meeting or class ID";
+            header("Location: ../students/attendance_status.php?meetingId={$meetingId}&classId={$classId}&date={$date}");
+            exit;
+        }
+
+        $startTime = $meetingData['start_time'];
+        $endTime = $meetingData['end_time'];
+        $ADDURadius = $meetingData['ADDU_radius'];
+
+        // Modified recordAttendance function
+        function recordAttendance($pdo, $studentId, $classId, $date, $startTime, $endTime, $meetingId, $ipAddress, $latitude = null, $longitude = null)
+        {
+            $currentTime = date('h:i A');
+            $currentTimestamp = strtotime($currentTime);
+            $startTimeStamp = strtotime($date . ' ' . $startTime);
+            $endTimeStamp = strtotime($date . ' ' . $endTime);
+
+            // Determine status
+            $status = 'absent';
+            if ($currentTimestamp >= $startTimeStamp && $currentTimestamp <= ($startTimeStamp + 300)) { // 5 minutes
+                $status = 'present';
+            } elseif ($currentTimestamp > ($startTimeStamp + 300) && $currentTimestamp <= $endTimeStamp) {
+                $status = 'late';
+            } else {
+                $_SESSION['status_message'] = "Attendance cannot be updated. Time is outside the allowed schedule";
+                return false;
+            }
+
+            // Check if attendance record already exists
+            $checkStmt = $pdo->prepare(
+                "SELECT COUNT(*) FROM attendance 
              WHERE student_id = :student_id 
              AND class_id = :class_id 
              AND meeting_id = :meeting_id"
-        );
-        $checkStmt->execute([
-            ':student_id' => $studentId,
-            ':class_id' => $classId,
-            ':meeting_id' => $meetingId
-        ]);
+            );
+            $checkStmt->execute([
+                ':student_id' => $studentId,
+                ':class_id' => $classId,
+                ':meeting_id' => $meetingId
+            ]);
 
-        $params = [
-            ':student_id' => $studentId,
-            ':class_id' => $classId,
-            ':date' => $date,
-            ':meeting_id' => $meetingId,
-            ':status' => $status,
-            ':ip_address' => $ipAddress
-        ];
+            $params = [
+                ':student_id' => $studentId,
+                ':class_id' => $classId,
+                ':date' => $date,
+                ':meeting_id' => $meetingId,
+                ':status' => $status,
+                ':ip_address' => $ipAddress
+            ];
 
-        if ($checkStmt->fetchColumn() > 0) {
-            // Update existing record
-            if ($latitude && $longitude) {
-             
-                $sql = "UPDATE attendance 
+            if ($checkStmt->fetchColumn() > 0) {
+                // Update existing record
+                if ($latitude && $longitude) {
+
+                    $sql = "UPDATE attendance 
                         SET status = :status,
                             ip_address = :ip_address,
                           
@@ -346,109 +347,108 @@ try {
                         WHERE student_id = :student_id 
                         AND class_id = :class_id 
                         AND meeting_id = :meeting_id";
-            } else {
-                $sql = "UPDATE attendance 
+                } else {
+                    $sql = "UPDATE attendance 
                         SET status = :status,
                             ip_address = :ip_address,
                             date = :date
                         WHERE student_id = :student_id 
                         AND class_id = :class_id 
                         AND meeting_id = :meeting_id";
-            }
-        } else {
-            // Insert new record
-            if ($latitude && $longitude) {
-             
-                $sql = "INSERT INTO attendance 
-                        (student_id, class_id, date, meeting_id, status, ip_address)
-                        VALUES 
-                        (:student_id, :class_id, :date, :meeting_id, :status, :ip_address)";
+                }
             } else {
-                $sql = "INSERT INTO attendance 
+                // Insert new record
+                if ($latitude && $longitude) {
+
+                    $sql = "INSERT INTO attendance 
                         (student_id, class_id, date, meeting_id, status, ip_address)
                         VALUES 
                         (:student_id, :class_id, :date, :meeting_id, :status, :ip_address)";
+                } else {
+                    $sql = "INSERT INTO attendance 
+                        (student_id, class_id, date, meeting_id, status, ip_address)
+                        VALUES 
+                        (:student_id, :class_id, :date, :meeting_id, :status, :ip_address)";
+                }
             }
+
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute($params);
+
+            return $status;
         }
 
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute($params);
+        // Process attendance based on radius setting
+        if ($ADDURadius === 'on') {
 
-        return $status;
-    }
+            $latitude = $_POST['latitude'] ?? null;
+            $longitude = $_POST['longitude'] ?? null;
 
-    // Process attendance based on radius setting
-    if ($wmsuRadius === 'on') {
-        
-           $latitude = $_POST['latitude'] ?? null;
-    $longitude = $_POST['longitude'] ?? null;
-        
-         // Add GPS check
-    if (empty($latitude) || empty($longitude) || $latitude == 0 || $longitude == 0) {
-        $_SESSION['status_message'] = "GPS location is required. Please enable your location services";
-        header("Location: ../students/attendance_status.php?meetingId={$meetingId}&classId={$classId}&date={$date}");
-        exit;
-    }
-    
-    
-         function getDistance($lat1, $lon1, $lat2, $lon2)
-                        {
-                            $earthRadius = 6371000;
-                            $dLat = deg2rad($lat2 - $lat1);
-                            $dLon = deg2rad($lon2 - $lon1);
-                            $a = sin($dLat / 2) * sin($dLat / 2) + cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * sin($dLon / 2) * sin($dLon / 2);
-                            $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
-                            return $earthRadius * $c;
-                        }
+            // Add GPS check
+            if (empty($latitude) || empty($longitude) || $latitude == 0 || $longitude == 0) {
+                $_SESSION['status_message'] = "GPS location is required. Please enable your location services";
+                header("Location: ../students/attendance_status.php?meetingId={$meetingId}&classId={$classId}&date={$date}");
+                exit;
+            }
 
-     $allowedLatitude = 6.912526470449727;
-            $allowedLongitude = 122.06363439095645;
-            $radiusInMeters = 100;
 
-                        $distance = getDistance($latitude, $longitude, $allowedLatitude, $allowedLongitude);
-                        if ($distance > $radiusInMeters) {
-                            $_SESSION['status_message'] = "You are not within the required location for this activity.";
-                            
-                            echo $distance;
-                            
-                            echo $radiusInMeters;
-                            
-                            
-                            header('Location: ../students/attendance_status.php?meetingId=' . $meetingId . '&classId=' . $classId . '&date=' . $date);
-                            exit();
-                        }
-    
-        if (!$latitude || !$longitude) {
-            $_SESSION['status_message'] = "Location data required for this attendance";
-        } else {
-            
-        
-            
-            
+            function getDistance($lat1, $lon1, $lat2, $lon2)
+            {
+                $earthRadius = 6371000;
+                $dLat = deg2rad($lat2 - $lat1);
+                $dLon = deg2rad($lon2 - $lon1);
+                $a = sin($dLat / 2) * sin($dLat / 2) + cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * sin($dLon / 2) * sin($dLon / 2);
+                $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
+                return $earthRadius * $c;
+            }
+
             $allowedLatitude = 6.912526470449727;
             $allowedLongitude = 122.06363439095645;
             $radiusInMeters = 100;
 
             $distance = getDistance($latitude, $longitude, $allowedLatitude, $allowedLongitude);
             if ($distance > $radiusInMeters) {
-                $_SESSION['status_message'] = "You are not within the required location";
+                $_SESSION['status_message'] = "You are not within the required location for this activity.";
+
+                echo $distance;
+
+                echo $radiusInMeters;
+
+
+                header('Location: ../students/attendance_status.php?meetingId=' . $meetingId . '&classId=' . $classId . '&date=' . $date);
+                exit();
+            }
+
+            if (!$latitude || !$longitude) {
+                $_SESSION['status_message'] = "Location data required for this attendance";
             } else {
-                $status = recordAttendance($pdo, $studentId, $classId, $date, $startTime, $endTime, $meetingId, $ipAddress, $latitude, $longitude);
-                if ($status) {
-                    $_SESSION['status_message'] = "Attendance recorded successfully as: " . htmlspecialchars($status);
+
+
+
+
+                $allowedLatitude = 6.912526470449727;
+                $allowedLongitude = 122.06363439095645;
+                $radiusInMeters = 100;
+
+                $distance = getDistance($latitude, $longitude, $allowedLatitude, $allowedLongitude);
+                if ($distance > $radiusInMeters) {
+                    $_SESSION['status_message'] = "You are not within the required location";
+                } else {
+                    $status = recordAttendance($pdo, $studentId, $classId, $date, $startTime, $endTime, $meetingId, $ipAddress, $latitude, $longitude);
+                    if ($status) {
+                        $_SESSION['status_message'] = "Attendance recorded successfully as: " . htmlspecialchars($status);
+                    }
                 }
             }
+        } else {
+            $status = recordAttendance($pdo, $studentId, $classId, $date, $startTime, $endTime, $meetingId, $ipAddress);
+            if ($status) {
+                $_SESSION['status_message'] = "Attendance recorded successfully as: " . htmlspecialchars($status);
+            }
         }
-    } else {
-        $status = recordAttendance($pdo, $studentId, $classId, $date, $startTime, $endTime, $meetingId, $ipAddress);
-        if ($status) {
-            $_SESSION['status_message'] = "Attendance recorded successfully as: " . htmlspecialchars($status);
-        }
+    } catch (PDOException $e) {
+        $_SESSION['status_message'] = "Database error: " . $e->getMessage();
     }
-
-} catch (PDOException $e) {
-    $_SESSION['status_message'] = "Database error: " . $e->getMessage();
-}
 }
 
 header("Location: ../students/attendance_status.php?meetingId={$meetingId}&classId={$classId}&date={$date}");

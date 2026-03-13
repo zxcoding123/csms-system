@@ -2,7 +2,7 @@
 session_start();
 if (!isset($_SESSION['teacher_id'])) {
     $_SESSION['STATUS'] = "TEACHER_NOT_LOGGED_IN";
-	header("Location: ../login/index.php");
+    header("Location: ../login/index.php");
 }
 
 include('processes/server/conn.php');
@@ -14,7 +14,7 @@ include('processes/server/conn.php');
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>WMSU - CCS | Comprehensive Student Management System</title>
+    <title>ADDU - CCS | Comprehensive Student Management System</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="css/app.css" rel="stylesheet">
@@ -56,7 +56,7 @@ include('processes/server/conn.php');
     <div class="wrapper">
         <?php
         include('sidebar.php')
-            ?>
+        ?>
 
         <div class="main">
             <nav class="navbar navbar-expand navbar-light navbar-bg">
@@ -64,10 +64,10 @@ include('processes/server/conn.php');
                     <i class="hamburger align-self-center"></i>
                 </a>
                 <img src="external/img/ccs_logo-removebg-preview.png" class="logo-small">
-                <span class="text-white">WMSU - Comprehensive Student Management System </span>
+                <span class="text-white">ADDU - Comprehensive Student Management System </span>
                 <div class="navbar-collapse collapse">
-					<?php include('top-bar.php') ?>
-				</div>
+                    <?php include('top-bar.php') ?>
+                </div>
             </nav>
 
             <main class="content">
@@ -171,7 +171,7 @@ include('processes/server/conn.php');
     </script>
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             // Initialize DataTable
             $('#classesTable').DataTable({
                 "paging": true,

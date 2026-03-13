@@ -2,7 +2,7 @@
 session_start();
 if (!isset($_SESSION['teacher_id'])) {
     $_SESSION['STATUS'] = "TEACHER_NOT_LOGGED_IN";
-  	header("Location: ../login/index.php");
+    header("Location: ../login/index.php");
 }
 
 include('processes/server/conn.php');
@@ -15,7 +15,7 @@ include('processes/server/conn.php');
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>WMSU - CCS | Student Management System</title>
+    <title>ADDU - CCS | Student Management System</title>
     <link rel="icon" href="../external/img/favicon-32x32.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -44,32 +44,32 @@ include('processes/server/conn.php');
         border-bottom: 1px solid black;
     }
 
-  .btn-csms {
-		background-color: #10177a;
-		color: white;
-		border: 1px solid white;
-	}
+    .btn-csms {
+        background-color: #10177a;
+        color: white;
+        border: 1px solid white;
+    }
 
-	.btn-csms:hover {
-		border: 1px solid #10177a;
-		background-color: white;
-		color: #10177a;
-	}
+    .btn-csms:hover {
+        border: 1px solid #10177a;
+        background-color: white;
+        color: #10177a;
+    }
 </style>
 
 <body>
     <div class="wrapper">
         <?php
         include('sidebar.php')
-            ?>
+        ?>
 
         <div class="main">
             <nav class="navbar navbar-expand navbar-light navbar-bg">
                 <a class="sidebar-toggle js-sidebar-toggle">
                     <i class="hamburger align-self-center"></i>
                 </a>
-               <img src="external/img/ADNU_Logo.png" class="logo-small">
-				<span class="text-white"><b>AdNU</b> - Student Management System </span>
+                <img src="external/img/ADNU_Logo.png" class="logo-small">
+                <span class="text-white"><b>AdNU</b> - Student Management System </span>
                 <div class="navbar-collapse collapse">
                     <?php include('top-bar.php') ?>
                 </div>
@@ -118,17 +118,17 @@ include('processes/server/conn.php');
                                                 $classes = $classes_stmt->fetchAll(PDO::FETCH_ASSOC);
 
                                                 // If no classes are assigned or they are all 'pending'
-                                             	// If no classes are assigned or they are all 'pending'
-									if (!$classes) {
-										echo '<div class="card-body">';
-										echo '<h5 class="card-title">Today’s Classes for</h5>';
-										echo '<p>No active classes are assigned for today.</p>';  // Classes are either not assigned or pending
-										echo '</div>';
-									} else {
-										$subject_ids = array_column($classes, 'subject_id');
-										if (!empty($subject_ids)) {
-											$placeholders = str_repeat('?,', count($subject_ids) - 1) . '?';
-											$schedules_stmt = $pdo->prepare("
+                                                // If no classes are assigned or they are all 'pending'
+                                                if (!$classes) {
+                                                    echo '<div class="card-body">';
+                                                    echo '<h5 class="card-title">Today’s Classes for</h5>';
+                                                    echo '<p>No active classes are assigned for today.</p>';  // Classes are either not assigned or pending
+                                                    echo '</div>';
+                                                } else {
+                                                    $subject_ids = array_column($classes, 'subject_id');
+                                                    if (!empty($subject_ids)) {
+                                                        $placeholders = str_repeat('?,', count($subject_ids) - 1) . '?';
+                                                        $schedules_stmt = $pdo->prepare("
                         SELECT 
                             ss.subject_id, 
                             ss.meeting_days, 
@@ -146,89 +146,90 @@ include('processes/server/conn.php');
                         WHERE 
                             ss.subject_id IN ($placeholders)
                     ");
-											$schedules_stmt->execute($subject_ids);
-											$schedules = $schedules_stmt->fetchAll(PDO::FETCH_ASSOC);
+                                                        $schedules_stmt->execute($subject_ids);
+                                                        $schedules = $schedules_stmt->fetchAll(PDO::FETCH_ASSOC);
 
-											// Filter schedules for today's classes
-											$today = date('l'); // Get the current day of the week (e.g., "Monday")
-											$todays_classes = array_filter($schedules, function ($schedule) use ($today) {
-												return stripos($schedule['meeting_days'], $today) !== false;
-											});
+                                                        // Filter schedules for today's classes
+                                                        $today = date('l'); // Get the current day of the week (e.g., "Monday")
+                                                        $todays_classes = array_filter($schedules, function ($schedule) use ($today) {
+                                                            return stripos($schedule['meeting_days'], $today) !== false;
+                                                        });
 
-											// Display today's classes
+                                                        // Display today's classes
 
-											echo '<div class="card-body">';
-											echo '<h5 class="card-title">Today’s Classes for ' . $today . ' </h5>';
+                                                        echo '<div class="card-body">';
+                                                        echo '<h5 class="card-title">Today’s Classes for ' . $today . ' </h5>';
 
-											if (!empty($todays_classes)) {
-												echo '<ul>';
-												foreach ($todays_classes as $class) {
-													echo '<li><b>'
-														. htmlspecialchars($class['subject_name']) . ' </b>@ ' // Use the subject_name
-														. htmlspecialchars(date("g:i A", strtotime($class['start_time'])))
-														. ' - '
-														. htmlspecialchars(date("g:i A", strtotime($class['end_time'])))
-														.  ' - <b>(' .
-														htmlspecialchars($class['course']) . ' - ' .  htmlspecialchars($class['year_level'])
-														.  ')</b>' .
-														'</li>';
-												}
-												echo '</ul>';
-											} else {
-												// No active classes for today
-												echo '<p>No classes are scheduled for today.</p>';
-											}
+                                                        if (!empty($todays_classes)) {
+                                                            echo '<ul>';
+                                                            foreach ($todays_classes as $class) {
+                                                                echo '<li><b>'
+                                                                    . htmlspecialchars($class['subject_name']) . ' </b>@ ' // Use the subject_name
+                                                                    . htmlspecialchars(date("g:i A", strtotime($class['start_time'])))
+                                                                    . ' - '
+                                                                    . htmlspecialchars(date("g:i A", strtotime($class['end_time'])))
+                                                                    .  ' - <b>(' .
+                                                                    htmlspecialchars($class['course']) . ' - ' .  htmlspecialchars($class['year_level'])
+                                                                    .  ')</b>' .
+                                                                    '</li>';
+                                                            }
+                                                            echo '</ul>';
+                                                        } else {
+                                                            // No active classes for today
+                                                            echo '<p>No classes are scheduled for today.</p>';
+                                                        }
 
-											echo '</div>';
-										}
-									}
-								} catch (PDOException $e) {
-									error_log("Error fetching today's classes: " . $e->getMessage());
-									echo "An error occurred while fetching today's classes.";
-								}
+                                                        echo '</div>';
+                                                    }
+                                                }
+                                            } catch (PDOException $e) {
+                                                error_log("Error fetching today's classes: " . $e->getMessage());
+                                                echo "An error occurred while fetching today's classes.";
+                                            }
                                             ?>
                                         </div>
 
                                     </div>
                                     <div class="col">
-                                 	<div class="card">
-								<?php
+                                        <div class="card">
+                                            <?php
 
-                                function getAbsenceBadge($absences) {
-    if ($absences == 2) {
-        return '<span class="badge bg-warning text-dark">2 Absences</span>';
-    }
-    if ($absences == 3) {
-        return '<span class="badge bg-orange text-white">3 Absences</span>';
-    }
-    if ($absences > 3) {
-        return '<span class="badge bg-danger text-white">3+ Absences</span>';
-    }
-    return ''; // No badge
-}
+                                            function getAbsenceBadge($absences)
+                                            {
+                                                if ($absences == 2) {
+                                                    return '<span class="badge bg-warning text-dark">2 Absences</span>';
+                                                }
+                                                if ($absences == 3) {
+                                                    return '<span class="badge bg-orange text-white">3 Absences</span>';
+                                                }
+                                                if ($absences > 3) {
+                                                    return '<span class="badge bg-danger text-white">3+ Absences</span>';
+                                                }
+                                                return ''; // No badge
+                                            }
 
-								// Ensure teacher is logged in
-								if (!isset($_SESSION['teacher_id'])) {
-									echo "Teacher is not logged in.";
-									exit;
-								}
+                                            // Ensure teacher is logged in
+                                            if (!isset($_SESSION['teacher_id'])) {
+                                                echo "Teacher is not logged in.";
+                                                exit;
+                                            }
 
-								try {
-									// Get teacher name
-									$teacher_id = $_SESSION['teacher_id'];
-									$teacher_stmt = $pdo->prepare("SELECT fullName FROM staff_accounts WHERE id = :teacher_id");
-									$teacher_stmt->execute(['teacher_id' => $teacher_id]);
-									$teacher = $teacher_stmt->fetch(PDO::FETCH_ASSOC);
+                                            try {
+                                                // Get teacher name
+                                                $teacher_id = $_SESSION['teacher_id'];
+                                                $teacher_stmt = $pdo->prepare("SELECT fullName FROM staff_accounts WHERE id = :teacher_id");
+                                                $teacher_stmt->execute(['teacher_id' => $teacher_id]);
+                                                $teacher = $teacher_stmt->fetch(PDO::FETCH_ASSOC);
 
-									if (!$teacher) {
-										echo "Teacher not found.";
-										exit;
-									}
+                                                if (!$teacher) {
+                                                    echo "Teacher not found.";
+                                                    exit;
+                                                }
 
-									$teacher_name = $teacher['fullName'];
+                                                $teacher_name = $teacher['fullName'];
 
-									// Fetch classes handled by teacher
-									$classes_stmt = $pdo->prepare("
+                                                // Fetch classes handled by teacher
+                                                $classes_stmt = $pdo->prepare("
       SELECT 
     id, 
     CONCAT(name, ' - ', subject) AS class_name, 
@@ -236,94 +237,94 @@ include('processes/server/conn.php');
 FROM classes 
 WHERE teacher = :teacher_name AND status != 'pending';
     ");
-									$classes_stmt->execute(['teacher_name' => $teacher_name]);
-									$classes = $classes_stmt->fetchAll(PDO::FETCH_ASSOC);
+                                                $classes_stmt->execute(['teacher_name' => $teacher_name]);
+                                                $classes = $classes_stmt->fetchAll(PDO::FETCH_ASSOC);
 
-									$classes_handling = count($classes);
+                                                $classes_handling = count($classes);
 
-									echo '<div class="card-body">';
-									echo '<h5 class="card-title">Attendance Summary</h5>';
+                                                echo '<div class="card-body">';
+                                                echo '<h5 class="card-title">Attendance Summary</h5>';
 
-									if ($classes_handling === 0) {
-										echo '<p>You haven\'t been assigned to any active classes yet!</p>';
-										echo '</div>';
-										exit;
-									}
+                                                if ($classes_handling === 0) {
+                                                    echo '<p>You haven\'t been assigned to any active classes yet!</p>';
+                                                    echo '</div>';
+                                                    exit;
+                                                }
 
-									// Display list of classes handled
-									echo '<p><b>Classes Handling (' . $classes_handling . '):</b></p>';
-									echo '<ul>';
-									foreach ($classes as $class) {
-										echo '<li>' . htmlspecialchars($class['class_name']) . '</li>';
-									}
-									echo '</ul>';
+                                                // Display list of classes handled
+                                                echo '<p><b>Classes Handling (' . $classes_handling . '):</b></p>';
+                                                echo '<ul>';
+                                                foreach ($classes as $class) {
+                                                    echo '<li>' . htmlspecialchars($class['class_name']) . '</li>';
+                                                }
+                                                echo '</ul>';
 
-									// Initialize attendance totals
-									$total_classes = 0;
-									$total_present = 0;
+                                                // Initialize attendance totals
+                                                $total_classes = 0;
+                                                $total_present = 0;
 
-									// Loop through classes to calculate attendance
-									foreach ($classes as $class) {
-										$class_id = $class['id'];
+                                                // Loop through classes to calculate attendance
+                                                foreach ($classes as $class) {
+                                                    $class_id = $class['id'];
 
-										$meetings_stmt = $pdo->prepare("SELECT id FROM classes_meetings WHERE class_id = :class_id");
-										$meetings_stmt->execute(['class_id' => $class_id]);
-										$meetings = $meetings_stmt->fetchAll(PDO::FETCH_ASSOC);
+                                                    $meetings_stmt = $pdo->prepare("SELECT id FROM classes_meetings WHERE class_id = :class_id");
+                                                    $meetings_stmt->execute(['class_id' => $class_id]);
+                                                    $meetings = $meetings_stmt->fetchAll(PDO::FETCH_ASSOC);
 
-										foreach ($meetings as $meeting) {
-											$meeting_id = $meeting['id'];
+                                                    foreach ($meetings as $meeting) {
+                                                        $meeting_id = $meeting['id'];
 
-											$attendance_stmt = $pdo->prepare("SELECT COUNT(*) FROM attendance WHERE meeting_id = :meeting_id");
-											$attendance_stmt->execute(['meeting_id' => $meeting_id]);
-											$total_attendance = $attendance_stmt->fetchColumn();
+                                                        $attendance_stmt = $pdo->prepare("SELECT COUNT(*) FROM attendance WHERE meeting_id = :meeting_id");
+                                                        $attendance_stmt->execute(['meeting_id' => $meeting_id]);
+                                                        $total_attendance = $attendance_stmt->fetchColumn();
 
-											$present_stmt = $pdo->prepare("SELECT COUNT(*) FROM attendance WHERE meeting_id = :meeting_id AND status = 'present'");
-											$present_stmt->execute(['meeting_id' => $meeting_id]);
-											$total_present_entries = $present_stmt->fetchColumn();
+                                                        $present_stmt = $pdo->prepare("SELECT COUNT(*) FROM attendance WHERE meeting_id = :meeting_id AND status = 'present'");
+                                                        $present_stmt->execute(['meeting_id' => $meeting_id]);
+                                                        $total_present_entries = $present_stmt->fetchColumn();
 
-											$total_classes += $total_attendance;
-											$total_present += $total_present_entries;
-										}
-									}
+                                                        $total_classes += $total_attendance;
+                                                        $total_present += $total_present_entries;
+                                                    }
+                                                }
 
-									if ($total_classes > 0) {
-										$average_attendance_rate = ($total_present / $total_classes) * 100;
-										echo '<p><b>Average Attendance Rate:</b> ' . number_format($average_attendance_rate, 2) . '%</p>';
-									} else {
-										echo '<p>No attendance records found.</p>';
-									}
+                                                if ($total_classes > 0) {
+                                                    $average_attendance_rate = ($total_present / $total_classes) * 100;
+                                                    echo '<p><b>Average Attendance Rate:</b> ' . number_format($average_attendance_rate, 2) . '%</p>';
+                                                } else {
+                                                    echo '<p>No attendance records found.</p>';
+                                                }
 
-									// Fetch students with excessive absences (<75%) or 3+ absences
-									$excessive_absences = [];
+                                                // Fetch students with excessive absences (<75%) or 3+ absences
+                                                $excessive_absences = [];
 
-									foreach ($classes as $class) {
-										$class_id = $class['id'];
+                                                foreach ($classes as $class) {
+                                                    $class_id = $class['id'];
 
-										// Get enrolled students + full names
-										$students_stmt = $pdo->prepare("
+                                                    // Get enrolled students + full names
+                                                    $students_stmt = $pdo->prepare("
         SELECT s.id AS student_id, s.fullName 
         FROM students_enrollments se
         INNER JOIN students s ON se.student_id = s.id
         WHERE se.class_id = :class_id
     ");
-										$students_stmt->execute(['class_id' => $class_id]);
-										$students = $students_stmt->fetchAll(PDO::FETCH_ASSOC);
+                                                    $students_stmt->execute(['class_id' => $class_id]);
+                                                    $students = $students_stmt->fetchAll(PDO::FETCH_ASSOC);
 
-										// Total meetings for this class
-										$meetings_stmt = $pdo->prepare("
+                                                    // Total meetings for this class
+                                                    $meetings_stmt = $pdo->prepare("
         SELECT id FROM classes_meetings WHERE class_id = :class_id
     ");
-										$meetings_stmt->execute(['class_id' => $class_id]);
-										$total_meetings = $meetings_stmt->rowCount();
+                                                    $meetings_stmt->execute(['class_id' => $class_id]);
+                                                    $total_meetings = $meetings_stmt->rowCount();
 
-										if ($total_meetings === 0) continue;
+                                                    if ($total_meetings === 0) continue;
 
-										foreach ($students as $student) {
+                                                    foreach ($students as $student) {
 
-											$student_id = $student['student_id'];
+                                                        $student_id = $student['student_id'];
 
-											// Total presents for this student
-											$present_stmt = $pdo->prepare("
+                                                        // Total presents for this student
+                                                        $present_stmt = $pdo->prepare("
             SELECT COUNT(*) 
             FROM attendance 
             WHERE meeting_id IN (
@@ -332,92 +333,92 @@ WHERE teacher = :teacher_name AND status != 'pending';
             AND student_id = :student_id
             AND status = 'present'
         ");
-											$present_stmt->execute(['class_id' => $class_id, 'student_id' => $student_id]);
-											$total_present = $present_stmt->fetchColumn();
+                                                        $present_stmt->execute(['class_id' => $class_id, 'student_id' => $student_id]);
+                                                        $total_present = $present_stmt->fetchColumn();
 
-											// Compute absences
-											$total_absences = $total_meetings - $total_present;
+                                                        // Compute absences
+                                                        $total_absences = $total_meetings - $total_present;
 
-                                             $badge = getAbsenceBadge($total_absences);
+                                                        $badge = getAbsenceBadge($total_absences);
 
-											// Attendance %
-											$attendance_rate = ($total_present / $total_meetings) * 100;
+                                                        // Attendance %
+                                                        $attendance_rate = ($total_present / $total_meetings) * 100;
 
-											// Flag if below 75% OR has 3+ absences
-											if ($attendance_rate < 75 || $total_absences >= 3) {
-												$excessive_absences[] = [
-													'student_name' => $student['fullName'],
-													'class_name' => $class['class_name'],
-													'attendance_rate' => number_format($attendance_rate, 2),
-													'present_count' => $total_present,
-													'absence_count' => $total_absences,
-                                                      'badge'        => $badge
-												];
-											}
-										}
-									}
-									echo '</div>';
-								} catch (PDOException $e) {
-									error_log("Error fetching attendance summary: " . $e->getMessage());
-									echo $e;
-								}
-								?>
-								<!-- Button to trigger modal -->
-								<button type="button" class="btn btn-danger mx-auto"
-									style="width: 50%; margin-bottom: 20px;"
-									data-bs-toggle="modal" data-bs-target="#excessiveAbsencesModal">
-									View Students with Absences
-								</button>
+                                                        // Flag if below 75% OR has 3+ absences
+                                                        if ($attendance_rate < 75 || $total_absences >= 3) {
+                                                            $excessive_absences[] = [
+                                                                'student_name' => $student['fullName'],
+                                                                'class_name' => $class['class_name'],
+                                                                'attendance_rate' => number_format($attendance_rate, 2),
+                                                                'present_count' => $total_present,
+                                                                'absence_count' => $total_absences,
+                                                                'badge'        => $badge
+                                                            ];
+                                                        }
+                                                    }
+                                                }
+                                                echo '</div>';
+                                            } catch (PDOException $e) {
+                                                error_log("Error fetching attendance summary: " . $e->getMessage());
+                                                echo $e;
+                                            }
+                                            ?>
+                                            <!-- Button to trigger modal -->
+                                            <button type="button" class="btn btn-danger mx-auto"
+                                                style="width: 50%; margin-bottom: 20px;"
+                                                data-bs-toggle="modal" data-bs-target="#excessiveAbsencesModal">
+                                                View Students with Absences
+                                            </button>
 
-								<!-- Modal -->
-								<div class="modal fade" id="excessiveAbsencesModal" tabindex="-1" aria-labelledby="excessiveAbsencesModalLabel" aria-hidden="true">
-									<div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-										<div class="modal-content">
-											<div class="modal-header text-white">
-												<h5 class="modal-title" id="excessiveAbsencesModalLabel">Students with Excessive Absences</h5>
-												<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-											</div>
-											<div class="modal-body">
-												<?php if (count($excessive_absences) === 0): ?>
-													<p>No students with excessive absences.</p>
-												<?php else: ?>
-													<table class="table table-bordered">
-														<thead>
-															<tr>
-																<th>Student Name</th>
-																<th>Class</th>
-																<th>Present</th>
-																<th>Absences</th>
-																<th>Attendance Rate (%)</th>
-															</tr>
-														</thead>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="excessiveAbsencesModal" tabindex="-1" aria-labelledby="excessiveAbsencesModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header text-white">
+                                                            <h5 class="modal-title" id="excessiveAbsencesModalLabel">Students with Excessive Absences</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <?php if (count($excessive_absences) === 0): ?>
+                                                                <p>No students with excessive absences.</p>
+                                                            <?php else: ?>
+                                                                <table class="table table-bordered">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Student Name</th>
+                                                                            <th>Class</th>
+                                                                            <th>Present</th>
+                                                                            <th>Absences</th>
+                                                                            <th>Attendance Rate (%)</th>
+                                                                        </tr>
+                                                                    </thead>
 
-														<tbody>
-															<?php foreach ($excessive_absences as $student): ?>
-																<tr>
-																	<td><?= htmlspecialchars($student['student_name']) ?></td>
-																	<td><?= htmlspecialchars($student['class_name']) ?></td>
-																	<td><?= $student['present_count'] ?></td>
-																	<td class="<?= $student['absence_count'] >= 3 ? 'text-danger fw-bold' : '' ?>">
-																		<?= $student['absence_count'] ?>
-                                                                         <?= $student['badge'] ?>
-																	</td>
-																	<td><?= $student['attendance_rate'] ?></td>
-																</tr>
+                                                                    <tbody>
+                                                                        <?php foreach ($excessive_absences as $student): ?>
+                                                                            <tr>
+                                                                                <td><?= htmlspecialchars($student['student_name']) ?></td>
+                                                                                <td><?= htmlspecialchars($student['class_name']) ?></td>
+                                                                                <td><?= $student['present_count'] ?></td>
+                                                                                <td class="<?= $student['absence_count'] >= 3 ? 'text-danger fw-bold' : '' ?>">
+                                                                                    <?= $student['absence_count'] ?>
+                                                                                    <?= $student['badge'] ?>
+                                                                                </td>
+                                                                                <td><?= $student['attendance_rate'] ?></td>
+                                                                            </tr>
 
-															<?php endforeach; ?>
-														</tbody>
-													</table>
-												<?php endif; ?>
-											</div>
-											<div class="modal-footer">
-												<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-											</div>
-										</div>
-									</div>
-								</div>
+                                                                        <?php endforeach; ?>
+                                                                    </tbody>
+                                                                </table>
+                                                            <?php endif; ?>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
 
-							</div>
+                                        </div>
                                     </div>
 
 
@@ -456,7 +457,6 @@ WHERE teacher = :teacher_name AND status != 'pending';
                                                 echo '<h5 class="card-title">Pending Activities</h5>';
                                                 echo '<p>You haven\'t been assigned to any classes, yet!</p>';
                                                 echo '</div>';
-
                                             }
 
                                             // Initialize variables for the pending activities
@@ -496,7 +496,6 @@ WHERE teacher = :teacher_name AND status != 'pending';
                                                 echo '<p>Activities to Grade: ' . htmlspecialchars($pending_activities) . '</p>';
                                                 echo '</div>';
                                             }
-
                                         } catch (PDOException $e) {
                                             error_log("Error fetching pending activities: " . $e->getMessage());
                                             echo "An error occurred while fetching the pending activities.";
@@ -513,7 +512,7 @@ WHERE teacher = :teacher_name AND status != 'pending';
 
                     <?php
                     // Assuming you have already established the $pdo connection
-                    
+
                     // Step 1: Get the teacher's full name
                     $teacher_id = $_SESSION['teacher_id']; // Get the teacher ID from the session
                     $teacher_stmt = $pdo->prepare("SELECT fullName FROM staff_accounts WHERE id = :teacher_id");
@@ -588,10 +587,10 @@ WHERE teacher = :teacher_name AND status != 'pending';
 
                                                 <td><?= htmlspecialchars($class['semester']) ?></td>
                                                 <td>
-    <button class="btn <?= $class['class_archived'] == 1 ? 'btn-danger' : 'btn-success' ?>">
-        <?= $class['class_archived'] == 1 ? 'Archived' : 'Not Archived' ?>
-    </button>
-</td>
+                                                    <button class="btn <?= $class['class_archived'] == 1 ? 'btn-danger' : 'btn-success' ?>">
+                                                        <?= $class['class_archived'] == 1 ? 'Archived' : 'Not Archived' ?>
+                                                    </button>
+                                                </td>
 
 
                                                 <td>
@@ -603,7 +602,7 @@ WHERE teacher = :teacher_name AND status != 'pending';
                                                             </button>
                                                         </a>
                                                         <a
-                                                            href="class_grades.php?class_id=<?= urlencode($class['id']) ?>&semester_id=<?= urlencode($class['semester_id']) ?>&subject_id=<?= urlencode($class['subject_id'])?>">
+                                                            href="class_grades.php?class_id=<?= urlencode($class['id']) ?>&semester_id=<?= urlencode($class['semester_id']) ?>&subject_id=<?= urlencode($class['subject_id']) ?>">
                                                             <button class="btn btn-success btn-sm">
                                                                 <i class="bi bi-bar-chart-line"></i> Grades
                                                             </button>
@@ -626,7 +625,7 @@ WHERE teacher = :teacher_name AND status != 'pending';
                                                             </button>
                                                         </a>
                                                         <a
-                                                            href="class_grades.php?class_id=<?= urlencode($class['id']) ?>&semester_id=<?= urlencode($class['semester_id']) ?>&subject_id=<?= urlencode($class['subject_id'])?>">
+                                                            href="class_grades.php?class_id=<?= urlencode($class['id']) ?>&semester_id=<?= urlencode($class['semester_id']) ?>&subject_id=<?= urlencode($class['subject_id']) ?>">
                                                             <button class="btn btn-success btn-sm">
                                                                 <i class="bi bi-bar-chart-line"></i> Grades
                                                             </button>
@@ -650,27 +649,27 @@ WHERE teacher = :teacher_name AND status != 'pending';
                 </div>
 
                 <?php
-// Query the current semester information
-$sql = "SELECT s.name, s.start_date, s.end_date 
+                // Query the current semester information
+                $sql = "SELECT s.name, s.start_date, s.end_date 
         FROM current_semester cs
         JOIN semester s ON cs.semester = s.name 
         LIMIT 1";
-$stmt = $pdo->query($sql);
-$currentSemester = $stmt->fetch(PDO::FETCH_ASSOC);
-?>
+                $stmt = $pdo->query($sql);
+                $currentSemester = $stmt->fetch(PDO::FETCH_ASSOC);
+                ?>
 
-<!-- Conditionally display the "Add a Class" button -->
-<?php if ($currentSemester): ?>
-    <div class="d-flex align-items-center justify-content-center">
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createClassModal">
-            <i class="bi bi-plus-circle-fill"></i> Add a Class to Teach
-        </button>
-    </div>
-<?php else: ?>
-    <div class="alert alert-warning text-center">
-        No current semester found. Please contact the administrator.
-    </div>
-<?php endif; ?>
+                <!-- Conditionally display the "Add a Class" button -->
+                <?php if ($currentSemester): ?>
+                    <div class="d-flex align-items-center justify-content-center">
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createClassModal">
+                            <i class="bi bi-plus-circle-fill"></i> Add a Class to Teach
+                        </button>
+                    </div>
+                <?php else: ?>
+                    <div class="alert alert-warning text-center">
+                        No current semester found. Please contact the administrator.
+                    </div>
+                <?php endif; ?>
 
 
         </div>
@@ -855,7 +854,7 @@ $currentSemester = $stmt->fetch(PDO::FETCH_ASSOC);
     </script>
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             // Initialize DataTable
             $('#classesTable').DataTable({
                 "paging": true,
@@ -867,15 +866,15 @@ $currentSemester = $stmt->fetch(PDO::FETCH_ASSOC);
     </script>
 
     <script>
-        document.getElementById('classSelect').addEventListener('change', function () {
+        document.getElementById('classSelect').addEventListener('change', function() {
             const selectedClass = this.value;
             fetch('getAdviser.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: 'class=' + encodeURIComponent(selectedClass)
-            })
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: 'class=' + encodeURIComponent(selectedClass)
+                })
                 .then(response => response.json())
                 .then(data => {
                     const adviserField = document.getElementById('assignedAdviser');

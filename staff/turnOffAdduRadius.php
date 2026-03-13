@@ -5,7 +5,7 @@ require 'processes/server/conn.php'; // Ensure this points to your database conn
 if (isset($_GET['class_id']) && isset($_GET['meeting_id']) && isset($_GET['action'])) {
     $classId = $_GET['class_id'];
     $attendanceId = $_GET['meeting_id'];
-    $action = $_GET['action'];  // 'on' or 'off' to toggle WMSU radius status
+    $action = $_GET['action'];  // 'on' or 'off' to toggle ADDU radius status
 
     // Assuming $pdo is your PDO connection
     try {
@@ -25,15 +25,14 @@ if (isset($_GET['class_id']) && isset($_GET['meeting_id']) && isset($_GET['actio
         // Execute the query
         $stmt->execute();
 
-        // Optional: Add success message or redirect
-     ;
+            // Optional: Add success message or redirect
+        ;
     } catch (PDOException $e) {
         // Handle potential errors
         echo "Error: " . $e->getMessage();
     }
 
     $_SESSION['STATUS'] = "CHANGE_RADIUS";
-$last_ref = $_SERVER['HTTP_REFERER'];
-header('Location:' . $last_ref );
+    $last_ref = $_SERVER['HTTP_REFERER'];
+    header('Location:' . $last_ref);
 }
-?>

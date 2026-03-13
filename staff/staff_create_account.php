@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>WMSU - CCS | Comprehensive Student Management System</title>
+    <title>ADDU - CCS | Comprehensive Student Management System</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -44,7 +44,7 @@
         <div class="actual-login-container">
             <small><a href="teacher_login_page.html" class="gb"><i class="bi bi-arrow-left-circle-fill"></i> Go
                     back</a></small>
-            <img src="external/img/wmsu_Logo-removebg-preview.png" class="img-fluid small-logo">
+            <img src="external/img/ADDU_Logo-removebg-preview.png" class="img-fluid small-logo">
             <h5 class="bold">STAFF | CREATE AN ACCOUNT</h5>
 
             <div class="container login-container-with-input">
@@ -112,17 +112,15 @@
     </div>
 
     <script>
-
         function goBack() {
             window.location.href = "teacher_login_page.php";
         }
-
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
 
-        </script>
+    </script>
 </body>
 
 </html>

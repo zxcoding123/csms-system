@@ -52,9 +52,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // Check if the student is logged in
 if (!isset($_SESSION['student_id'])) {
     // Show login form if not logged in
-    ?>
+?>
     <!DOCTYPE html>
     <html>
+
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -69,12 +70,15 @@ if (!isset($_SESSION['student_id'])) {
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     </head>
+
     <body>
-        <?php if (isset($loginError)) { echo "<p style='color:red;'>$loginError</p>"; } ?>
+        <?php if (isset($loginError)) {
+            echo "<p style='color:red;'>$loginError</p>";
+        } ?>
         <div class="container-fluid login-container">
             <div class="actual-login-container">
                 <small><a href="index.html" class="gb"><i class="bi bi-arrow-left-circle-fill"></i> Go back</a></small>
-                <img src="external/img/wmsu_Logo-removebg-preview.png" class="img-fluid big-logo">
+                <img src="external/img/ADDU_Logo-removebg-preview.png" class="img-fluid big-logo">
                 <h5 class="bold">STUDENT LOGIN</h5>
                 <div class="container-fluid">
                     <form id="attendanceForm" method="POST">
@@ -171,8 +175,9 @@ if (!isset($_SESSION['student_id'])) {
             }
         </script>
     </body>
+
     </html>
-    <?php
+<?php
     exit();
 }
 
@@ -184,12 +189,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($meetingId && $classId) {
         try {
             // Fetch meeting details
-            $stmt = $pdo->prepare("SELECT wmsu_radius, start_time, end_time FROM classes_meetings WHERE class_id = :class_id AND id = :meeting_id");
+            $stmt = $pdo->prepare("SELECT ADDU_radius, start_time, end_time FROM classes_meetings WHERE class_id = :class_id AND id = :meeting_id");
             $stmt->execute([':class_id' => $classId, ':meeting_id' => $meetingId]);
             $meetingData = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($meetingData) {
-                $wmsuRadius = $meetingData['wmsu_radius'];
+                $ADDURadius = $meetingData['ADDU_radius'];
                 $startTime = $meetingData['start_time'];
                 $endTime = $meetingData['end_time'];
 
@@ -236,12 +241,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
 
                 // Update or insert attendance record
-                if ($wmsuRadius === 'on') {
+                if ($ADDURadius === 'on') {
                     $allowedLatitude = 6.912521400586953;
                     $allowedLongitude = 122.06354845575072;
                     $radiusInMeters = 35;
 
-                    function getDistance($lat1, $lon1, $lat2, $lon2) {
+                    function getDistance($lat1, $lon1, $lat2, $lon2)
+                    {
                         $earthRadius = 6371000;
                         $dLat = deg2rad($lat2 - $lat1);
                         $dLon = deg2rad($lon2 - $lon1);

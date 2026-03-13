@@ -13,7 +13,7 @@ include('processes/server/conn.php');
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>WMSU - CCS | Student Management System</title>
+    <title>ADDU - CCS | Student Management System</title>
     <link rel="icon" href="../external/img/favicon-32x32.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -111,7 +111,7 @@ include('processes/server/conn.php');
 
 
                                     <div class="mb-3">
-                                        <label for="activities" class="form-label">Assignments  /
+                                        <label for="activities" class="form-label">Assignments /
                                             Attendance</label>
                                         <input type="number" class="form-control" id="assignments_activities_attendance"
                                             placeholder="Enter percentage"
@@ -154,7 +154,7 @@ include('processes/server/conn.php');
                             xhr.send('class_id=' + classId);
 
                             // Handle server response
-                            xhr.onload = function () {
+                            xhr.onload = function() {
                                 if (xhr.status === 200) {
                                     alert('Rubric successfully deleted.');
                                     // Optionally reload or update the page here to reflect changes
@@ -184,9 +184,6 @@ include('processes/server/conn.php');
 
                     // Total percentage (optional, you can decide how to use this or store)
                     $totalPercentage = $majorExamPercentage + $exercisesPercentage + $assignments_activities_attendancePercentage;
-
-
-
                 } else {
 
                     $majorExamPercentage = 40;
@@ -203,7 +200,7 @@ include('processes/server/conn.php');
                 $TruemajorExamPercentage = $majorExamPercentage / 100;  // 0.4
                 $TrueexercisesPercentage = $exercisesPercentage / 100;      // 0.3
                 $Trueassignments_activities_attendancePercentage = $assignments_activities_attendancePercentage / 100; // 0.3
-                
+
                 $totalPercentage = $TruemajorExamPercentage + $TrueexercisesPercentage + $Trueassignments_activities_attendancePercentage;
 
 
@@ -223,18 +220,18 @@ include('processes/server/conn.php');
                         if (majorExam && exercises && assignments_activities_attendance) {
                             // Call AJAX to update the grading schema in the server
                             fetch('laboratory_update_grading.php', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json'
-                                },
-                                body: JSON.stringify({
-                                    class_id: classId,
-                                    major_exam: majorExam,
-                                    assignments_activities_attendance: assignments_activities_attendance,
-                                    exercises: exercises
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    },
+                                    body: JSON.stringify({
+                                        class_id: classId,
+                                        major_exam: majorExam,
+                                        assignments_activities_attendance: assignments_activities_attendance,
+                                        exercises: exercises
 
+                                    })
                                 })
-                            })
                                 .then(response => response.json())
                                 .then(data => {
                                     if (data.success) {
@@ -263,11 +260,11 @@ include('processes/server/conn.php');
                                     class="container text-center d-flex align-items-center justify-content-center my-3">
                                     <div class="row w-100 d-flex align-items-center justify-content-center">
                                         <div class="col-2 d-flex justify-content-center">
-                                            <img src="../external/img/wmsu_Logo-removebg-preview.png"
+                                            <img src="../external/img/ADDU_Logo-removebg-preview.png"
                                                 class="img-fluid small-logo">
                                         </div>
                                         <div class="col-8 text-center">
-                                            <h5 class="bold mb-1">Western Mindanao State University</h5>
+                                            <h5 class="bold mb-1">Ateneo de Davao University</h5>
                                             <h5 class="mb-1">College of Computing Studies</h5>
                                             <h5>Zamboanga City</h5>
                                         </div>
@@ -358,29 +355,29 @@ include('processes/server/conn.php');
 
                                 <?php
                                 $class_id = $_GET['id']; // Example class ID (change as needed)
-                                 // Step 1: Get all student IDs from student_enrollments for the given class_id
-                                 $stmt = $pdo->prepare("SELECT student_id FROM students_enrollments WHERE class_id = ?");
-                                 $stmt->execute([$classId]);
-                                 $studentIds = $stmt->fetchAll(PDO::FETCH_COLUMN); // Fetch student IDs as an array
-                                 
-                                 if (!empty($studentIds)) {
-                                     // Step 2: Convert IDs to placeholders for SQL IN clause
-                                     $placeholders = implode(',', array_fill(0, count($studentIds), '?'));
- 
-                                     // Step 3: Fetch male students matching those IDs
-                                     $stmt = $pdo->prepare("SELECT id, fullName FROM students WHERE gender = 'Male' AND id IN ($placeholders)");
-                                     $stmt->execute($studentIds);
-                                     $male_students = $stmt->fetchAll(PDO::FETCH_ASSOC);
- 
-                                     // Step 4: Fetch female students matching those IDs
-                                     $stmt = $pdo->prepare("SELECT id, fullName FROM students WHERE gender = 'Female' AND id IN ($placeholders)");
-                                     $stmt->execute($studentIds);
-                                     $female_students = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                                 } else {
-                                     $male_students = [];
-                                     $female_students = [];
-                                 }
- 
+                                // Step 1: Get all student IDs from student_enrollments for the given class_id
+                                $stmt = $pdo->prepare("SELECT student_id FROM students_enrollments WHERE class_id = ?");
+                                $stmt->execute([$classId]);
+                                $studentIds = $stmt->fetchAll(PDO::FETCH_COLUMN); // Fetch student IDs as an array
+
+                                if (!empty($studentIds)) {
+                                    // Step 2: Convert IDs to placeholders for SQL IN clause
+                                    $placeholders = implode(',', array_fill(0, count($studentIds), '?'));
+
+                                    // Step 3: Fetch male students matching those IDs
+                                    $stmt = $pdo->prepare("SELECT id, fullName FROM students WHERE gender = 'Male' AND id IN ($placeholders)");
+                                    $stmt->execute($studentIds);
+                                    $male_students = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                                    // Step 4: Fetch female students matching those IDs
+                                    $stmt = $pdo->prepare("SELECT id, fullName FROM students WHERE gender = 'Female' AND id IN ($placeholders)");
+                                    $stmt->execute($studentIds);
+                                    $female_students = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                                } else {
+                                    $male_students = [];
+                                    $female_students = [];
+                                }
+
 
                                 // Fetch activities for the given class_id
                                 $activitiesStmt = $pdo->prepare("SELECT id, type, max_points, term FROM activities WHERE class_id = ?");
@@ -390,7 +387,7 @@ include('processes/server/conn.php');
                                 // Organize activities by type
                                 $exercises = $assignments = $activitiesList = $exams = [];
                                 $activityIds = []; // Store activity IDs for filtering submissions
-                                
+
                                 foreach ($activities as $activity) {
                                     $activityIds[] = $activity['id']; // Collect activity IDs for filtering submissions
                                     switch ($activity['type']) {
@@ -487,9 +484,9 @@ include('processes/server/conn.php');
 
 
                                 //GRADER
-                                
+
                                 $classId = $_GET['id']; // Class ID from GET request
-                                
+
                                 // Fetch rubrics for grading
                                 $stmt = $pdo->prepare("SELECT * FROM laboratory_rubrics WHERE class_id = :class_id");
                                 $stmt->execute(['class_id' => $classId]);
@@ -518,7 +515,7 @@ include('processes/server/conn.php');
                                 // Organize activities by type
                                 $exercises = $assignments = $activitiesList = $exams = [];
                                 $activityIds = []; // Store activity IDs for filtering submissions
-                                
+
                                 foreach ($activities as $activity) {
                                     $activityIds[] = $activity['id']; // Collect activity IDs for filtering submissions
                                     switch ($activity['type']) {
@@ -545,15 +542,14 @@ include('processes/server/conn.php');
                                     $submissions = $submissionsStmt->fetchAll(PDO::FETCH_ASSOC);
                                 } else {
                                     $submissions = []; // No activities found, so no submissions exist
-                                    
+
                                 }
 
-                         
+
                                 // Organize student scores by student_id and activity_id
                                 $studentScores = [];
                                 foreach ($submissions as $submission) {
                                     $studentScores[$submission['student_id']][$submission['activity_id']] = $submission['score'];
-
                                 }
 
 
@@ -643,7 +639,7 @@ include('processes/server/conn.php');
                                                 $activityId = $activity['id'];
                                                 $maxPoints = $activity['max_points'];
                                                 $score = $studentScores[$studentId][$activityId] ?? 0; // Default to 0 if no score
-                                
+
                                                 if ($type === 'exercise') {
                                                     $totalExerciseScore += $score;
                                                     $totalExerciseMax += $maxPoints;
@@ -693,7 +689,6 @@ include('processes/server/conn.php');
 
                                     // Determine if grade is INC (Incomplete)
                                     $isIncomplete = ($totalExamMax == 0 || $totalExerciseMax  == 0 || $totalAaaMax == 0 || $totalMeetings == 0);
-
                                 }
 
                                 // Fetch student grades from the database
@@ -709,7 +704,7 @@ include('processes/server/conn.php');
                                         'overall' => $row['overall_grade']
                                     ];
                                 }
-echo $totalExercises;
+                                echo $totalExercises;
                                 ?>
 
                                 <table border="1" class="print-text" id="class"
@@ -725,7 +720,7 @@ echo $totalExercises;
                                         </th>
                                         <th class="border-1">Total</th>
                                         <th class="border-1" colspan="<?php echo $totalTripleA  ?>">Assignments /
-                                            Attendance 
+                                            Attendance
                                             (<?php echo $assignments_activities_attendancePercentage ?>%)
                                         </th>
                                         <th class="border-1" colspan="<?php echo $totalExams ?>">Exams
@@ -756,8 +751,8 @@ echo $totalExercises;
                                         <th class="border-1">Total
                                             <hr> <?php echo $totalMeetings ?>
                                         </th>
-                                    
-                                    
+
+
                                         <?php foreach ($exams as $exam): ?>
                                             <th class="border-1"> <?= ucfirst($exam['term']) ?> <br>
                                                 (<?= $exam['max_points'] ?>)</th>
@@ -783,7 +778,7 @@ echo $totalExercises;
                                             <?php
                                             $exerciseTotal = 0;
                                             foreach ($exercises as $exercise) {
-                                               
+
                                                 $studentId = $student['id'];
                                                 $exerciseId = $exercise['id'];
 
@@ -791,12 +786,12 @@ echo $totalExercises;
                                                 $exerciseTotal += $score;
                                                 echo "<td class='border-1'> $score </td>";
                                             }
-                                    
+
                                             echo "<td class='border-1'> $exerciseTotal</td>";
 
                                             $assignmentTotal = 0;
                                             foreach ($assignments as $assignment) {
-                                              
+
                                                 $score = $studentScores[$student['id']][$assignment['id']] ?? 0;
                                                 $assignmentTotal += $score;
                                                 echo "<td class='border-1'> $score </td>";
@@ -806,7 +801,7 @@ echo $totalExercises;
                                             $attendanceScore = $attendanceCounts[$student['id']] ?? 0;
                                             echo "<td class='border-1'>$attendanceScore</td>";
                                             echo "<td class='border-1'>$attendanceScore</td>";
-                                   
+
 
                                             $examTotal = 0;
                                             foreach ($exams as $exam) {
@@ -827,8 +822,8 @@ echo $totalExercises;
                                         </tr>
                                     <?php endforeach; ?>
 
-                                  
-                                 
+
+
                                 </table>
                             </div>
                             <button onclick="printDiv('printTable')" class="btn btn-primary mb-3">

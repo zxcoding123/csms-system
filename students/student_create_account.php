@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>WMSU - CCS | Student Management System</title>
+    <title>ADDU - CCS | Student Management System</title>
     <link rel="icon" href="../external/img/favicon-32x32.png" type="image/x-icon">
 
     <link
@@ -50,7 +50,7 @@
             <small><a href="student_login_page.php" class="gb"><i
                         class="bi bi-arrow-left-circle-fill"></i> Go
                     back</a></small>
-            <img src="external/img/wmsu_Logo-removebg-preview.png"
+            <img src="external/img/ADDU_Logo-removebg-preview.png"
                 class="img-fluid small-logo">
             <h5 class="bold">STUDENT ACCOUNT CREATION</h5>
 
@@ -79,15 +79,15 @@
                         <div class="col">
                             <div class="container qr-code text-center">
 
-                            <label style="text-align: left !important;" class="bold">Gender</label>
+                                <label style="text-align: left !important;" class="bold">Gender</label>
                                 <select class="form-control" name="gender" id="gender" required>
-                                    <option default selected>Select gender here</option>                     
-                                        <option value="Male">Male</option>
-                                        <option value="Female">Female</option>
+                                    <option default selected>Select gender here</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
                                 </select>
 
                                 <br>
-                             
+
 
                                 <label style="text-align: left !important;" class="bold">Student ID</label>
                                 <input type="text" class="form-control" name="student_id" id="student_id" placeholder="Student ID" oninput="checkInputs()" required>
@@ -133,7 +133,7 @@
 
                                 <br>
 
-                              
+
 
                             </div>
                         </div>
@@ -144,8 +144,6 @@
 
 
                         <script>
-               
-
                             function checkInputs() {
                                 const studentId = document.getElementById('student_id').value.trim();
                                 const course = document.getElementById('course').value.trim();

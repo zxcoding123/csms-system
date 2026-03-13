@@ -25,7 +25,7 @@ $stmt->execute();
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>WMSU - CCS | Student Management System</title>
+    <title>ADDU - CCS | Student Management System</title>
     <link rel="icon" href="../external/img/favicon-32x32.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -59,17 +59,18 @@ $stmt->execute();
             border-bottom: 1px solid black;
         }
 
-      .btn-csms {
-		background-color: #10177a;
-		color: white;
-		border: 1px solid white;
-	}
+        .btn-csms {
+            background-color: #10177a;
+            color: white;
+            border: 1px solid white;
+        }
 
-	.btn-csms:hover {
-		border: 1px solid #10177a;
-		background-color: white;
-		color: #10177a;
-	}
+        .btn-csms:hover {
+            border: 1px solid #10177a;
+            background-color: white;
+            color: #10177a;
+        }
+
         .meeting-day {
             background-color: rgba(40, 167, 69, 0.5) !important;
             /* Light green background */
@@ -87,8 +88,8 @@ $stmt->execute();
                 <a class="sidebar-toggle js-sidebar-toggle">
                     <i class="hamburger align-self-center"></i>
                 </a>
-      <img src="external/img/ADNU_Logo.png" class="logo-small">
-				<span class="text-white"><b>AdNU</b> - Student Management System </span>
+                <img src="external/img/ADNU_Logo.png" class="logo-small">
+                <span class="text-white"><b>AdNU</b> - Student Management System </span>
                 <div class="navbar-collapse collapse">
                     <?php include('top-bar.php') ?>
                 </div>
@@ -153,7 +154,7 @@ $stmt->execute();
 
                                     // EDIT THIS ONE
 
-                                    
+
                                     $baseUrl = 'https://ccs-sms.com/attendance/attendance_student_scanning.php';
 
                                     // Construct the QR data
@@ -511,83 +512,83 @@ $stmt->execute();
                                     <hr>
                                     <h3 class="text-center">Attendance List</h3>
 
-                                 <table id="attendanceTable" class="display">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Status</th>
-        </tr>
-    </thead>
-    <tbody id="attendanceBody">
-        <?php foreach ($students as $student): ?>
-            <tr>
-                <td><?php echo htmlspecialchars($student['fullName']); ?></td>
-                <td>
-                    <?php if ($student['status'] === 'present'): ?>
-                        <span class="text-success">✔ Present</span>
-                    <?php elseif ($student['status'] === 'late'): ?>
-                        <span class="text-warning">✔ Late</span>
-                    <?php elseif ($student['status'] === 'none'): ?>
-                        <span class="text-warning">✔ No attendance yet</span>
-                    <?php else: ?>
-                        <span class="text-danger">✖ Absent</span>
-                    <?php endif; ?>
-                </td>
-            </tr>
-        <?php endforeach; ?>
-    </tbody>
-</table>
+                                    <table id="attendanceTable" class="display">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="attendanceBody">
+                                            <?php foreach ($students as $student): ?>
+                                                <tr>
+                                                    <td><?php echo htmlspecialchars($student['fullName']); ?></td>
+                                                    <td>
+                                                        <?php if ($student['status'] === 'present'): ?>
+                                                            <span class="text-success">✔ Present</span>
+                                                        <?php elseif ($student['status'] === 'late'): ?>
+                                                            <span class="text-warning">✔ Late</span>
+                                                        <?php elseif ($student['status'] === 'none'): ?>
+                                                            <span class="text-warning">✔ No attendance yet</span>
+                                                        <?php else: ?>
+                                                            <span class="text-danger">✖ Absent</span>
+                                                        <?php endif; ?>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
 
                                 </div>
-                                
-                                     <script>
-document.addEventListener("DOMContentLoaded", function () {
-    function fetchAttendance() {
-        let classId = "<?php echo $_GET['class_id']; ?>";
-        let meetingId = "<?php echo $_GET['classAttendanceId']; ?>";
+
+                                <script>
+                                    document.addEventListener("DOMContentLoaded", function() {
+                                        function fetchAttendance() {
+                                            let classId = "<?php echo $_GET['class_id']; ?>";
+                                            let meetingId = "<?php echo $_GET['classAttendanceId']; ?>";
 
 
-        fetch(`fetch_attendance.php?class_id=${classId}&meeting_id=${meetingId}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.error) {
-                    console.error(data.error);
-                    return;
-                }
+                                            fetch(`fetch_attendance.php?class_id=${classId}&meeting_id=${meetingId}`)
+                                                .then(response => response.json())
+                                                .then(data => {
+                                                    if (data.error) {
+                                                        console.error(data.error);
+                                                        return;
+                                                    }
 
-                let tbody = document.getElementById("attendanceBody");
-                tbody.innerHTML = ""; // Clear old data
+                                                    let tbody = document.getElementById("attendanceBody");
+                                                    tbody.innerHTML = ""; // Clear old data
 
-                data.forEach(student => {
-                    let row = `<tr>
+                                                    data.forEach(student => {
+                                                        let row = `<tr>
                         <td>${student.fullName}</td>
                         <td>${getStatusLabel(student.status)}</td>
                     </tr>`;
-                    tbody.innerHTML += row;
-                });
-            })
-            .catch(error => console.error("Error fetching attendance:", error));
-    }
+                                                        tbody.innerHTML += row;
+                                                    });
+                                                })
+                                                .catch(error => console.error("Error fetching attendance:", error));
+                                        }
 
-    function getStatusLabel(status) {
-        if (status === "present") {
-            return '<span class="text-success">✔ Present</span>';
-        } else if (status === "late") {
-            return '<span class="text-warning">✔ Late</span>';
-        } else if (status === "none") {
-            return '<span class="text-warning">✔ No attendance yet</span>';
-        } else {
-            return '<span class="text-danger">✖ Absent</span>';
-        }
-    }
+                                        function getStatusLabel(status) {
+                                            if (status === "present") {
+                                                return '<span class="text-success">✔ Present</span>';
+                                            } else if (status === "late") {
+                                                return '<span class="text-warning">✔ Late</span>';
+                                            } else if (status === "none") {
+                                                return '<span class="text-warning">✔ No attendance yet</span>';
+                                            } else {
+                                                return '<span class="text-danger">✖ Absent</span>';
+                                            }
+                                        }
 
-    // Auto-refresh every 10 seconds
-    setInterval(fetchAttendance, 1000);
-  
-});
+                                        // Auto-refresh every 10 seconds
+                                        setInterval(fetchAttendance, 1000);
 
-    setInterval(fetchAttendance, 1000);
-</script>
+                                    });
+
+                                    setInterval(fetchAttendance, 1000);
+                                </script>
 
                                 <button onclick="printDiv('printableArea')" class="btn btn-primary mt-3">Print
                                     Attendance</button>
@@ -671,8 +672,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 </div>
             </main>
         </div>
-        
-   
+
+
 
 
         <script src="js/app.js"></script>

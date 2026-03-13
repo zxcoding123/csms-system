@@ -21,7 +21,7 @@ $stmt->execute();
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>WMSU - CCS | Student Management System</title>
+    <title>ADDU - CCS | Student Management System</title>
     <link rel="icon" href="../external/img/favicon-32x32.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -216,11 +216,11 @@ $stmt->execute();
                                                 data-bs-target="#activity" aria-expanded="true"
                                                 aria-controls="students">Activity</button> -->
 
-                                                <button class="btn wide-btn btn-csms-1" id="activityButton" data-bs-toggle="collapse"
-                                            data-bs-target="#activity" aria-expanded="true"
-                                            aria-controls="students">Activity</button>
+                                            <button class="btn wide-btn btn-csms-1" id="activityButton" data-bs-toggle="collapse"
+                                                data-bs-target="#activity" aria-expanded="true"
+                                                aria-controls="students">Activity</button>
                                         </div>
-                                     
+
                                         <div class="col linkism">
                                             <div class="dropdown">
                                                 <button class="btn wide-btn btn-csms-1" href="#" role="button"
@@ -1035,7 +1035,7 @@ $stmt->execute();
                                             <p><strong>Full Name:</strong>
                                                 <?php echo htmlspecialchars($studentInfo['full_name'] ?? 'No information added yet.'); ?>
                                             </p>
-                                            <p><strong>WMSU Email:</strong>
+                                            <p><strong>ADDU Email:</strong>
                                                 <?php echo htmlspecialchars($student['email'] ?? 'No information added yet.'); ?>
                                             </p>
                                             <p><strong>Email:</strong>

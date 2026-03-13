@@ -1,8 +1,8 @@
 <?php
 session_start();
 if (!isset($_SESSION['admin_id'])) {
-	$_SESSION['STATUS'] = "ADMIN_NOT_LOGGED_IN";
-	header("Location: ../login/index.php");
+    $_SESSION['STATUS'] = "ADMIN_NOT_LOGGED_IN";
+    header("Location: ../login/index.php");
 }
 include('processes/server/conn.php');
 ?>
@@ -13,7 +13,7 @@ include('processes/server/conn.php');
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>WMSU - CCS | Student Management System</title>
+    <title>ADDU - CCS | Student Management System</title>
     <link rel="icon" href="../external/img/favicon-32x32.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -92,11 +92,11 @@ include('processes/server/conn.php');
                                     class="container text-center d-flex align-items-center justify-content-center my-3">
                                     <div class="row w-100 d-flex align-items-center justify-content-center">
                                         <div class="col-2 d-flex justify-content-center">
-                                            <img src="../external/img/wmsu_Logo-removebg-preview.png"
+                                            <img src="../external/img/ADDU_Logo-removebg-preview.png"
                                                 class="img-fluid small-logo">
                                         </div>
                                         <div class="col-8 text-center">
-                                            <h5 class="bold mb-1">Western Mindanao State University</h5>
+                                            <h5 class="bold mb-1">Ateneo de Davao University</h5>
                                             <h5 class="mb-1">College of Computing Studies</h5>
                                             <h5>Zamboanga City</h5>
                                         </div>
@@ -569,25 +569,25 @@ include('processes/server/conn.php');
                                         }
 
                                         // Success display function
-                                 function showSuccess(message) {
-    if (typeof Swal !== 'undefined') {
-        Swal.fire({
-            title: 'Success',
-            text: message,
-            icon: 'success',
-            confirmButtonText: 'OK'
-        }).then((result) => {
-            // Reload the page only after the user clicks "OK"
-            if (result.isConfirmed) {
-          
-            }
-        });
-    } else {
-        // Fallback if SweetAlert2 is not available
-        alert('Success: ' + message);
-        window.location.reload();
-    }
-}
+                                        function showSuccess(message) {
+                                            if (typeof Swal !== 'undefined') {
+                                                Swal.fire({
+                                                    title: 'Success',
+                                                    text: message,
+                                                    icon: 'success',
+                                                    confirmButtonText: 'OK'
+                                                }).then((result) => {
+                                                    // Reload the page only after the user clicks "OK"
+                                                    if (result.isConfirmed) {
+
+                                                    }
+                                                });
+                                            } else {
+                                                // Fallback if SweetAlert2 is not available
+                                                alert('Success: ' + message);
+                                                window.location.reload();
+                                            }
+                                        }
                                         // Attach save button listeners
                                         function attachSaveListeners() {
                                             document.querySelectorAll('.save-percentile').forEach(button => {
@@ -624,7 +624,7 @@ include('processes/server/conn.php');
                                                     if (data.success) {
                                                         showSuccess('Percentile updated successfully');
                                                         loadRubrics(); // Reload to show updated values
-                                                
+
                                                     } else {
                                                         showError(data.message || 'Failed to update percentile');
                                                     }
@@ -745,19 +745,20 @@ include('processes/server/conn.php');
                                     die("Class ID is required");
                                 }
 
-                                 function calculateGrade($percentage) {
- 
-    if ($percentage >= 0.96) return "1.00"; // 96-100%
-    if ($percentage >= 0.91) return "1.25"; // 91-95%
-    if ($percentage >= 0.86) return "1.50"; // 86-90%
-    if ($percentage >= 0.81) return "1.75"; // 81-85%
-    if ($percentage >= 0.76) return "2.00"; // 76-80%
-    if ($percentage >= 0.71) return "2.25"; // 71-75%
-    if ($percentage >= 0.66) return "2.50"; // 66-70%
-    if ($percentage >= 0.61) return "2.75"; // 61-65%
-    if ($percentage >= 0.45) return "3.00"; // 50-60% (Passing)
-    return "5.00"; // Below 50% (Failing)
-}
+                                function calculateGrade($percentage)
+                                {
+
+                                    if ($percentage >= 0.96) return "1.00"; // 96-100%
+                                    if ($percentage >= 0.91) return "1.25"; // 91-95%
+                                    if ($percentage >= 0.86) return "1.50"; // 86-90%
+                                    if ($percentage >= 0.81) return "1.75"; // 81-85%
+                                    if ($percentage >= 0.76) return "2.00"; // 76-80%
+                                    if ($percentage >= 0.71) return "2.25"; // 71-75%
+                                    if ($percentage >= 0.66) return "2.50"; // 66-70%
+                                    if ($percentage >= 0.61) return "2.75"; // 61-65%
+                                    if ($percentage >= 0.45) return "3.00"; // 50-60% (Passing)
+                                    return "5.00"; // Below 50% (Failing)
+                                }
 
                                 function roundToNearestGrade($value, $grades)
                                 {
@@ -990,21 +991,20 @@ include('processes/server/conn.php');
                                                                     // Apply the attendance percentage to the grades based on the specific attendance type
                                                                     $grades['midterm'] += $attendancePercentage * ($percentiles[$attendanceType] / 100) / 2;
                                                                     $grades['final'] += $attendancePercentage * ($percentiles[$attendanceType] / 100) / 2;
-                                                            
                                                                 }
                                                             }
                                                         }
 
 
-                                                    // Check for missing requirements or final exam
-$missingRequirements = checkMissingRequirements($studentId, $requiredActivityIds, $studentScores);
-$missedFinalExam = checkMissingRequirements($studentId, $finalExamActivityIds, $studentScores);
+                                                        // Check for missing requirements or final exam
+                                                        $missingRequirements = checkMissingRequirements($studentId, $requiredActivityIds, $studentScores);
+                                                        $missedFinalExam = checkMissingRequirements($studentId, $finalExamActivityIds, $studentScores);
 
                                                         // Calculate grades
                                                         $midtermGrade = calculateGrade($grades['midterm']);
                                                         $finalGrade = calculateGrade($grades['final']);
-                                                    
-                                                    
+
+
                                                         $midtermNumeric = floatval($midtermGrade);
                                                         $finalNumeric = floatval($finalGrade);
                                                         if ($missingRequirements || $missedFinalExam) {
@@ -1073,44 +1073,48 @@ $missedFinalExam = checkMissingRequirements($studentId, $finalExamActivityIds, $
                                     return $presentCount / $totalMeetings;
                                 }
 
-                             // Modified function to check missing requirements
-function checkMissingRequirements($studentId, $requiredActivityIds, $studentScores) {
-    foreach ($requiredActivityIds as $activityId) {
-        if (!isset($studentScores[$studentId][$activityId]) || $studentScores[$studentId][$activityId] == 0) {
-            return true;
-        }
-    }
-    return false;
-}
+                                // Modified function to check missing requirements
+                                function checkMissingRequirements($studentId, $requiredActivityIds, $studentScores)
+                                {
+                                    foreach ($requiredActivityIds as $activityId) {
+                                        if (!isset($studentScores[$studentId][$activityId]) || $studentScores[$studentId][$activityId] == 0) {
+                                            return true;
+                                        }
+                                    }
+                                    return false;
+                                }
 
-// New function to check if submission exists but isn't graded
-function checkUngradedStatus($studentId, $requiredActivityIds) {
-    global $pdo; // Assuming you're using PDO for database connection
-    
-    foreach ($requiredActivityIds as $activityId) {
-        $stmt = $pdo->prepare("
+                                // New function to check if submission exists but isn't graded
+                                function checkUngradedStatus($studentId, $requiredActivityIds)
+                                {
+                                    global $pdo; // Assuming you're using PDO for database connection
+
+                                    foreach ($requiredActivityIds as $activityId) {
+                                        $stmt = $pdo->prepare("
             SELECT score, status 
             FROM activity_submissions 
             WHERE student_id = :student_id 
             AND activity_id = :activity_id
         ");
-        $stmt->execute([
-            ':student_id' => $studentId,
-            ':activity_id' => $activityId
-        ]);
-        
-        $submission = $stmt->fetch(PDO::FETCH_ASSOC);
-        
-        // If submission exists but score is null or status indicates not graded
-        if ($submission && 
-            (is_null($submission['score']) || 
-             $submission['status'] === 'submitted' || 
-             $submission['status'] === 'pending')) {
-            return 'N/A';
-        }
-    }
-    return 'INC'; // Default to INC if not ungraded
-}
+                                        $stmt->execute([
+                                            ':student_id' => $studentId,
+                                            ':activity_id' => $activityId
+                                        ]);
+
+                                        $submission = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                                        // If submission exists but score is null or status indicates not graded
+                                        if (
+                                            $submission &&
+                                            (is_null($submission['score']) ||
+                                                $submission['status'] === 'submitted' ||
+                                                $submission['status'] === 'pending')
+                                        ) {
+                                            return 'N/A';
+                                        }
+                                    }
+                                    return 'INC'; // Default to INC if not ungraded
+                                }
 
                                 function fetchGrade($classId, $studentId, $pdo)
                                 {
@@ -1272,9 +1276,9 @@ function checkUngradedStatus($studentId, $requiredActivityIds) {
                                                                         $status = $studentAttendance[$meetingId] ?? 'absent';
                                                                         if ($status === 'present') $presentCount++;
                                                                     ?>
-                                                                   <td style="<?php echo strtolower($status) === 'absent' ? 'color: crimson;' : ''; ?>">
-    <?php echo ucfirst($status); ?>
-</td>
+                                                                        <td style="<?php echo strtolower($status) === 'absent' ? 'color: crimson;' : ''; ?>">
+                                                                            <?php echo ucfirst($status); ?>
+                                                                        </td>
                                                                     <?php endforeach; ?>
                                                                     <td class="total-attendance" data-student-id="<?php echo $student['student_id']; ?>"><?php echo $presentCount; ?></td>
                                                                 <?php endif; ?>
@@ -1289,27 +1293,27 @@ function checkUngradedStatus($studentId, $requiredActivityIds) {
                                                                 <?php echo $studentGrades[$student['student_id']]['final']; ?>
                                                             </td>
 
-                                                       <td <?php echo in_array($studentGrades[$student['student_id']]['gpa'] ?? 'N/A', ['5.00', 'INC', 'UW', 'AW', 'N/A']) ? 'style="color: crimson;"' : ''; ?>>
-    <?php
-    $gpa = $studentGrades[$student['student_id']]['gpa'] ?? 'N/A';
-    if (in_array($gpa, ['INC', 'UW', 'AW'])) {
-        echo htmlspecialchars($gpa);
-    } elseif (is_numeric($gpa)) {
-        echo htmlspecialchars(number_format((float)$gpa, 2));
-    } else {
-        echo htmlspecialchars($gpa);
-    }
-    ?>
-</td>
+                                                            <td <?php echo in_array($studentGrades[$student['student_id']]['gpa'] ?? 'N/A', ['5.00', 'INC', 'UW', 'AW', 'N/A']) ? 'style="color: crimson;"' : ''; ?>>
+                                                                <?php
+                                                                $gpa = $studentGrades[$student['student_id']]['gpa'] ?? 'N/A';
+                                                                if (in_array($gpa, ['INC', 'UW', 'AW'])) {
+                                                                    echo htmlspecialchars($gpa);
+                                                                } elseif (is_numeric($gpa)) {
+                                                                    echo htmlspecialchars(number_format((float)$gpa, 2));
+                                                                } else {
+                                                                    echo htmlspecialchars($gpa);
+                                                                }
+                                                                ?>
+                                                            </td>
 
-                                                        <?php if ($hasBothLabAndLec): ?>
-    <td <?php echo in_array($studentGrades[$student['student_id']]['overallGrade'], ['5.00', 'INC', 'UW', 'AW']) ? 'style="color: crimson;"' : ''; ?>>
-        <?php 
-        $grade = $studentGrades[$student['student_id']]['overallGrade'];
-        echo in_array($grade, ['INC', 'UW', 'AW']) ? $grade : number_format((float)$grade, 2);
-        ?>
-    </td>
-<?php endif; ?>
+                                                            <?php if ($hasBothLabAndLec): ?>
+                                                                <td <?php echo in_array($studentGrades[$student['student_id']]['overallGrade'], ['5.00', 'INC', 'UW', 'AW']) ? 'style="color: crimson;"' : ''; ?>>
+                                                                    <?php
+                                                                    $grade = $studentGrades[$student['student_id']]['overallGrade'];
+                                                                    echo in_array($grade, ['INC', 'UW', 'AW']) ? $grade : number_format((float)$grade, 2);
+                                                                    ?>
+                                                                </td>
+                                                            <?php endif; ?>
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 <?php endif; ?>
@@ -1411,14 +1415,14 @@ function checkUngradedStatus($studentId, $requiredActivityIds) {
         </form>
     </div>
     <div class="col">
-        
+
         <form action="submit_grades.php" method="POST">
-        <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
-        <input type="hidden" name="teacher" value="<?php echo  $adviser ?>">
+            <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
+            <input type="hidden" name="teacher" value="<?php echo  $adviser ?>">
             <input type="hidden" name="subject" value="<?php echo  $subject ?>">
             <input type="hidden" name="class" value="<?php echo  $class ?>">
             <input type="hidden" name="value" value="reject">
-            <button type="submit"  id="buttonism" class="btn btn-danger mb-5 p-2 w-75 m-auto">
+            <button type="submit" id="buttonism" class="btn btn-danger mb-5 p-2 w-75 m-auto">
                 <i class="bi bi-x"></i> Reject
             </button>
         </form>
@@ -1430,8 +1434,7 @@ function checkUngradedStatus($studentId, $requiredActivityIds) {
 </div>
 
 <script>
-   
-    document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function() {
         let status = "<?php echo $_SESSION['STATUS'] ?>";
         if (status === "GRADES_ACCEPTED") {
             Swal.fire({
@@ -1504,15 +1507,15 @@ function checkUngradedStatus($studentId, $requiredActivityIds) {
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-    // Get the modal element
-    const rubricModal = document.getElementById('rubricModal');
-    
-    // Listen for the 'hidden.bs.modal' event
-    rubricModal.addEventListener('hidden.bs.modal', function() {
-        // Refresh the page when the modal is closed
-        window.location.reload();
+        // Get the modal element
+        const rubricModal = document.getElementById('rubricModal');
+
+        // Listen for the 'hidden.bs.modal' event
+        rubricModal.addEventListener('hidden.bs.modal', function() {
+            // Refresh the page when the modal is closed
+            window.location.reload();
+        });
     });
-});
 </script>
 <?php
 include('processes/server/modals.php');

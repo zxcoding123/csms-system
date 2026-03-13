@@ -29,7 +29,7 @@ function sendActivationEmail($email, $name, $token)
 
         // Subject and HTML content of the email
         $mail->isHTML(true);
-        $mail->Subject = 'WMSU - Student Management System [Please Activate your Account]';
+        $mail->Subject = 'ADDU - Student Management System [Please Activate your Account]';
 
         // Prepare email content with logos and formatted text
         $mail->Body = "
@@ -56,7 +56,7 @@ function sendActivationEmail($email, $name, $token)
             <hr style='border: 1px solid #ddd; width: 80%; margin: 20px auto;'>
             <p style='font-size: 16px; color: #7f8c8d;'>If you have any issues, feel free to contact us at <a href='mailto:support@adnu.edu.ph' style='color: #2980b9;'>support@adnu.edu.ph</a></p>
     
-            <div style='font-size: 14px; color: #7f8c8d;'>Best regards,<br>The WMSU Student Management System Team</div>
+            <div style='font-size: 14px; color: #7f8c8d;'>Best regards,<br>The ADDU Student Management System Team</div>
         </div>";
 
 
@@ -83,4 +83,3 @@ if (isset($_GET['email']) && isset($_GET['name']) && isset($_GET['token'])) {
     echo "Missing parameters for email or name.";
 }
 header('Location: ../index.php');
-?>

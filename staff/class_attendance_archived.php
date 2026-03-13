@@ -33,10 +33,10 @@ $stmt->execute();
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
-        </script>
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
         integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous">
-        </script>
+    </script>
 
 
 
@@ -73,7 +73,7 @@ $stmt->execute();
     <div class="wrapper">
         <?php
         include('sidebar.php')
-            ?>
+        ?>
 
         <div class="main">
             <nav class="navbar navbar-expand navbar-light navbar-bg">
@@ -107,7 +107,6 @@ $stmt->execute();
                     if ($scheduleData) {
                         $startTime = date('H:i', strtotime($scheduleData['start_time']));
                         $endTime = date('H:i', strtotime($scheduleData['end_time']));
-
                     }
 
                     $stmt = $pdo->prepare("SELECT * FROM subjects WHERE id = :subject_id");
@@ -273,7 +272,7 @@ $stmt->execute();
                                         // Generate table data for each date in each month
                                         foreach ($months as $month => $dates) {
                                             foreach ($dates as $date) {
-                                              
+
                                                 // Query attendance data for the student and specific meeting date
                                                 $stmt3 = $pdo->prepare("
                                                     SELECT a.status as status
@@ -283,20 +282,19 @@ $stmt->execute();
                                                     AND cm.date = :meeting_date");
                                                 $stmt3->bindParam(':student_id', $student['student_id'], PDO::PARAM_INT);
                                                 $stmt3->bindParam(':meeting_date', $date['date'], PDO::PARAM_STR);
-                                             
+
                                                 $stmt3->execute();
                                                 $attendance = $stmt3->fetch(PDO::FETCH_ASSOC);
-                                            
+
                                                 // Default to 'absent' if no record found
                                                 $status = isset($attendance['status']) ? $attendance['status'] : 'absent';
 
-                                              
-                                            
+
+
                                                 // Display "X" for present, "/" for absent
                                                 $attendanceSymbol = ($status === 'present') ? '/' : 'X';
                                                 echo '<td class="text-bold">' . $attendanceSymbol . '</td>';
                                             }
-                                            
                                         }
                                         echo '</tr>';
                                     }
@@ -447,9 +445,9 @@ $stmt->execute();
         </head>
         <body onload="window.print();window.close();">
             <div class="print-header">
-                <img src="external/img/wmsu_logo-removebg-preview.png" alt="University Logo 1">
+                <img src="external/img/ADDU_logo-removebg-preview.png" alt="University Logo 1">
                 <div>
-                    <h3>Western Mindanao State University</h3>
+                    <h3>Ateneo de Davao University</h3>
                     <h3>College of Computing Studies</h3>
                     <h5>Meeting Details</h5>
                     <p>A summary of meeting details and attendance records.</p>
@@ -515,7 +513,7 @@ $stmt->execute();
             console.log("Class ID:", classId);
             console.log("Semester ID:", semesterId);
 
-            document.addEventListener('DOMContentLoaded', function () {
+            document.addEventListener('DOMContentLoaded', function() {
                 var calendarEl = document.getElementById('calendar');
 
                 var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -526,7 +524,7 @@ $stmt->execute();
                         right: 'dayGridMonth,timeGridWeek'
                     },
                     events: `fetch_schedule_events.php?semester_id=${semesterId}&class_id=${classId}`,
-                    dateClick: function (info) {
+                    dateClick: function(info) {
                         Swal.fire({
                             title: `Actions for ${info.dateStr}`,
                             text: "Do you want to create a new class or view existing classes?",
@@ -542,7 +540,7 @@ $stmt->execute();
                             }
                         });
                     },
-                    datesSet: function (dateInfo) {
+                    datesSet: function(dateInfo) {
                         console.log("Fetching events...");
                         fetch(`fetch_schedule_events.php?semester_id=${semesterId}&class_id=${classId}`)
                             .then(response => response.json())
@@ -577,7 +575,7 @@ $stmt->execute();
                 $('#createClassForm')[0].reset(); // Reset the form
                 $('#createClassModal').modal('show'); // Show the modal
 
-                $('#createClassForm').off('submit').on('submit', function (event) {
+                $('#createClassForm').off('submit').on('submit', function(event) {
                     event.preventDefault(); // Prevent the default form submission
 
                     const subject = $('#subject').val();
@@ -597,12 +595,12 @@ $stmt->execute();
                     };
 
                     fetch('create_class_meeting.php', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(meetingData)
-                    })
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(meetingData)
+                        })
                         .then(response => {
                             if (!response.ok) {
                                 throw new Error('Network response was not ok');
@@ -738,7 +736,7 @@ $stmt->execute();
                 editClassModal.show();
 
                 // Handle the form submission
-                document.getElementById('editClassForm').addEventListener('submit', function (event) {
+                document.getElementById('editClassForm').addEventListener('submit', function(event) {
                     event.preventDefault(); // Prevent form default submit behavior
 
                     // Retrieve form values
@@ -755,17 +753,17 @@ $stmt->execute();
 
                     // Make the AJAX request
                     fetch('update_class_status.php', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            meetingId,
-                            status,
-                            startTime,
-                            endTime
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                meetingId,
+                                status,
+                                startTime,
+                                endTime
+                            })
                         })
-                    })
                         .then(response => response.json()) // Parse the response to JSON
                         .then(data => {
                             // Check the success status of the response
@@ -803,11 +801,11 @@ $stmt->execute();
                     if (result.isConfirmed) {
                         // Send the delete request to the server
                         fetch(`delete_meeting.php?meeting_id=${meetingId}`, {
-                            method: 'DELETE',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            }
-                        })
+                                method: 'DELETE',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                }
+                            })
                             .then(response => {
                                 if (!response.ok) {
                                     throw new Error('Network response was not ok');

@@ -23,12 +23,12 @@ if (isset($_SESSION['STATUS']) && $_SESSION['STATUS'] == 'ADMIN_NOT_LOGGED_IN') 
     </script>
     ";
     unset($_SESSION['STATUS']);
-} elseif (isset($_SESSION['STATUS']) && $_SESSION['STATUS'] == 'EMAIL_NOT_WMSU') {
+} elseif (isset($_SESSION['STATUS']) && $_SESSION['STATUS'] == 'EMAIL_NOT_ADDU') {
     echo "
     <script>
         Swal.fire({
           title: 'Email creation error!',
-        text: 'The email you have used isn't accredited to WMSU. Please use your WMSU email for registering as a student!',
+        text: 'The email you have used isn't accredited to ADDU. Please use your ADDU email for registering as a student!',
         icon: 'error'
         });
     </script>
@@ -78,7 +78,6 @@ if (isset($_SESSION['STATUS']) && $_SESSION['STATUS'] == 'ADMIN_NOT_LOGGED_IN') 
         </script>
         ";
     unset($_SESSION['STATUS']);
-
 } elseif (isset($_SESSION['STATUS']) && $_SESSION['STATUS'] == 'TEACHER_NOT_LOGGED_IN') {
     echo "
             <script>
@@ -101,7 +100,6 @@ if (isset($_SESSION['STATUS']) && $_SESSION['STATUS'] == 'ADMIN_NOT_LOGGED_IN') 
             </script>
             ";
     unset($_SESSION['STATUS']);
-
 } elseif (isset($_SESSION['STATUS']) && $_SESSION['STATUS'] == 'PASSWORD_RESET_SUCCESS') {
     echo "
       <script>
@@ -113,7 +111,6 @@ if (isset($_SESSION['STATUS']) && $_SESSION['STATUS'] == 'ADMIN_NOT_LOGGED_IN') 
             </script>
         ";
     unset($_SESSION['STATUS']);
-
 } elseif (isset($_SESSION['STATUS']) && $_SESSION['STATUS'] == 'INACTIVE_ACCOUNT') {
     echo "
           <script>
@@ -125,8 +122,6 @@ if (isset($_SESSION['STATUS']) && $_SESSION['STATUS'] == 'ADMIN_NOT_LOGGED_IN') 
                 </script>
             ";
     unset($_SESSION['STATUS']);
-
-
 } elseif (isset($_SESSION['STATUS']) && $_SESSION['STATUS'] == 'EMAIL_NONE_EXISTENCE') {
     echo "
       <script>
@@ -270,7 +265,6 @@ if (isset($_SESSION['STATUS']) && $_SESSION['STATUS'] == 'ADMIN_NOT_LOGGED_IN') 
     </script>
     ";
     unset($_SESSION['STATUS']);
-
 } elseif (isset($_SESSION['STATUS']) && $_SESSION['STATUS'] == "REGISTRATION_SUCCESSFUL_ACTIVATION_PLEASE") {
     echo "
     <script>
@@ -473,7 +467,6 @@ if (isset($_SESSION['STATUS']) && $_SESSION['STATUS'] == 'ADMIN_SUBJECT_ADD_SUCC
     </script>
     ";
     unset($_SESSION['STATUS']);
-
 } else if (isset($_SESSION['STATUS']) && $_SESSION['STATUS'] == 'ADMIN_SUBJECT_EXISTS') {
     echo "
     <script>
@@ -558,7 +551,6 @@ if (isset($_SESSION['STATUS']) && $_SESSION['STATUS'] == 'ADDED_NEW_CLASS_SUCCES
     </script>
     ";
     unset($_SESSION['STATUS']);
-
 } else if (isset($_SESSION['STATUS']) && $_SESSION['STATUS'] == 'NEW_CLASS_EXISTS') {
     echo "
     <script>

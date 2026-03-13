@@ -9,7 +9,7 @@ session_start();
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>WMSU - CCS | Student Management System</title>
+    <title>ADDU - CCS | Student Management System</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -50,7 +50,7 @@ session_start();
 
         <div class="actual-login-container">
             <div class="d-flex">
-                <img src="../external/img/wmsu_Logo-removebg-preview.png" class="img-fluid big-logo">
+                <img src="../external/img/ADDU_Logo-removebg-preview.png" class="img-fluid big-logo">
                 <img src="../external/img/ccs_logo-removebg-preview.png" class="img-fluid big-logo">
             </div>
             <h5 class="bold">RESET PASSWORD</h5>

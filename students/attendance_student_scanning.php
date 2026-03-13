@@ -36,27 +36,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['course'] = $student['course'];
             $_SESSION['year_level'] = $student['year_level'];
             $_SESSION['STATUS'] = "STUDENT_LOGIN_SUCCESSFUL";
-
         } else {
             // If password verification fails
             $_SESSION['STATUS'] = "LOGIN_ERROR";
             header('Location: ' . $_SERVER['REQUEST_URI']);
             exit;
         }
-        } else {
-            // If no student account matches the email
-            $_SESSION['STATUS'] = "EMAIL_NOT_FOUND";
-            header('Location: ' . $_SERVER['REQUEST_URI']);
-            exit;
-        }
-        
+    } else {
+        // If no student account matches the email
+        $_SESSION['STATUS'] = "EMAIL_NOT_FOUND";
+        header('Location: ' . $_SERVER['REQUEST_URI']);
+        exit;
+    }
 }
 
 
 // Check if the student is logged in
 if (!isset($_SESSION['student_id'])) {
     // Show login form if not logged in
-    ?>
+?>
     <!DOCTYPE html>
     <html>
 
@@ -65,7 +63,7 @@ if (!isset($_SESSION['student_id'])) {
         <head>
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
-            <title>WMSU - CCS | Student Management System</title>
+            <title>ADDU - CCS | Student Management System</title>
             <link rel="icon" href="../external/img/favicon-32x32.png" type="image/x-icon">
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
                 integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -89,7 +87,7 @@ if (!isset($_SESSION['student_id'])) {
 
             <div class="actual-login-container">
                 <small><a href="index.html" class="gb"><i class="bi bi-arrow-left-circle-fill"></i> Go back</a></small>
-                <img src="external/img/wmsu_Logo-removebg-preview.png" class="img-fluid big-logo">
+                <img src="external/img/ADDU_Logo-removebg-preview.png" class="img-fluid big-logo">
                 <h5 class="bold">STUDENT LOGIN</h5>
 
                 <div class="container-fluid ">
@@ -156,7 +154,7 @@ if (!isset($_SESSION['student_id'])) {
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-        </script>
+    </script>
 
     <script>
         function captureLocation(event) {
@@ -164,7 +162,7 @@ if (!isset($_SESSION['student_id'])) {
 
             // Use geolocation API to get the user's current position
             if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function (position) {
+                navigator.geolocation.getCurrentPosition(function(position) {
                     var latitude = position.coords.latitude;
                     var longitude = position.coords.longitude;
 
@@ -174,7 +172,7 @@ if (!isset($_SESSION['student_id'])) {
 
                     // Submit the form after geolocation data is set
                     event.target.submit();
-                }, function (error) {
+                }, function(error) {
                     alert("Unable to retrieve your location.");
                     event.target.submit(); // Submit anyway if geolocation fails (without coordinates)
                 });
@@ -188,7 +186,7 @@ if (!isset($_SESSION['student_id'])) {
     </script>
 
     <script>
-        document.getElementById('submitReset').addEventListener('click', function () {
+        document.getElementById('submitReset').addEventListener('click', function() {
             // Show SweetAlert2 modal
             Swal.fire({
                 title: 'Processing...',
@@ -203,7 +201,6 @@ if (!isset($_SESSION['student_id'])) {
                 }
             });
         });
-
     </script>
 
     <script>
@@ -227,7 +224,7 @@ if (!isset($_SESSION['student_id'])) {
     include('processes/server/alerts.php');
     ?>
 
-    <?php
+<?php
     exit();
 }
 
@@ -242,7 +239,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($meetingId && $classId) {
         try {
             // Assuming $pdo is your PDO connection
-            $sql = "SELECT wmsu_radius FROM classes_meetings WHERE class_id = :class_id AND id = :meeting_id";
+            $sql = "SELECT ADDU_radius FROM classes_meetings WHERE class_id = :class_id AND id = :meeting_id";
             $stmt = $pdo->prepare($sql);
 
             // Bind the parameters
@@ -257,11 +254,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Fetch the data
                 $meetingData = $stmt->fetch(PDO::FETCH_ASSOC);
 
-                // Get the wmsu_radius value
-                $wmsuRadius = $meetingData['wmsu_radius'] ?? null;
+                // Get the ADDU_radius value
+                $ADDURadius = $meetingData['ADDU_radius'] ?? null;
 
-                // Check the wmsu_radius value and echo the appropriate message
-                if ($wmsuRadius === 'on') {
+                // Check the ADDU_radius value and echo the appropriate message
+                if ($ADDURadius === 'on') {
                     function updateAttendance($studentId, $classId, $date, $startTime, $endTime, $meetingId, $latitude, $longitude)
                     {
                         global $pdo; // Ensure you use your PDO connection
@@ -272,7 +269,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                         // Define the allowed GPS location coordinates for the class (the location you shared)
 
-                        // WMSU GPS
+                        // ADDU GPS
 
                         $allowedLatitude = 6.912521400586953;
                         $allowedLongitude = 122.06354845575072;
@@ -373,7 +370,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         header('Location: ../students/attendance_status.php?meetingId=' . $meetingId . '&classId=' . $classId . '&date=' . $date); // Redirect to the status page
                         exit();
                     }
-                } elseif ($wmsuRadius === 'off') {
+                } elseif ($ADDURadius === 'off') {
                     function updateAttendance($studentId, $classId, $date, $startTime, $endTime, $meetingId)
                     {
                         global $pdo; // Ensure you use your PDO connection
@@ -484,7 +481,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($meetingId && $classId) {
             try {
                 // Assuming $pdo is your PDO connection
-                $sql = "SELECT wmsu_radius FROM classes_meetings WHERE class_id = :class_id AND id = :meeting_id";
+                $sql = "SELECT ADDU_radius FROM classes_meetings WHERE class_id = :class_id AND id = :meeting_id";
                 $stmt = $pdo->prepare($sql);
 
                 // Bind the parameters
@@ -501,13 +498,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 
-                    // Check the wmsu_radius value and echo the appropriate message
-                    if ($wmsuRadius === 'on') {
+                    // Check the ADDU_radius value and echo the appropriate message
+                    if ($ADDURadius === 'on') {
                         updateAttendance($studentId, $classId, $date, $startTime, $endTime, $meetingId, $latitude, $longitude);
-                    } elseif ($wmsuRadius === 'off') {
+                    } elseif ($ADDURadius === 'off') {
                         updateAttendance($studentId, $classId, $date, $startTime, $endTime, $meetingId);
                     } else {
-                        echo "Invalid wmsu_radius value";  // Handle unexpected values
+                        echo "Invalid ADDU_radius value";  // Handle unexpected values
                     }
                 } else {
                     echo "No data found for the specified class and meeting ID.";
@@ -519,8 +516,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             echo "Class ID and Meeting ID are required.";
         }
-
-
     } else {
         $meetingId = $_GET['meetingId'] ?? null;
         $classId = $_GET['class_id'] ?? null;
@@ -528,7 +523,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['status_message'] = "Invalid attendance data.";
         header('Location: ../students/attendance_status.php?meetingId=' . $meetingId . '&classId=' . $classId . '&date=' . $date); // Redirect to the status page
     }
-
 } else {
     header('Location: ../index.php');
 }

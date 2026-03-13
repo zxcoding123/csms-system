@@ -15,7 +15,7 @@ include('processes/server/conn.php');
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>WMSU - CCS | Student Management System</title>
+    <title>ADDU - CCS | Student Management System</title>
     <link rel="icon" href="../external/img/favicon-32x32.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -103,7 +103,7 @@ include('processes/server/conn.php');
                     <i class="hamburger align-self-center"></i>
                 </a>
                 <img src="external/img/ccs_logo-removebg-preview.png" class="logo-small">
-                <span class="text-white">WMSU - Student Management System </span>
+                <span class="text-white">ADDU - Student Management System </span>
                 <div class="navbar-collapse collapse">
                     <?php include('top-bar.php') ?>
                 </div>
@@ -268,7 +268,7 @@ include('processes/server/conn.php');
                                     <div class="d-flex align-items-center">
                                         <h1 class="mb-4 bold"><i class="bi bi-people icon"></i> Students</h1>
                                         <div class="ms-auto" aria-hidden="true">
-                                         
+
                                         </div>
                                     </div>
                                     <div class="modal fade" id="enrollStudentModal" tabindex="-1"
@@ -325,7 +325,6 @@ include('processes/server/conn.php');
                                                                     echo "<ul>";
                                                                     foreach ($enrolledStudents as $student) {
                                                                         echo "<li>" . htmlspecialchars($student['fullName']) . " (" . htmlspecialchars($student['student_id']) . ")</li>";
-
                                                                     }
                                                                     echo "</ul>";
                                                                 } else {
@@ -347,50 +346,50 @@ include('processes/server/conn.php');
                                             </div>
                                         </div>
                                     </div>
-                                    
-                                    <script>
-document.getElementById('studentSearch').addEventListener('input', function() {
-    const searchTerm = this.value.trim().toLowerCase();
-    const resultContainer = document.getElementById('studentResults');
-    const selectedStudentId = document.getElementById('selectedStudentId');
 
-    if (searchTerm.length >= 2) { // Start searching after two characters are typed
-        // Fetch search results using AJAX
-        fetch('searchStudent.php?searchTerm=' + encodeURIComponent(searchTerm) +
-                '&class_id=<?php echo $_GET["class_id"] ?>')
-            .then(response => response.json())
-            .then(data => {
-                resultContainer.innerHTML = ''; // Clear previous results
-                if (data.length > 0) {
-                    resultContainer.style.display = 'block'; // Display results container
-                    data.forEach(student => {
-                        const li = document.createElement('li');
-                        li.classList.add('list-group-item');
-                        // Use <small> tag for student_id to make it appear smaller
-                        li.innerHTML = `<small>(${student.student_id})</small> ${student.fullName} (${student.course} - ${student.year_level})`;
-                        li.dataset.studentId = student.student_id;
-                        // Select student from list
-                        li.addEventListener('click', function() {
-                            selectedStudentId.value = this.dataset.studentId; // Update hidden input with student ID
-                            document.getElementById('studentSearch').value = this.textContent; // Set input value to selected student
-                            resultContainer.style.display = 'none'; // Hide results after selection
-                        });
-                        resultContainer.appendChild(li);
-                    });
-                } else {
-                    // No students found
-                    resultContainer.style.display = 'block'; // Display results container
-                    const noResultsMessage = document.createElement('li');
-                    noResultsMessage.classList.add('list-group-item', 'text-muted');
-                    noResultsMessage.textContent = 'No Students Found';
-                    resultContainer.appendChild(noResultsMessage);
-                }
-            });
-    } else {
-        resultContainer.style.display = 'none'; // Hide results if search term is too short
-    }
-});
-</script>
+                                    <script>
+                                        document.getElementById('studentSearch').addEventListener('input', function() {
+                                            const searchTerm = this.value.trim().toLowerCase();
+                                            const resultContainer = document.getElementById('studentResults');
+                                            const selectedStudentId = document.getElementById('selectedStudentId');
+
+                                            if (searchTerm.length >= 2) { // Start searching after two characters are typed
+                                                // Fetch search results using AJAX
+                                                fetch('searchStudent.php?searchTerm=' + encodeURIComponent(searchTerm) +
+                                                        '&class_id=<?php echo $_GET["class_id"] ?>')
+                                                    .then(response => response.json())
+                                                    .then(data => {
+                                                        resultContainer.innerHTML = ''; // Clear previous results
+                                                        if (data.length > 0) {
+                                                            resultContainer.style.display = 'block'; // Display results container
+                                                            data.forEach(student => {
+                                                                const li = document.createElement('li');
+                                                                li.classList.add('list-group-item');
+                                                                // Use <small> tag for student_id to make it appear smaller
+                                                                li.innerHTML = `<small>(${student.student_id})</small> ${student.fullName} (${student.course} - ${student.year_level})`;
+                                                                li.dataset.studentId = student.student_id;
+                                                                // Select student from list
+                                                                li.addEventListener('click', function() {
+                                                                    selectedStudentId.value = this.dataset.studentId; // Update hidden input with student ID
+                                                                    document.getElementById('studentSearch').value = this.textContent; // Set input value to selected student
+                                                                    resultContainer.style.display = 'none'; // Hide results after selection
+                                                                });
+                                                                resultContainer.appendChild(li);
+                                                            });
+                                                        } else {
+                                                            // No students found
+                                                            resultContainer.style.display = 'block'; // Display results container
+                                                            const noResultsMessage = document.createElement('li');
+                                                            noResultsMessage.classList.add('list-group-item', 'text-muted');
+                                                            noResultsMessage.textContent = 'No Students Found';
+                                                            resultContainer.appendChild(noResultsMessage);
+                                                        }
+                                                    });
+                                            } else {
+                                                resultContainer.style.display = 'none'; // Hide results if search term is too short
+                                            }
+                                        });
+                                    </script>
 
 
                                     <?php
@@ -413,7 +412,7 @@ document.getElementById('studentSearch').addEventListener('input', function() {
                                                 echo '<div class="d-flex align-items-center view-person">';
                                                 echo '<h2><i class="bi bi-person icon"></i> ' . htmlspecialchars($student['fullName']) . ' <small>(' . htmlspecialchars($student['student_id']) . ')</small></h2>';
 
-                                               
+
                                                 echo '</div>
                                                 <br>';
                                             } else {
@@ -429,10 +428,10 @@ document.getElementById('studentSearch').addEventListener('input', function() {
                                         <!-- Header Section -->
                                         <div style="text-align: center; margin-bottom: 20px; font-family: Arial;"">
         <div style=" display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                                            <img src="external/img/wmsu_logo-removebg-preview.png" alt="WMSU Logo"
+                                            <img src="external/img/ADDU_logo-removebg-preview.png" alt="ADDU Logo"
                                                 style="height: 80px; width: auto;">
                                             <div>
-                                                <h3 style="margin: 0;">Western Mindanao State University</h3>
+                                                <h3 style="margin: 0;">Ateneo de Davao University</h3>
                                                 <h4 style="margin: 0;">College of Computing Studies</h4>
                                             </div>
                                             <img src="external/img/ccs_logo-removebg-preview.png" alt="CCS Logo"
@@ -537,7 +536,7 @@ document.getElementById('studentSearch').addEventListener('input', function() {
                                         <div class="ms-auto">
                                             <button class="btn btn-primary" data-bs-toggle="modal"
                                                 data-bs-target="#createRubricModal">Rubrics</button>
-                                         
+
                                         </div>
                                     </div>
 
@@ -738,7 +737,7 @@ document.getElementById('studentSearch').addEventListener('input', function() {
                                                         <h3 class="bold">Course Requirements</h3>
                                                         <div class="ms-auto" aria-hidden="true">
                                                             <?php if (!empty($rubricRequirements)) { ?>
-                                                           
+
                                                             <?php } ?>
                                                         </div>
                                                     </div>
@@ -772,7 +771,7 @@ document.getElementById('studentSearch').addEventListener('input', function() {
                                                     <?php } else { ?>
                                                         <div class="alert alert-warning text-center" role="alert">
                                                             <p>Your course requirements are empty.</p>
-                                                           
+
                                                         </div>
                                                     <?php } ?>
                                                 </div>
@@ -993,7 +992,7 @@ document.getElementById('studentSearch').addEventListener('input', function() {
                                                                 <input type="hidden" name="rubric_id" id="rubricId" value="">
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                                 
+
                                                                 </div>
                                                             </form>
                                                         </div>
@@ -1636,7 +1635,7 @@ document.getElementById('studentSearch').addEventListener('input', function() {
                                                         <div class="ms-auto">
                                                             <button class="btn btn-primary" data-bs-toggle="modal"
                                                                 data-bs-target="#createRubricModal">Rubrics</button>
-                                                           
+
                                                         </div>
                                                     </div>
 
@@ -1871,7 +1870,7 @@ document.getElementById('studentSearch').addEventListener('input', function() {
                                                                     <?php } else { ?>
                                                                         <div class="alert alert-warning text-center" role="alert">
                                                                             <p>Your course requirements are empty.</p>
-                                                                        
+
                                                                         </div>
                                                                     <?php } ?>
                                                                 </div>
@@ -2003,7 +2002,7 @@ document.getElementById('studentSearch').addEventListener('input', function() {
                                                                                                 <p class="bold"><?php echo htmlspecialchars($item['title']); ?></p>
                                                                                                 <div class="ms-auto" aria-hidden="true">
                                                                                                     <button type="button" class="btn btn-primary" onclick="viewActivity(<?php echo $item['id']; ?>)">View</button>
-                                                                                                 
+
                                                                                                 </div>
                                                                                             </div>
                                                                                             <span class="badge text-bg-secondary mb-2">Type: <?php echo ucfirst($item['type']); ?></span>
@@ -2080,7 +2079,7 @@ document.getElementById('studentSearch').addEventListener('input', function() {
                                                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                                 </div>
                                                                                 <div class="modal-body">
-                                                                                   
+
                                                                                     <div class="mb-3">
                                                                                         <label for="existingRubrics" class="form-label">Existing Rubrics</label>
                                                                                         <ul id="rubricList">
@@ -2095,7 +2094,7 @@ document.getElementById('studentSearch').addEventListener('input', function() {
                                                                                 <input type="hidden" name="rubric_id" id="rubricId" value="">
                                                                                 <div class="modal-footer">
                                                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                                                  
+
                                                                                 </div>
                                                                             </form>
                                                                         </div>
@@ -2942,12 +2941,12 @@ document.getElementById('studentSearch').addEventListener('input', function() {
                                                                                                 <button class="btn btn-success" data-bs-toggle="modal"
                                                                                                     data-bs-target="#viewGradeModal<?php echo $submission['id'] ?>"><i
                                                                                                         class="bi bi-eye-fill"></i> View</button>
-                                                                                              
+
                                                                                             <?php } else { ?>
                                                                                                 <button class="btn btn-success" data-bs-toggle="modal"
                                                                                                     data-bs-target="#viewGradeModal<?php echo $submission['id'] ?>"><i
                                                                                                         class="bi bi-eye-fill"></i> View</button>
-                                                                                            
+
                                                                                             <?php } ?>
                                                                                         </td>
 
@@ -3352,136 +3351,137 @@ document.getElementById('studentSearch').addEventListener('input', function() {
                                                                 </div>
 
                                                                 <?php
-// Assuming PDO connection is already established via $pdo
-$class_id = isset($_GET['class_id']) ? (int)$_GET['class_id'] : null;
-$subject_id = isset($_GET['subject_id']) ? (int)$_GET['subject_id'] : null;
+                                                                // Assuming PDO connection is already established via $pdo
+                                                                $class_id = isset($_GET['class_id']) ? (int)$_GET['class_id'] : null;
+                                                                $subject_id = isset($_GET['subject_id']) ? (int)$_GET['subject_id'] : null;
 
-if (!$class_id) {
-    die("Class ID is required");
-}
+                                                                if (!$class_id) {
+                                                                    die("Class ID is required");
+                                                                }
 
-// Fetch class type to determine requirements
-try {
-    $classStmt = $pdo->prepare("SELECT type FROM classes WHERE id = :class_id");
-    $classStmt->bindParam(':class_id', $class_id, PDO::PARAM_INT);
-    $classStmt->execute();
-    $class = $classStmt->fetch(PDO::FETCH_ASSOC);
-    $type = $class['type'] ?? 'regular'; // Default to 'regular' if not found
-} catch (PDOException $e) {
-    echo "<p class='error'>Error fetching class: " . htmlspecialchars($e->getMessage()) . "</p>";
-    exit;
-}
+                                                                // Fetch class type to determine requirements
+                                                                try {
+                                                                    $classStmt = $pdo->prepare("SELECT type FROM classes WHERE id = :class_id");
+                                                                    $classStmt->bindParam(':class_id', $class_id, PDO::PARAM_INT);
+                                                                    $classStmt->execute();
+                                                                    $class = $classStmt->fetch(PDO::FETCH_ASSOC);
+                                                                    $type = $class['type'] ?? 'regular'; // Default to 'regular' if not found
+                                                                } catch (PDOException $e) {
+                                                                    echo "<p class='error'>Error fetching class: " . htmlspecialchars($e->getMessage()) . "</p>";
+                                                                    exit;
+                                                                }
 
-// Check for class requirements
-try {
-    if ($type !== 'Laboratory') {
-        $quizStmt = $pdo->prepare("SELECT COUNT(*) FROM activities WHERE class_id = :class_id AND type = 'quiz'");
-        $quizStmt->bindParam(':class_id', $class_id, PDO::PARAM_INT);
-        $quizStmt->execute();
-        $quizCount = $quizStmt->fetchColumn();
-    } else {
-        $quizCount = 0;
-    }
+                                                                // Check for class requirements
+                                                                try {
+                                                                    if ($type !== 'Laboratory') {
+                                                                        $quizStmt = $pdo->prepare("SELECT COUNT(*) FROM activities WHERE class_id = :class_id AND type = 'quiz'");
+                                                                        $quizStmt->bindParam(':class_id', $class_id, PDO::PARAM_INT);
+                                                                        $quizStmt->execute();
+                                                                        $quizCount = $quizStmt->fetchColumn();
+                                                                    } else {
+                                                                        $quizCount = 0;
+                                                                    }
 
-    $activityStmt = $pdo->prepare("SELECT COUNT(*) FROM activities WHERE class_id = :class_id AND type = 'activity'");
-    $activityStmt->bindParam(':class_id', $class_id, PDO::PARAM_INT);
-    $activityStmt->execute();
-    $activityCount = $activityStmt->fetchColumn();
+                                                                    $activityStmt = $pdo->prepare("SELECT COUNT(*) FROM activities WHERE class_id = :class_id AND type = 'activity'");
+                                                                    $activityStmt->bindParam(':class_id', $class_id, PDO::PARAM_INT);
+                                                                    $activityStmt->execute();
+                                                                    $activityCount = $activityStmt->fetchColumn();
 
-    $attendanceStmt = $pdo->prepare("SELECT COUNT(*) FROM attendance WHERE class_id = :class_id");
-    $attendanceStmt->bindParam(':class_id', $class_id, PDO::PARAM_INT);
-    $attendanceStmt->execute();
-    $attendanceCount = $attendanceStmt->fetchColumn();
+                                                                    $attendanceStmt = $pdo->prepare("SELECT COUNT(*) FROM attendance WHERE class_id = :class_id");
+                                                                    $attendanceStmt->bindParam(':class_id', $class_id, PDO::PARAM_INT);
+                                                                    $attendanceStmt->execute();
+                                                                    $attendanceCount = $attendanceStmt->fetchColumn();
 
-    $examStmt = $pdo->prepare("SELECT COUNT(*) FROM activities WHERE class_id = :class_id AND type = 'exam' AND term IN ('midterm', 'final')");
-    $examStmt->bindParam(':class_id', $class_id, PDO::PARAM_INT);
-    $examStmt->execute();
-    $examCount = $examStmt->fetchColumn();
+                                                                    $examStmt = $pdo->prepare("SELECT COUNT(*) FROM activities WHERE class_id = :class_id AND type = 'exam' AND term IN ('midterm', 'final')");
+                                                                    $examStmt->bindParam(':class_id', $class_id, PDO::PARAM_INT);
+                                                                    $examStmt->execute();
+                                                                    $examCount = $examStmt->fetchColumn();
 
-    $projectStmt = $pdo->prepare("SELECT COUNT(*) FROM activities WHERE class_id = :class_id AND type = 'project'");
-    $projectStmt->bindParam(':class_id', $class_id, PDO::PARAM_INT);
-    $projectStmt->execute();
-    $projectCount = $projectStmt->fetchColumn();
+                                                                    $projectStmt = $pdo->prepare("SELECT COUNT(*) FROM activities WHERE class_id = :class_id AND type = 'project'");
+                                                                    $projectStmt->bindParam(':class_id', $class_id, PDO::PARAM_INT);
+                                                                    $projectStmt->execute();
+                                                                    $projectCount = $projectStmt->fetchColumn();
 
-    if ($type === 'Laboratory') {
-        $allConditionsMet = ($activityCount >= 1 && $attendanceCount >= 1 && $examCount >= 1 && $projectCount >= 1);
-    } else {
-        $allConditionsMet = ($quizCount > 2 && $activityCount >= 1 && $attendanceCount >= 1 && $examCount >= 1);
-    }
-} catch (PDOException $e) {
-    echo "<p class='error'>Error: " . htmlspecialchars($e->getMessage()) . "</p>";
-    exit;
-}
-?>
+                                                                    if ($type === 'Laboratory') {
+                                                                        $allConditionsMet = ($activityCount >= 1 && $attendanceCount >= 1 && $examCount >= 1 && $projectCount >= 1);
+                                                                    } else {
+                                                                        $allConditionsMet = ($quizCount > 2 && $activityCount >= 1 && $attendanceCount >= 1 && $examCount >= 1);
+                                                                    }
+                                                                } catch (PDOException $e) {
+                                                                    echo "<p class='error'>Error: " . htmlspecialchars($e->getMessage()) . "</p>";
+                                                                    exit;
+                                                                }
+                                                                ?>
 
-<div class="student-grades">
-  
+                                                                <div class="student-grades">
 
-<?php
-if ($class_id) {
-    $action = isset($_GET['action']) ? $_GET['action'] : '';
 
-    try {
-        // Fetch students with their grades and status
-        $stmt = $pdo->prepare(
-            "SELECT s.student_id, s.fullName, s.gender, sg.midterm_grade, sg.final_grade, sg.status
+                                                                    <?php
+                                                                    if ($class_id) {
+                                                                        $action = isset($_GET['action']) ? $_GET['action'] : '';
+
+                                                                        try {
+                                                                            // Fetch students with their grades and status
+                                                                            $stmt = $pdo->prepare(
+                                                                                "SELECT s.student_id, s.fullName, s.gender, sg.midterm_grade, sg.final_grade, sg.status
              FROM students s
              LEFT JOIN student_grades sg ON s.student_id = sg.student_id AND sg.class_id = :class_id1
              JOIN students_enrollments se ON s.student_id = se.student_id
              WHERE se.class_id = :class_id2"
-        );
-        $stmt->bindParam(':class_id1', $class_id, PDO::PARAM_INT);
-        $stmt->bindParam(':class_id2', $class_id, PDO::PARAM_INT);
-        $stmt->execute();
-        $students = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                                                                            );
+                                                                            $stmt->bindParam(':class_id1', $class_id, PDO::PARAM_INT);
+                                                                            $stmt->bindParam(':class_id2', $class_id, PDO::PARAM_INT);
+                                                                            $stmt->execute();
+                                                                            $students = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        // Check for 'saved', 'for_approval', and 'accepted' statuses
-        $hasSaved = false;
-        $hasForApproval = false;
-        $allAccepted = true; // New flag to check if all grades are accepted
-        foreach ($students as $student) {
-            if ($student['status'] === 'saved') {
-                $hasSaved = true;
-            }
-            if ($student['status'] === 'for_approval') {
-                $hasForApproval = true;
-            }
-            if ($student['status'] !== 'accepted') {
-                $allAccepted = false; // If any grade isn’t accepted, set to false
-            }
-        }
-        $canRevert = $hasSaved || $hasForApproval; // Revert enabled only if 'saved' or 'for_approval' exist
+                                                                            // Check for 'saved', 'for_approval', and 'accepted' statuses
+                                                                            $hasSaved = false;
+                                                                            $hasForApproval = false;
+                                                                            $allAccepted = true; // New flag to check if all grades are accepted
+                                                                            foreach ($students as $student) {
+                                                                                if ($student['status'] === 'saved') {
+                                                                                    $hasSaved = true;
+                                                                                }
+                                                                                if ($student['status'] === 'for_approval') {
+                                                                                    $hasForApproval = true;
+                                                                                }
+                                                                                if ($student['status'] !== 'accepted') {
+                                                                                    $allAccepted = false; // If any grade isn’t accepted, set to false
+                                                                                }
+                                                                            }
+                                                                            $canRevert = $hasSaved || $hasForApproval; // Revert enabled only if 'saved' or 'for_approval' exist
 
-    } catch (PDOException $e) {
-        echo "<p class='error'>Error: " . htmlspecialchars($e->getMessage()) . "</p>";
-        exit;
-    }
+                                                                        } catch (PDOException $e) {
+                                                                            echo "<p class='error'>Error: " . htmlspecialchars($e->getMessage()) . "</p>";
+                                                                            exit;
+                                                                        }
 
-    if (!empty($students)) {
-        // Separate male and female students
-        $maleStudents = [];
-        $femaleStudents = [];
-        foreach ($students as $student) {
-            if ($student['gender'] === 'Male') {
-                $maleStudents[] = $student;
-            } elseif ($student['gender'] === 'Female') {
-                $femaleStudents[] = $student;
-            }
-        }
+                                                                        if (!empty($students)) {
+                                                                            // Separate male and female students
+                                                                            $maleStudents = [];
+                                                                            $femaleStudents = [];
+                                                                            foreach ($students as $student) {
+                                                                                if ($student['gender'] === 'Male') {
+                                                                                    $maleStudents[] = $student;
+                                                                                } elseif ($student['gender'] === 'Female') {
+                                                                                    $femaleStudents[] = $student;
+                                                                                }
+                                                                            }
 
-        // Function to render students with grades
-        function renderStudentsWithGrades($students, $gradeOptions) {
-            foreach ($students as $student) {
-                $studentId = htmlspecialchars($student['student_id']);
-                $fullName = htmlspecialchars($student['fullName']);
-                $midtermGrade = htmlspecialchars($student['midterm_grade'] ?? '');
-                $finalGrade = htmlspecialchars($student['final_grade'] ?? '');
-                $status = htmlspecialchars($student['status'] ?? '');
+                                                                            // Function to render students with grades
+                                                                            function renderStudentsWithGrades($students, $gradeOptions)
+                                                                            {
+                                                                                foreach ($students as $student) {
+                                                                                    $studentId = htmlspecialchars($student['student_id']);
+                                                                                    $fullName = htmlspecialchars($student['fullName']);
+                                                                                    $midtermGrade = htmlspecialchars($student['midterm_grade'] ?? '');
+                                                                                    $finalGrade = htmlspecialchars($student['final_grade'] ?? '');
+                                                                                    $status = htmlspecialchars($student['status'] ?? '');
 
-                // Disable editing if status is 'accepted' or 'for_approval'
-                $isEditable = ($status !== 'accepted' && $status !== 'for_approval');
+                                                                                    // Disable editing if status is 'accepted' or 'for_approval'
+                                                                                    $isEditable = ($status !== 'accepted' && $status !== 'for_approval');
 
-                echo "<tr>
+                                                                                    echo "<tr>
                     <td>$fullName</td>
                     <td>
                         Midterm:
@@ -3498,30 +3498,31 @@ if ($class_id) {
                         " . (!$isEditable ? "<input type='hidden' name='grades[$studentId][final]' value='$finalGrade'>" : "") . "
                     </td>
                 </tr>";
-            }
-        }
+                                                                                }
+                                                                            }
 
-        // Function to render grade options
-        function renderGradeOptions($selectedGrade, $gradeOptions = []) {
-            $optionsHtml = '';
-            if (!empty($selectedGrade)) {
-                $optionsHtml .= "<option value='$selectedGrade' selected>$selectedGrade</option>";
-            }
-            foreach ($gradeOptions as $option) {
-                if ($option !== $selectedGrade) {
-                    $optionsHtml .= "<option value='$option'>$option</option>";
-                }
-            }
-            return $optionsHtml;
-        }
+                                                                            // Function to render grade options
+                                                                            function renderGradeOptions($selectedGrade, $gradeOptions = [])
+                                                                            {
+                                                                                $optionsHtml = '';
+                                                                                if (!empty($selectedGrade)) {
+                                                                                    $optionsHtml .= "<option value='$selectedGrade' selected>$selectedGrade</option>";
+                                                                                }
+                                                                                foreach ($gradeOptions as $option) {
+                                                                                    if ($option !== $selectedGrade) {
+                                                                                        $optionsHtml .= "<option value='$option'>$option</option>";
+                                                                                    }
+                                                                                }
+                                                                                return $optionsHtml;
+                                                                            }
 
-        // Begin rendering students
-        if (!empty($maleStudents) || !empty($femaleStudents)) {
-            echo "<form method='POST' action='save_grades.php?class_id=$class_id&subject_id=$subject_id'>";
+                                                                            // Begin rendering students
+                                                                            if (!empty($maleStudents) || !empty($femaleStudents)) {
+                                                                                echo "<form method='POST' action='save_grades.php?class_id=$class_id&subject_id=$subject_id'>";
 
-            if (!empty($maleStudents)) {
-                echo "<h4 class='text-center bold'>Male Students</h4>";
-                echo "<table class='grades-table'>
+                                                                                if (!empty($maleStudents)) {
+                                                                                    echo "<h4 class='text-center bold'>Male Students</h4>";
+                                                                                    echo "<table class='grades-table'>
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -3530,15 +3531,15 @@ if ($class_id) {
                         </tr>
                     </thead>
                     <tbody>";
-                renderStudentsWithGrades($maleStudents, ['3.0', 'N/A', 'INC', 'AW', 'UW']);
-                echo "</tbody></table>";
-            } else {
-                echo "<p class='no-students text-center'>No male students are enrolled in this class.</p>";
-            }
+                                                                                    renderStudentsWithGrades($maleStudents, ['3.0', 'N/A', 'INC', 'AW', 'UW']);
+                                                                                    echo "</tbody></table>";
+                                                                                } else {
+                                                                                    echo "<p class='no-students text-center'>No male students are enrolled in this class.</p>";
+                                                                                }
 
-            if (!empty($femaleStudents)) {
-                echo "<h4 class='text-center bold'>Female Students</h4>";
-                echo "<table class='grades-table'>
+                                                                                if (!empty($femaleStudents)) {
+                                                                                    echo "<h4 class='text-center bold'>Female Students</h4>";
+                                                                                    echo "<table class='grades-table'>
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -3547,74 +3548,74 @@ if ($class_id) {
                         </tr>
                     </thead>
                     <tbody>";
-                renderStudentsWithGrades($femaleStudents, ['3.0', 'N/A', 'INC', 'AW', 'UW']);
-                echo "</tbody></table>";
-            } else {
-                echo "<p class='no-students text-center'>No female students are enrolled in this class.</p>";
-            }
+                                                                                    renderStudentsWithGrades($femaleStudents, ['3.0', 'N/A', 'INC', 'AW', 'UW']);
+                                                                                    echo "</tbody></table>";
+                                                                                } else {
+                                                                                    echo "<p class='no-students text-center'>No female students are enrolled in this class.</p>";
+                                                                                }
 
-          
-            echo "</form>";
-        } else {
-            echo "<p class='no-students text-center'>No students are enrolled in this class yet.</p>";
-        }
-    } else {
-        echo "<p class='no-students text-center'>No students are enrolled in this class yet.</p>";
-    }
-} else {
-    echo "<p class='error'>Class not found.</p>";
-}
-?>
-</div>
 
-                                                            <!-- Button display logic -->
+                                                                                echo "</form>";
+                                                                            } else {
+                                                                                echo "<p class='no-students text-center'>No students are enrolled in this class yet.</p>";
+                                                                            }
+                                                                        } else {
+                                                                            echo "<p class='no-students text-center'>No students are enrolled in this class yet.</p>";
+                                                                        }
+                                                                    } else {
+                                                                        echo "<p class='error'>Class not found.</p>";
+                                                                    }
+                                                                    ?>
+                                                                </div>
 
-                                                            <div class="modal fade" id="alertModal" tabindex="-1"
-                                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                                <div class="modal-dialog modal-dialog-centered">
-                                                                    <div class="modal-content">
-                                                                        <div class="modal-header">
-                                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">
-                                                                                Class
-                                                                                requirements are lacking!</h1>
-                                                                            <button type="button" class="btn-close"
-                                                                                data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                        </div>
-                                                                        <div class="modal-body">
-                                                                            <p class="text-secondary">
-                                                                            <ul>
-                                                                                <li class="text-secondary">
-                                                                                    Midterm Components Requirement: (3 quizzes, 1
-                                                                                    activity,
-                                                                                    attendance/s, 1 or
-                                                                                    more projects and and examination)
-                                                                                </li>
-                                                                                <li class="text-secondary">
-                                                                                    Finals Components Requirement: (3 quizzes, 1
-                                                                                    activity,
-                                                                                    attendance/s, 1 or
-                                                                                    more projects and and examination)
-                                                                                </li>
-                                                                                <li class="text-secondary">
-                                                                                    <b>All</b> necessary components (6 quizzes, 1
-                                                                                    activity,
-                                                                                    attendance, 1 or
-                                                                                    more projects and 2 exams)
-                                                                                    must be before being able to submit this to the
-                                                                                    dean!
-                                                                                </li>
-                                                                            </ul>
+                                                                <!-- Button display logic -->
 
-                                                                            </p>
-                                                                        </div>
-                                                                        <div class="modal-footer">
-                                                                            <button type="button" class="btn btn-secondary"
-                                                                                data-bs-dismiss="modal">Close</button>
+                                                                <div class="modal fade" id="alertModal" tabindex="-1"
+                                                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                    <div class="modal-dialog modal-dialog-centered">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h1 class="modal-title fs-5" id="exampleModalLabel">
+                                                                                    Class
+                                                                                    requirements are lacking!</h1>
+                                                                                <button type="button" class="btn-close"
+                                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <p class="text-secondary">
+                                                                                <ul>
+                                                                                    <li class="text-secondary">
+                                                                                        Midterm Components Requirement: (3 quizzes, 1
+                                                                                        activity,
+                                                                                        attendance/s, 1 or
+                                                                                        more projects and and examination)
+                                                                                    </li>
+                                                                                    <li class="text-secondary">
+                                                                                        Finals Components Requirement: (3 quizzes, 1
+                                                                                        activity,
+                                                                                        attendance/s, 1 or
+                                                                                        more projects and and examination)
+                                                                                    </li>
+                                                                                    <li class="text-secondary">
+                                                                                        <b>All</b> necessary components (6 quizzes, 1
+                                                                                        activity,
+                                                                                        attendance, 1 or
+                                                                                        more projects and 2 exams)
+                                                                                        must be before being able to submit this to the
+                                                                                        dean!
+                                                                                    </li>
+                                                                                </ul>
 
+                                                                                </p>
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-secondary"
+                                                                                    data-bs-dismiss="modal">Close</button>
+
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
 
 
                                                             </div>
@@ -3628,7 +3629,7 @@ if ($class_id) {
                                                                 <div class="d-flex align-items-center">
                                                                     <h2 class="bold">Learning Resources</h2>
                                                                     <div class="ms-auto" aria-hidden="true">
-                                                                  
+
                                                                     </div>
                                                                 </div>
 
@@ -3789,7 +3790,7 @@ if ($class_id) {
                                                                                         </p>
                                                                                         <button class="btn btn-info" data-bs-toggle="modal"
                                                                                             data-bs-target="#viewResourceModal<?= $resource['resource_id'] ?>">View</button>
-                                                                                       
+
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -3890,160 +3891,160 @@ if ($class_id) {
                                                             </script>
 
 
-                                                        </div>
+                                                            </div>
 
-                                                        <!-- Upload Resource Modal -->
-                                                        <div class="modal fade" id="uploadResourceModal" tabindex="-1"
-                                                            aria-labelledby="uploadResourceModalLabel" aria-hidden="true">
-                                                            <div class="modal-dialog modal-dialog-centered">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title" id="uploadResourceModalLabel">Upload
-                                                                            Learning
-                                                                            Resource</h5>
-                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                                            aria-label="Close"></button>
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        <form id="uploadResourceForm"
-                                                                            action="processes/teachers/materials/upload.php?class_id=<?php echo $_GET['class_id'] ?>&subject_id=<?php echo $_GET['subject_id'] ?>"
-                                                                            enctype="multipart/form-data" method="POST">
-                                                                            <div class="mb-3">
-                                                                                <label for="resourceTitle" class="form-label">Resource
-                                                                                    Title</label>
-                                                                                <input type="text" class="form-control"
-                                                                                    id="resourceTitle" name="resource_title" required
-                                                                                    placeholder="Enter resource title">
-                                                                            </div>
-                                                                            <div class="mb-3">
-                                                                                <label for="resourceDescription"
-                                                                                    class="form-label">Description</label>
-                                                                                <textarea class="form-control" id="resourceDescription"
-                                                                                    name="resource_description" rows="3" required
-                                                                                    placeholder="Enter a brief description of the resource"></textarea>
-                                                                            </div>
-                                                                            <div class="mb-3">
-                                                                                <label for="resourceType" class="form-label">Resource
-                                                                                    Type</label>
-                                                                                <select class="form-select" id="resourceType"
-                                                                                    name="resource_type" required>
-                                                                                    <option value="document">Document</option>
-                                                                                    <option value="video">Video</option>
-                                                                                    <option value="audio">Audio</option>
-                                                                                    <option value="image">Image</option>
-                                                                                </select>
-                                                                            </div>
-                                                                            <div class="mb-3">
-                                                                                <label for="resourceFile" class="form-label">Select
-                                                                                    File</label>
-                                                                                <input type="file" class="form-control"
-                                                                                    id="resourceFile" name="resource_file" required>
-                                                                                <small id="fileHelp"
-                                                                                    class="form-text text-muted">Accepted file
-                                                                                    types: .pdf, .doc, .docx</small>
-                                                                            </div>
-                                                                            <div class="mb-3">
-                                                                                <button type="submit" class="btn btn-primary">Upload
-                                                                                    Resource</button>
-                                                                            </div>
-                                                                        </form>
+                                                            <!-- Upload Resource Modal -->
+                                                            <div class="modal fade" id="uploadResourceModal" tabindex="-1"
+                                                                aria-labelledby="uploadResourceModalLabel" aria-hidden="true">
+                                                                <div class="modal-dialog modal-dialog-centered">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title" id="uploadResourceModalLabel">Upload
+                                                                                Learning
+                                                                                Resource</h5>
+                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                                aria-label="Close"></button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <form id="uploadResourceForm"
+                                                                                action="processes/teachers/materials/upload.php?class_id=<?php echo $_GET['class_id'] ?>&subject_id=<?php echo $_GET['subject_id'] ?>"
+                                                                                enctype="multipart/form-data" method="POST">
+                                                                                <div class="mb-3">
+                                                                                    <label for="resourceTitle" class="form-label">Resource
+                                                                                        Title</label>
+                                                                                    <input type="text" class="form-control"
+                                                                                        id="resourceTitle" name="resource_title" required
+                                                                                        placeholder="Enter resource title">
+                                                                                </div>
+                                                                                <div class="mb-3">
+                                                                                    <label for="resourceDescription"
+                                                                                        class="form-label">Description</label>
+                                                                                    <textarea class="form-control" id="resourceDescription"
+                                                                                        name="resource_description" rows="3" required
+                                                                                        placeholder="Enter a brief description of the resource"></textarea>
+                                                                                </div>
+                                                                                <div class="mb-3">
+                                                                                    <label for="resourceType" class="form-label">Resource
+                                                                                        Type</label>
+                                                                                    <select class="form-select" id="resourceType"
+                                                                                        name="resource_type" required>
+                                                                                        <option value="document">Document</option>
+                                                                                        <option value="video">Video</option>
+                                                                                        <option value="audio">Audio</option>
+                                                                                        <option value="image">Image</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                                <div class="mb-3">
+                                                                                    <label for="resourceFile" class="form-label">Select
+                                                                                        File</label>
+                                                                                    <input type="file" class="form-control"
+                                                                                        id="resourceFile" name="resource_file" required>
+                                                                                    <small id="fileHelp"
+                                                                                        class="form-text text-muted">Accepted file
+                                                                                        types: .pdf, .doc, .docx</small>
+                                                                                </div>
+                                                                                <div class="mb-3">
+                                                                                    <button type="submit" class="btn btn-primary">Upload
+                                                                                        Resource</button>
+                                                                                </div>
+                                                                            </form>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
 
-                                                        <script>
-                                                            document.addEventListener('DOMContentLoaded', function() {
-                                                                const resourceType = document.getElementById('resourceType');
-                                                                const resourceFile = document.getElementById('resourceFile');
-                                                                const fileHelp = document.getElementById('fileHelp');
+                                                            <script>
+                                                                document.addEventListener('DOMContentLoaded', function() {
+                                                                    const resourceType = document.getElementById('resourceType');
+                                                                    const resourceFile = document.getElementById('resourceFile');
+                                                                    const fileHelp = document.getElementById('fileHelp');
 
-                                                                const fileTypeMap = {
-                                                                    'document': {
-                                                                        types: '.pdf,.doc,.docx',
-                                                                        message: 'Accepted file types: .pdf, .doc, .docx'
-                                                                    },
-                                                                    'video': {
-                                                                        types: '.mp4,.avi,.mpeg',
-                                                                        message: 'Accepted file type: .mp4, .avi, .mpeg'
-                                                                    },
-                                                                    'audio': {
-                                                                        types: '.mp3,.ogg',
-                                                                        message: 'Accepted file type: .mp3, .ogg'
-                                                                    },
-                                                                    'image': {
-                                                                        types: '.jpg,.jpeg,.png,.gif',
-                                                                        message: 'Accepted file types: .jpg, .jpeg, .png, .gif'
-                                                                    }
-                                                                };
-
-                                                                resourceType.addEventListener('change', function() {
-                                                                    const selectedType = resourceType.value;
-                                                                    const fileInfo = fileTypeMap[selectedType] || {
-                                                                        types: '',
-                                                                        message: ''
+                                                                    const fileTypeMap = {
+                                                                        'document': {
+                                                                            types: '.pdf,.doc,.docx',
+                                                                            message: 'Accepted file types: .pdf, .doc, .docx'
+                                                                        },
+                                                                        'video': {
+                                                                            types: '.mp4,.avi,.mpeg',
+                                                                            message: 'Accepted file type: .mp4, .avi, .mpeg'
+                                                                        },
+                                                                        'audio': {
+                                                                            types: '.mp3,.ogg',
+                                                                            message: 'Accepted file type: .mp3, .ogg'
+                                                                        },
+                                                                        'image': {
+                                                                            types: '.jpg,.jpeg,.png,.gif',
+                                                                            message: 'Accepted file types: .jpg, .jpeg, .png, .gif'
+                                                                        }
                                                                     };
 
-                                                                    resourceFile.setAttribute('accept', fileInfo.types);
-                                                                    fileHelp.textContent = fileInfo.message;
+                                                                    resourceType.addEventListener('change', function() {
+                                                                        const selectedType = resourceType.value;
+                                                                        const fileInfo = fileTypeMap[selectedType] || {
+                                                                            types: '',
+                                                                            message: ''
+                                                                        };
+
+                                                                        resourceFile.setAttribute('accept', fileInfo.types);
+                                                                        fileHelp.textContent = fileInfo.message;
+                                                                    });
+
+                                                                    // Set initial file type filter and message
+                                                                    const initialType = resourceType.value;
+                                                                    resourceFile.setAttribute('accept', fileTypeMap[initialType].types);
+                                                                    fileHelp.textContent = fileTypeMap[initialType].message;
                                                                 });
-
-                                                                // Set initial file type filter and message
-                                                                const initialType = resourceType.value;
-                                                                resourceFile.setAttribute('accept', fileTypeMap[initialType].types);
-                                                                fileHelp.textContent = fileTypeMap[initialType].message;
-                                                            });
-                                                        </script>
+                                                            </script>
 
 
-                                                        <!-- View Resource Modal -->
+                                                            <!-- View Resource Modal -->
 
 
-                                                        <script>
-                                                            function confirmDelete(resourceId) {
-                                                                Swal.fire({
-                                                                    title: 'Are you sure?',
-                                                                    text: "You won't be able to revert this!",
-                                                                    icon: 'warning',
-                                                                    showCancelButton: true,
-                                                                    confirmButtonColor: '#3085d6',
-                                                                    cancelButtonColor: '#d33',
-                                                                    confirmButtonText: 'Yes, delete it!'
-                                                                }).then((result) => {
-                                                                    if (result.isConfirmed) {
-                                                                        // AJAX request to delete the resource
-                                                                        fetch(`processes/teachers/materials/delete.php?resource_id=${resourceId}`, {
-                                                                                method: 'GET'
-                                                                            }).then(response => response.text())
-                                                                            .then(data => {
-                                                                                Swal.fire(
-                                                                                    'Deleted!',
-                                                                                    'Your resource has been deleted.',
-                                                                                    'success'
-                                                                                ).then(() => {
-                                                                                    location
-                                                                                        .reload(); // Reload the page to update the resource list
+                                                            <script>
+                                                                function confirmDelete(resourceId) {
+                                                                    Swal.fire({
+                                                                        title: 'Are you sure?',
+                                                                        text: "You won't be able to revert this!",
+                                                                        icon: 'warning',
+                                                                        showCancelButton: true,
+                                                                        confirmButtonColor: '#3085d6',
+                                                                        cancelButtonColor: '#d33',
+                                                                        confirmButtonText: 'Yes, delete it!'
+                                                                    }).then((result) => {
+                                                                        if (result.isConfirmed) {
+                                                                            // AJAX request to delete the resource
+                                                                            fetch(`processes/teachers/materials/delete.php?resource_id=${resourceId}`, {
+                                                                                    method: 'GET'
+                                                                                }).then(response => response.text())
+                                                                                .then(data => {
+                                                                                    Swal.fire(
+                                                                                        'Deleted!',
+                                                                                        'Your resource has been deleted.',
+                                                                                        'success'
+                                                                                    ).then(() => {
+                                                                                        location
+                                                                                            .reload(); // Reload the page to update the resource list
+                                                                                    });
+                                                                                }).catch(error => {
+                                                                                    console.error('Error:', error);
+                                                                                    Swal.fire(
+                                                                                        'Error!',
+                                                                                        'Failed to delete the resource.',
+                                                                                        'error'
+                                                                                    );
                                                                                 });
-                                                                            }).catch(error => {
-                                                                                console.error('Error:', error);
-                                                                                Swal.fire(
-                                                                                    'Error!',
-                                                                                    'Failed to delete the resource.',
-                                                                                    'error'
-                                                                                );
-                                                                            });
-                                                                    }
-                                                                });
-                                                            }
-                                                        </script>
-                                                    <?php } ?>
+                                                                        }
+                                                                    });
+                                                                }
+                                                            </script>
+                                                        <?php } ?>
+                                                        </div>
                                                     </div>
+
+
                                                 </div>
-
-
                                             </div>
                                         </div>
-                                    </div>
                         </main>
 
                     </div>

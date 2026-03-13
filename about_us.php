@@ -8,7 +8,7 @@ include('processes/server/alert_system.php');
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>WMSU - CCS | About Us</title>
+    <title>ADDU - CCS | About Us</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -35,9 +35,9 @@ include('processes/server/alert_system.php');
 </head>
 
 <body>
-<?php 
+    <?php
     include './header.php'
-?>
+    ?>
 
     <!-- About Us Content -->
     <div class="container my-5">
@@ -45,8 +45,8 @@ include('processes/server/alert_system.php');
             <div class="col-lg-8 mx-auto text-center">
                 <h1 class="fw-bold mb-4">About Us</h1>
                 <p class="mb-4">
-                    Welcome to the <strong>Western Mindanao State University - College of Computing Studies</strong> 
-                    Student Management System. We are dedicated to providing a seamless and efficient platform for 
+                    Welcome to the <strong>Ateneo de Davao University - College of Computing Studies</strong>
+                    Student Management System. We are dedicated to providing a seamless and efficient platform for
                     students, faculty, and administrators to manage academic activities and resources.
                 </p>
             </div>
@@ -59,7 +59,7 @@ include('processes/server/alert_system.php');
                         <i class="bi bi-building display-4 text-primary mb-3"></i>
                         <h3 class="card-title">Our Mission</h3>
                         <p class="card-text">
-                            To provide quality education and foster innovation in the field of computing and information 
+                            To provide quality education and foster innovation in the field of computing and information
                             technology, empowering students to become globally competitive professionals.
                         </p>
                     </div>
@@ -72,7 +72,7 @@ include('processes/server/alert_system.php');
                         <i class="bi bi-eye display-4 text-success mb-3"></i>
                         <h3 class="card-title">Our Vision</h3>
                         <p class="card-text">
-                            To be a leading institution in computing education, research, and community service, 
+                            To be a leading institution in computing education, research, and community service,
                             contributing to the advancement of technology and society.
                         </p>
                     </div>
@@ -85,7 +85,7 @@ include('processes/server/alert_system.php');
                         <i class="bi bi-people display-4 text-warning mb-3"></i>
                         <h3 class="card-title">Our Values</h3>
                         <p class="card-text">
-                            We uphold integrity, excellence, innovation, and inclusivity in all our endeavors, 
+                            We uphold integrity, excellence, innovation, and inclusivity in all our endeavors,
                             ensuring a supportive and dynamic learning environment for all.
                         </p>
                     </div>
@@ -95,20 +95,20 @@ include('processes/server/alert_system.php');
 
         <div class="row mt-5">
             <div class="history">
-            <div class="col-lg-8 mx-auto">
-                <h2 class="fw-bold mb-4" >Our History</h2>
-                <p>
-                    Established a very long time ago, the College of Computing Studies at Western Mindanao State University 
-                    has been at the forefront of computing education in the region. Over the years, we have 
-                    produced thousands of graduates who have excelled in various fields of information technology, 
-                    both locally and internationally.
-                </p>
-                <p>
-                    Our commitment to excellence and innovation has earned us recognition as one of the top 
-                    computing schools in the country. We continue to evolve and adapt to the changing landscape 
-                    of technology, ensuring that our students are well-prepared for the challenges of the future.
-                </p>
-            </div>
+                <div class="col-lg-8 mx-auto">
+                    <h2 class="fw-bold mb-4">Our History</h2>
+                    <p>
+                        Established a very long time ago, the College of Computing Studies at Ateneo de Davao University
+                        has been at the forefront of computing education in the region. Over the years, we have
+                        produced thousands of graduates who have excelled in various fields of information technology,
+                        both locally and internationally.
+                    </p>
+                    <p>
+                        Our commitment to excellence and innovation has earned us recognition as one of the top
+                        computing schools in the country. We continue to evolve and adapt to the changing landscape
+                        of technology, ensuring that our students are well-prepared for the challenges of the future.
+                    </p>
+                </div>
             </div>
         </div>
     </div>
@@ -116,7 +116,7 @@ include('processes/server/alert_system.php');
     <!-- Footer -->
     <footer class="bg-light text-center py-4">
         <div class="container">
-            <p class="mb-0">&copy; 2023 WMSU - CCS. All rights reserved.</p>
+            <p class="mb-0">&copy; 2023 ADDU - CCS. All rights reserved.</p>
         </div>
     </footer>
 
@@ -160,7 +160,8 @@ if (isset($_SESSION['STATUS']) && $_SESSION['STATUS'] == 'SEMESTER_NEAR_ENDING_N
         justify-content: center;
         text-align: center;
     }
-    .about{
+
+    .about {
         color: white;
     }
 </style>

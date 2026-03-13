@@ -13,7 +13,7 @@ include('processes/server/conn.php');
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>WMSU - CCS | Student Management System</title>
+    <title>ADDU - CCS | Student Management System</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="css/app.css" rel="stylesheet">
@@ -30,35 +30,35 @@ include('processes/server/conn.php');
 </head>
 
 <style>
-table.dataTable {
-    font-size: 12px;
-}
+    table.dataTable {
+        font-size: 12px;
+    }
 
-td {
-    text-align: center;
-    vertical-align: middle;
-    border-bottom: 1px solid black;
-    border: 1px solid black
-}
+    td {
+        text-align: center;
+        vertical-align: middle;
+        border-bottom: 1px solid black;
+        border: 1px solid black
+    }
 
-.btn-csms {
-    background-color: #709775;
-    color: white;
-}
+    .btn-csms {
+        background-color: #709775;
+        color: white;
+    }
 
-.btn-csms:hover {
-    border: 1px solid #709775;
-}
+    .btn-csms:hover {
+        border: 1px solid #709775;
+    }
 
-.grey-bg {
-    background-color: grey;
-    color: white;
-}
+    .grey-bg {
+        background-color: grey;
+        color: white;
+    }
 
-.small-logo {
-    height: 125px;
-    width: 125px;
-}
+    .small-logo {
+        height: 125px;
+        width: 125px;
+    }
 </style>
 
 <body>
@@ -91,11 +91,11 @@ td {
                                     class="container text-center d-flex align-items-center justify-content-center my-3">
                                     <div class="row w-100 d-flex align-items-center justify-content-center">
                                         <div class="col-2 d-flex justify-content-center">
-                                            <img src="../external/img/wmsu_Logo-removebg-preview.png"
+                                            <img src="../external/img/ADDU_Logo-removebg-preview.png"
                                                 class="img-fluid small-logo">
                                         </div>
                                         <div class="col-8 text-center">
-                                            <!-- <h5 class="bold mb-1">Western Mindanao State University</h5> -->
+                                            <!-- <h5 class="bold mb-1">Ateneo de Davao University</h5> -->
                                             <h5 class="mb-1">College of Computing Studies</h5>
                                             <h5>Zamboanga City</h5>
                                         </div>
@@ -177,42 +177,42 @@ td {
 
 
                                 <style>
-                                table.dataTable {
-                                    font-size: 12px;
-                                    border: 1px solid black;
-                                    padding: 8px;
-                                    text-align: center;
-                                }
+                                    table.dataTable {
+                                        font-size: 12px;
+                                        border: 1px solid black;
+                                        padding: 8px;
+                                        text-align: center;
+                                    }
 
 
 
-                                .table tr,
-                                td {
-                                    border: 1px solid black !important;
-                                    text-align: center;
-                                }
+                                    .table tr,
+                                    td {
+                                        border: 1px solid black !important;
+                                        text-align: center;
+                                    }
 
-                                .grader {
-                                    border: none !important;
-                                    text-align: center;
-                                }
+                                    .grader {
+                                        border: none !important;
+                                        text-align: center;
+                                    }
 
-                                input,
-                                select {
-                                    width: 100%;
-                                    box-sizing: border-box;
-                                }
+                                    input,
+                                    select {
+                                        width: 100%;
+                                        box-sizing: border-box;
+                                    }
 
-                                input[type="number"]::-webkit-outer-spin-button,
-                                input[type="number"]::-webkit-inner-spin-button {
-                                    -webkit-appearance: none;
-                                    margin: 0;
-                                }
+                                    input[type="number"]::-webkit-outer-spin-button,
+                                    input[type="number"]::-webkit-inner-spin-button {
+                                        -webkit-appearance: none;
+                                        margin: 0;
+                                    }
 
-                                .grader:focus {
-                                    border: none;
-                                    outline: none;
-                                }
+                                    .grader:focus {
+                                        border: none;
+                                        outline: none;
+                                    }
                                 </style>
 
                                 <?php
@@ -319,253 +319,268 @@ GROUP BY type";
 
                                 $total = $totalQuizzes + $totalTripleA + $totalExams + 100;
 
-                           
+
 
                                 ?>
 
 
-<style>
-    /* Existing styles */
-    .table-smaller-text {
-        font-size: 0.85rem;
-    }
-    .table-smaller-text th, 
-    .table-smaller-text td {
-        padding: 4px;
-    }
+                                <style>
+                                    /* Existing styles */
+                                    .table-smaller-text {
+                                        font-size: 0.85rem;
+                                    }
 
-    /* Adjusted input styles */
-    .score-input, .total-score
- {
-        padding: 2px 4px; /* Minimal padding: 2px vertical, 4px horizontal for breathing room */
-        font-size: 0.8rem;
-        width: auto; /* Base width to fit small numbers */
-        max-width: 70px; /* Cap width to prevent over-expansion */
-        min-width: 40px; /* Ensure minimum width for single digits */
-        box-sizing: border-box; /* Include padding in width */
-        text-align: center; /* Center numbers for better fit */
-    }
+                                    .table-smaller-text th,
+                                    .table-smaller-text td {
+                                        padding: 4px;
+                                    }
 
-    .attendance-select{
-        padding: 2px 4px; /* Minimal padding: 2px vertical, 4px horizontal for breathing room */
-        font-size: 0.8rem;
-        width: 85px; /* Base width to fit small numbers */
-        box-sizing: border-box; /* Include padding in width */
-        text-align: center; /* Center numbers for better fit */
-    }
+                                    /* Adjusted input styles */
+                                    .score-input,
+                                    .total-score {
+                                        padding: 2px 4px;
+                                        /* Minimal padding: 2px vertical, 4px horizontal for breathing room */
+                                        font-size: 0.8rem;
+                                        width: auto;
+                                        /* Base width to fit small numbers */
+                                        max-width: 70px;
+                                        /* Cap width to prevent over-expansion */
+                                        min-width: 40px;
+                                        /* Ensure minimum width for single digits */
+                                        box-sizing: border-box;
+                                        /* Include padding in width */
+                                        text-align: center;
+                                        /* Center numbers for better fit */
+                                    }
 
-    
-    .grade-select{
-        padding: 2px 4px; /* Minimal padding: 2px vertical, 4px horizontal for breathing room */
-        font-size: 0.8rem;
-        width: 55px; /* Base width to fit small numbers */
-        box-sizing: border-box; /* Include padding in width */
-        text-align: center; /* Center numbers for better fit */
-    }
-</style>
+                                    .attendance-select {
+                                        padding: 2px 4px;
+                                        /* Minimal padding: 2px vertical, 4px horizontal for breathing room */
+                                        font-size: 0.8rem;
+                                        width: 85px;
+                                        /* Base width to fit small numbers */
+                                        box-sizing: border-box;
+                                        /* Include padding in width */
+                                        text-align: center;
+                                        /* Center numbers for better fit */
+                                    }
 
-<table class="table table-smaller-text">
-    <!-- Your existing thead remains largely unchanged -->
-    <thead>
-        <tr>
-            <td class="text-center" colspan="<?php echo 2 + count($quizzes) + 1 + count($assignments) + 1 + count($activitiesAll) + 1 + count($meetings) + 1 + count($exams) + 1 + 3; ?>">
-                <b>Worksheets</b>
-            </td>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td colspan="2"><b>Criteria</b></td>
-            <td colspan="<?php echo $totalQuizzes ?>" class="text-center">
-                <b>Quizzes (<input class="grader" id="quizzesPercentage" type="number"
-                    style="width:11%;" value="<?php echo $quizzesPercentage ?>"
-                    oninput="updateRubric('quizzes', this.value)">%)</b>
-            </td>
-            <td colspan="<?php echo $totalTripleA ?>">
-                <b>Assignments / Attendance / Activities (<input class="grader" id="assignmentsPercentage"
-                    type="number" style="width:10%;"
-                    value="<?php echo $assignments_activities_attendancePercentage ?>"
-                    oninput="updateRubric('assignments', this.value)">%)</b>
-            </td>
-            <td colspan="<?php echo $totalExams ?>">
-                <b>Exams (<input id="examPercentage" class="grader" type="number" style="width:11%;"
-                    value="<?php echo $majorExamPercentage ?>"
-                    oninput="updateRubric('exam', this.value)">%)</b>
-            </td>
-            <td><b>Midterms</b></td>
-            <td><b>Finals</b></td>
-            <td><b>GPA</b></td>
-        </tr>
 
-        <!-- Your header row remains unchanged -->
-        <tr>
-            <td scope="col"><b>Student ID</b></td>
-            <td scope="col"><b>Student Name</b></td>
-            <?php if (!empty($quizzes)): ?>
-                <?php foreach ($quizzes as $index => $quiz): ?>
-                    <td scope="col"><b>Q<?= $index + 1 ?> <br> (<?= $quiz['max_points'] ?>)</b></td>
-                <?php endforeach; ?>
-                <td scope="col"><b>TOTAL <br> (<?= $totalPoints['quiz'] ?? 0 ?>)</b></td>
-            <?php else: ?>
-                <td colspan="<?php echo $totalQuizzes ?>" class="text-center">No quizzes yet</td>
-            <?php endif; ?>
+                                    .grade-select {
+                                        padding: 2px 4px;
+                                        /* Minimal padding: 2px vertical, 4px horizontal for breathing room */
+                                        font-size: 0.8rem;
+                                        width: 55px;
+                                        /* Base width to fit small numbers */
+                                        box-sizing: border-box;
+                                        /* Include padding in width */
+                                        text-align: center;
+                                        /* Center numbers for better fit */
+                                    }
+                                </style>
 
-            <?php if (!empty($assignments)): ?>
-                <?php foreach ($assignments as $index => $assignment): ?>
-                    <td class="border-1"><b>ASS<?= $index + 1 ?> <br> (<?= $assignment['max_points'] ?>)</b></td>
-                <?php endforeach; ?>
-                <td scope="col"><b>TOTAL <br> (<?= $totalPoints['assignment'] ?? 0 ?>)</b></td>
-            <?php else: ?>
-                <td class="text-center">No assignments yet</td>
-            <?php endif; ?>
+                                <table class="table table-smaller-text">
+                                    <!-- Your existing thead remains largely unchanged -->
+                                    <thead>
+                                        <tr>
+                                            <td class="text-center" colspan="<?php echo 2 + count($quizzes) + 1 + count($assignments) + 1 + count($activitiesAll) + 1 + count($meetings) + 1 + count($exams) + 1 + 3; ?>">
+                                                <b>Worksheets</b>
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="2"><b>Criteria</b></td>
+                                            <td colspan="<?php echo $totalQuizzes ?>" class="text-center">
+                                                <b>Quizzes (<input class="grader" id="quizzesPercentage" type="number"
+                                                        style="width:11%;" value="<?php echo $quizzesPercentage ?>"
+                                                        oninput="updateRubric('quizzes', this.value)">%)</b>
+                                            </td>
+                                            <td colspan="<?php echo $totalTripleA ?>">
+                                                <b>Assignments / Attendance / Activities (<input class="grader" id="assignmentsPercentage"
+                                                        type="number" style="width:10%;"
+                                                        value="<?php echo $assignments_activities_attendancePercentage ?>"
+                                                        oninput="updateRubric('assignments', this.value)">%)</b>
+                                            </td>
+                                            <td colspan="<?php echo $totalExams ?>">
+                                                <b>Exams (<input id="examPercentage" class="grader" type="number" style="width:11%;"
+                                                        value="<?php echo $majorExamPercentage ?>"
+                                                        oninput="updateRubric('exam', this.value)">%)</b>
+                                            </td>
+                                            <td><b>Midterms</b></td>
+                                            <td><b>Finals</b></td>
+                                            <td><b>GPA</b></td>
+                                        </tr>
 
-            <?php if (!empty($activitiesAll)): ?>
-                <?php foreach ($activitiesAll as $index => $activity): ?>
-                    <td class="border-1"><b>ACT<?= $index + 1 ?> <br> (<?= $activity['max_points'] ?>)</b></td>
-                <?php endforeach; ?>
-                <td scope="col"><b>TOTAL <br> (<?= $totalPoints['activity'] ?? 0 ?>)</b></td>
-            <?php else: ?>
-                <td class="text-center">No activities yet</td>
-            <?php endif; ?>
+                                        <!-- Your header row remains unchanged -->
+                                        <tr>
+                                            <td scope="col"><b>Student ID</b></td>
+                                            <td scope="col"><b>Student Name</b></td>
+                                            <?php if (!empty($quizzes)): ?>
+                                                <?php foreach ($quizzes as $index => $quiz): ?>
+                                                    <td scope="col"><b>Q<?= $index + 1 ?> <br> (<?= $quiz['max_points'] ?>)</b></td>
+                                                <?php endforeach; ?>
+                                                <td scope="col"><b>TOTAL <br> (<?= $totalPoints['quiz'] ?? 0 ?>)</b></td>
+                                            <?php else: ?>
+                                                <td colspan="<?php echo $totalQuizzes ?>" class="text-center">No quizzes yet</td>
+                                            <?php endif; ?>
 
-            <?php
-            $countMeetings = 0;
-            if (!empty($meetings)): ?>
-                <?php foreach ($meetings as $meeting):
-                    $countMeetings++;
-                    $formattedDate = date("m/d/Y", strtotime($meeting['date']));
-                ?>
-                    <td scope="col"><b>ATT<?= $countMeetings ?> <br> (<?= $formattedDate ?>)</b></td>
-                <?php endforeach; ?>
-                <td scope="col"><b>TOTAL <br> (<?= $countMeetings ?>)</b></td>
-            <?php else: ?>
-                <td colspan="<?php echo $countMeetings ?>" class="text-center">No attendance records yet</td>
-            <?php endif; ?>
+                                            <?php if (!empty($assignments)): ?>
+                                                <?php foreach ($assignments as $index => $assignment): ?>
+                                                    <td class="border-1"><b>ASS<?= $index + 1 ?> <br> (<?= $assignment['max_points'] ?>)</b></td>
+                                                <?php endforeach; ?>
+                                                <td scope="col"><b>TOTAL <br> (<?= $totalPoints['assignment'] ?? 0 ?>)</b></td>
+                                            <?php else: ?>
+                                                <td class="text-center">No assignments yet</td>
+                                            <?php endif; ?>
 
-            <?php if (!empty($exams)): ?>
-                <?php foreach ($exams as $exam): ?>
-                    <td class="border-1"><b><?= ucfirst($exam['term']) ?> <br> (<?= $exam['max_points'] ?>)</b></td>
-                <?php endforeach; ?>
-                <td class="border-1"><b>TOTAL <br> (<?= $totalPoints['exam'] ?? 0 ?>)</b></td>
-            <?php else: ?>
-                <td colspan="<?php echo count($exams) ?>" class="text-center">No exams yet</td>
-            <?php endif; ?>
+                                            <?php if (!empty($activitiesAll)): ?>
+                                                <?php foreach ($activitiesAll as $index => $activity): ?>
+                                                    <td class="border-1"><b>ACT<?= $index + 1 ?> <br> (<?= $activity['max_points'] ?>)</b></td>
+                                                <?php endforeach; ?>
+                                                <td scope="col"><b>TOTAL <br> (<?= $totalPoints['activity'] ?? 0 ?>)</b></td>
+                                            <?php else: ?>
+                                                <td class="text-center">No activities yet</td>
+                                            <?php endif; ?>
 
-            <td><b>1 - 5</b></td>
-            <td><b>1 - 5</b></td>
-            <td><b>1 - 5</b></td>
-        </tr>
+                                            <?php
+                                            $countMeetings = 0;
+                                            if (!empty($meetings)): ?>
+                                                <?php foreach ($meetings as $meeting):
+                                                    $countMeetings++;
+                                                    $formattedDate = date("m/d/Y", strtotime($meeting['date']));
+                                                ?>
+                                                    <td scope="col"><b>ATT<?= $countMeetings ?> <br> (<?= $formattedDate ?>)</b></td>
+                                                <?php endforeach; ?>
+                                                <td scope="col"><b>TOTAL <br> (<?= $countMeetings ?>)</b></td>
+                                            <?php else: ?>
+                                                <td colspan="<?php echo $countMeetings ?>" class="text-center">No attendance records yet</td>
+                                            <?php endif; ?>
 
-        <?php if (!empty($students)): ?>
-            <?php foreach ($students as $student): ?>
-                <?php
-                if (!empty($activityIds)) {
-                    $placeholders = implode(',', array_fill(0, count($activityIds), '?'));
-                    $submissionsStmt = $pdo->prepare("SELECT activity_id, student_id, score FROM activity_submissions WHERE activity_id IN ($placeholders)");
-                    $submissionsStmt->execute($activityIds);
-                    $submissions = $submissionsStmt->fetchAll(PDO::FETCH_ASSOC);
-                } else {
-                    $submissions = [];
-                }
+                                            <?php if (!empty($exams)): ?>
+                                                <?php foreach ($exams as $exam): ?>
+                                                    <td class="border-1"><b><?= ucfirst($exam['term']) ?> <br> (<?= $exam['max_points'] ?>)</b></td>
+                                                <?php endforeach; ?>
+                                                <td class="border-1"><b>TOTAL <br> (<?= $totalPoints['exam'] ?? 0 ?>)</b></td>
+                                            <?php else: ?>
+                                                <td colspan="<?php echo count($exams) ?>" class="text-center">No exams yet</td>
+                                            <?php endif; ?>
 
-                $studentScores = [];
-                foreach ($submissions as $submission) {
-                    $studentScores[$submission['student_id']][$submission['activity_id']] = $submission['score'];
-                }
+                                            <td><b>1 - 5</b></td>
+                                            <td><b>1 - 5</b></td>
+                                            <td><b>1 - 5</b></td>
+                                        </tr>
 
-                $gradeStmt = $pdo->prepare("
+                                        <?php if (!empty($students)): ?>
+                                            <?php foreach ($students as $student): ?>
+                                                <?php
+                                                if (!empty($activityIds)) {
+                                                    $placeholders = implode(',', array_fill(0, count($activityIds), '?'));
+                                                    $submissionsStmt = $pdo->prepare("SELECT activity_id, student_id, score FROM activity_submissions WHERE activity_id IN ($placeholders)");
+                                                    $submissionsStmt->execute($activityIds);
+                                                    $submissions = $submissionsStmt->fetchAll(PDO::FETCH_ASSOC);
+                                                } else {
+                                                    $submissions = [];
+                                                }
+
+                                                $studentScores = [];
+                                                foreach ($submissions as $submission) {
+                                                    $studentScores[$submission['student_id']][$submission['activity_id']] = $submission['score'];
+                                                }
+
+                                                $gradeStmt = $pdo->prepare("
                     SELECT midterm_grade, final_grade, overall_grade 
                     FROM student_grades 
                     WHERE student_id = :student_id AND class_id = :class_id
                 ");
-                $gradeStmt->execute([
-                    'student_id' => $student['id'],
-                    'class_id' => $classId
-                ]);
-                $grades = $gradeStmt->fetch(PDO::FETCH_ASSOC);
-                $midtermGrade = $grades['midterm_grade'] ?? 'INC';
-                $finalGrade = $grades['final_grade'] ?? 'INC';
-                $overallGrade = $grades['overall_grade'] ?? 'INC';
-                ?>
+                                                $gradeStmt->execute([
+                                                    'student_id' => $student['id'],
+                                                    'class_id' => $classId
+                                                ]);
+                                                $grades = $gradeStmt->fetch(PDO::FETCH_ASSOC);
+                                                $midtermGrade = $grades['midterm_grade'] ?? 'INC';
+                                                $finalGrade = $grades['final_grade'] ?? 'INC';
+                                                $overallGrade = $grades['overall_grade'] ?? 'INC';
+                                                ?>
 
-                <tr>
-                    <td><b><?php echo htmlspecialchars($student['id']); ?></b></td>
-                    <td><b><?php echo htmlspecialchars($student['fullName']); ?></b></td>
+                                                <tr>
+                                                    <td><b><?php echo htmlspecialchars($student['id']); ?></b></td>
+                                                    <td><b><?php echo htmlspecialchars($student['fullName']); ?></b></td>
 
-                    <?php if (!empty($quizzes)): ?>
-                        <?php
-                        $quizTotal = 0;
-                        foreach ($quizzes as $quiz) {
-                            $studentId = $student['id'];
-                            $quizId = $quiz['id'];
-                            $score = $studentScores[$student['id']][$quiz['id']] ?? 0;
-                            $quizTotal += $score;
-                        ?>
-                            <td class='border-1'>
-                                <input type='number' name='scores[<?= $studentId ?>][<?= $quizId ?>]'
-                                    value='<?= $score ?>' class='form-control score-input' min='0'
-                                    data-student-id='<?= $studentId ?>' data-activity-id='<?= $quizId ?>'>
-                            </td>
-                        <?php } ?>
-                        <td class='border-1'>
-                            <input type='number' name='total[<?= $studentId ?>]'
-                                value='<?= $quizTotal ?>' class='form-control total-score' readonly>
-                        </td>
-                    <?php else: ?>
-                        <td colspan="<?= count($quizzes) ?>" class="text-center">No quizzes yet</td>
-                    <?php endif; ?>
+                                                    <?php if (!empty($quizzes)): ?>
+                                                        <?php
+                                                        $quizTotal = 0;
+                                                        foreach ($quizzes as $quiz) {
+                                                            $studentId = $student['id'];
+                                                            $quizId = $quiz['id'];
+                                                            $score = $studentScores[$student['id']][$quiz['id']] ?? 0;
+                                                            $quizTotal += $score;
+                                                        ?>
+                                                            <td class='border-1'>
+                                                                <input type='number' name='scores[<?= $studentId ?>][<?= $quizId ?>]'
+                                                                    value='<?= $score ?>' class='form-control score-input' min='0'
+                                                                    data-student-id='<?= $studentId ?>' data-activity-id='<?= $quizId ?>'>
+                                                            </td>
+                                                        <?php } ?>
+                                                        <td class='border-1'>
+                                                            <input type='number' name='total[<?= $studentId ?>]'
+                                                                value='<?= $quizTotal ?>' class='form-control total-score' readonly>
+                                                        </td>
+                                                    <?php else: ?>
+                                                        <td colspan="<?= count($quizzes) ?>" class="text-center">No quizzes yet</td>
+                                                    <?php endif; ?>
 
-                    <?php if (!empty($assignments)): ?>
-                        <?php
-                        $assignmentsTotal = 0;
-                        foreach ($assignments as $assignment) {
-                            $studentId = $student['id'];
-                            $assignmentId = $assignment['id'];
-                            $score = $studentScores[$student['id']][$assignment['id']] ?? 0;
-                            $assignmentsTotal += $score;
-                        ?>
-                            <td class='border-1'>
-                                <input type='number' name='scores[<?= $studentId ?>][<?= $assignmentId ?>]'
-                                    value='<?= $score ?>' class='form-control score-input' min='0'
-                                    data-student-id='<?= $studentId ?>' data-activity-id='<?= $assignmentId ?>'>
-                            </td>
-                        <?php } ?>
-                        <td class='border-1'>
-                            <input type='number' name='total[<?= $studentId ?>]'
-                                value='<?= $assignmentsTotal ?>' class='form-control total-score' readonly>
-                        </td>
-                    <?php else: ?>
-                        <td colspan="<?= count($assignments) ?>" class="text-center">No assignments yet</td>
-                    <?php endif; ?>
+                                                    <?php if (!empty($assignments)): ?>
+                                                        <?php
+                                                        $assignmentsTotal = 0;
+                                                        foreach ($assignments as $assignment) {
+                                                            $studentId = $student['id'];
+                                                            $assignmentId = $assignment['id'];
+                                                            $score = $studentScores[$student['id']][$assignment['id']] ?? 0;
+                                                            $assignmentsTotal += $score;
+                                                        ?>
+                                                            <td class='border-1'>
+                                                                <input type='number' name='scores[<?= $studentId ?>][<?= $assignmentId ?>]'
+                                                                    value='<?= $score ?>' class='form-control score-input' min='0'
+                                                                    data-student-id='<?= $studentId ?>' data-activity-id='<?= $assignmentId ?>'>
+                                                            </td>
+                                                        <?php } ?>
+                                                        <td class='border-1'>
+                                                            <input type='number' name='total[<?= $studentId ?>]'
+                                                                value='<?= $assignmentsTotal ?>' class='form-control total-score' readonly>
+                                                        </td>
+                                                    <?php else: ?>
+                                                        <td colspan="<?= count($assignments) ?>" class="text-center">No assignments yet</td>
+                                                    <?php endif; ?>
 
-                    <?php if (!empty($activitiesAll)): ?>
-                        <?php
-                        $activitiesTotal = 0;
-                        foreach ($activitiesAll as $activity) {
-                            $studentId = $student['id'];
-                            $activityId = $activity['id'];
-                            $score = $studentScores[$student['id']][$activity['id']] ?? 0;
-                            $activitiesTotal += $score;
-                        ?>
-                            <td class='border-1'>
-                                <input type='number' name='scores[<?= $studentId ?>][<?= $activityId ?>]'
-                                    value='<?= $score ?>' class='form-control score-input' min='0'
-                                    data-student-id='<?= $studentId ?>' data-activity-id='<?= $activityId ?>'>
-                            </td>
-                        <?php } ?>
-                        <td class='border-1'>
-                            <input type='number' name='total[<?= $studentId ?>]'
-                                value='<?= $activitiesTotal ?>' class='form-control total-score' readonly>
-                        </td>
-                    <?php else: ?>
-                        <td colspan="<?= count($activitiesAll) ?>" class="text-center">No activities yet</td>
-                    <?php endif; ?>
+                                                    <?php if (!empty($activitiesAll)): ?>
+                                                        <?php
+                                                        $activitiesTotal = 0;
+                                                        foreach ($activitiesAll as $activity) {
+                                                            $studentId = $student['id'];
+                                                            $activityId = $activity['id'];
+                                                            $score = $studentScores[$student['id']][$activity['id']] ?? 0;
+                                                            $activitiesTotal += $score;
+                                                        ?>
+                                                            <td class='border-1'>
+                                                                <input type='number' name='scores[<?= $studentId ?>][<?= $activityId ?>]'
+                                                                    value='<?= $score ?>' class='form-control score-input' min='0'
+                                                                    data-student-id='<?= $studentId ?>' data-activity-id='<?= $activityId ?>'>
+                                                            </td>
+                                                        <?php } ?>
+                                                        <td class='border-1'>
+                                                            <input type='number' name='total[<?= $studentId ?>]'
+                                                                value='<?= $activitiesTotal ?>' class='form-control total-score' readonly>
+                                                        </td>
+                                                    <?php else: ?>
+                                                        <td colspan="<?= count($activitiesAll) ?>" class="text-center">No activities yet</td>
+                                                    <?php endif; ?>
 
-                    <?php
-                    $meetings = [];
-                    $totalPresents = 0;
-                    try {
-                        $stmt = $pdo->prepare("
+                                                    <?php
+                                                    $meetings = [];
+                                                    $totalPresents = 0;
+                                                    try {
+                                                        $stmt = $pdo->prepare("
                             SELECT DISTINCT cm.id, cm.date, cm.class_id, a.student_id, a.status as attendance_status
                             FROM classes_meetings cm
                             LEFT JOIN attendance a ON cm.id = a.meeting_id 
@@ -574,127 +589,127 @@ GROUP BY type";
                             AND cm.class_id = :class_id
                             ORDER BY cm.date ASC
                         ");
-                        $stmt->execute([
-                            'student_id' => $student['id'],
-                            'class_id' => $classId
-                        ]);
-                        $meetings = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                        foreach ($meetings as $meeting) {
-                            if ($meeting['attendance_status'] === 'present') {
-                                $totalPresents++;
-                            }
-                        }
-                    } catch (PDOException $e) {
-                        echo "Error fetching meetings for student {$student['id']}: " . $e->getMessage();
-                    }
-                    ?>
-                    <?php if (!empty($meetings)): ?>
-                     
-                        <?php
-                        $meetingCount = 0;
-                        $processedMeetings = [];
-                        foreach ($meetings as $meeting):
-                          
-                            if (in_array($meeting['id'], $processedMeetings)) continue;
-                            $processedMeetings[] = $meeting['id'];
-                            $meetingCount++;
-                        ?>
-                            <td scope="col text-center">
-                                <select name="attendance[<?= $student['id'] ?>][<?= $meeting['id'] ?>]"
-                                    class="form-control attendance-select"
-                                    data-student-id='<?= $student['id'] ?>' data-meeting-id='<?= $meeting['id'] ?>'>
-                                    <option value="present" <?= ($meeting['attendance_status'] === 'present') ? 'selected' : '' ?>>Present</option>
-                                    <option value="absent" <?= ($meeting['attendance_status'] === 'absent') ? 'selected' : '' ?>>Absent</option>
-                                </select>
-                            </td>
-                        <?php endforeach; ?>
-                        <td scope="col">
-                            <input type="number" name="total_presents[<?= $student['id'] ?>]"
-                                value="<?= $totalPresents ?>" class="form-control total-presents total-score" readonly>
-                        </td>
-                    <?php else: ?>
-                        <td colspan="1" class="text-center">No attendance records found for this record.</td>
-                    <?php endif; ?>
+                                                        $stmt->execute([
+                                                            'student_id' => $student['id'],
+                                                            'class_id' => $classId
+                                                        ]);
+                                                        $meetings = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                                                        foreach ($meetings as $meeting) {
+                                                            if ($meeting['attendance_status'] === 'present') {
+                                                                $totalPresents++;
+                                                            }
+                                                        }
+                                                    } catch (PDOException $e) {
+                                                        echo "Error fetching meetings for student {$student['id']}: " . $e->getMessage();
+                                                    }
+                                                    ?>
+                                                    <?php if (!empty($meetings)): ?>
 
-                    <?php if (!empty($exams)): ?>
-                        <?php
-                        $examsTotal = 0;
-                        foreach ($exams as $exam) {
-                            $studentId = $student['id'];
-                            $examId = $exam['id'];
-                            $score = $studentScores[$student['id']][$exam['id']] ?? 0;
-                            $examsTotal += $score;
-                        ?>
-                            <td class='border-1'>
-                                <input type='number' name='scores[<?= $studentId ?>][<?= $examId ?>]'
-                                    value='<?= $score ?>' class='form-control score-input' min='0'
-                                    data-student-id='<?= $studentId ?>' data-activity-id='<?= $examId ?>'>
-                            </td>
-                        <?php } ?>
-                        <td class='border-1'>
-                            <input type='number' name='total[<?= $studentId ?>]'
-                                value='<?= $examsTotal ?>' class='form-control total-score' readonly>
-                        </td>
-                    <?php else: ?>
-                        <td colspan="<?= count($exams) ?>" class="text-center">No exams yet</td>
-                    <?php endif; ?>
+                                                        <?php
+                                                        $meetingCount = 0;
+                                                        $processedMeetings = [];
+                                                        foreach ($meetings as $meeting):
 
-                    <td>
-                        <select name="midterms[<?= $student['id'] ?>]" class="form-control grade-select"
-                            data-student-id='<?= $student['id'] ?>' data-type="midterm">
-                            <option value="1.00" <?= $midtermGrade === '1.00' ? 'selected' : '' ?>>1.00</option>
-                            <option value="1.25" <?= $midtermGrade === '1.25' ? 'selected' : '' ?>>1.25</option>
-                            <option value="1.75" <?= $midtermGrade === '1.75' ? 'selected' : '' ?>>1.75</option>
-                            <option value="2.00" <?= $midtermGrade === '2.00' ? 'selected' : '' ?>>2.00</option>
-                            <option value="2.25" <?= $midtermGrade === '2.25' ? 'selected' : '' ?>>2.25</option>
-                            <option value="2.50" <?= $midtermGrade === '2.50' ? 'selected' : '' ?>>2.50</option>
-                            <option value="2.75" <?= $midtermGrade === '2.75' ? 'selected' : '' ?>>2.75</option>
-                            <option value="3.00" <?= $midtermGrade === '3.00' ? 'selected' : '' ?>>3.00</option>
-                            <option value="5.00" <?= $midtermGrade === '5.00' ? 'selected' : '' ?>>5.00</option>
-                            <option value="INC" <?= $midtermGrade === 'INC' ? 'selected' : '' ?>>INC</option>
-                        </select>
-                    </td>
-                    <td>
-                        <select name="finals[<?= $student['id'] ?>]" class="form-control grade-select"
-                            data-student-id='<?= $student['id'] ?>' data-type="final">
-                            <option value="1.00" <?= $finalGrade === '1.00' ? 'selected' : '' ?>>1.00</option>
-                            <option value="1.25" <?= $finalGrade === '1.25' ? 'selected' : '' ?>>1.25</option>
-                            <option value="1.75" <?= $finalGrade === '1.75' ? 'selected' : '' ?>>1.75</option>
-                            <option value="2.00" <?= $finalGrade === '2.00' ? 'selected' : '' ?>>2.00</option>
-                            <option value="2.25" <?= $finalGrade === '2.25' ? 'selected' : '' ?>>2.25</option>
-                            <option value="2.50" <?= $finalGrade === '2.50' ? 'selected' : '' ?>>2.50</option>
-                            <option value="2.75" <?= $finalGrade === '2.75' ? 'selected' : '' ?>>2.75</option>
-                            <option value="3.00" <?= $finalGrade === '3.00' ? 'selected' : '' ?>>3.00</option>
-                            <option value="5.00" <?= $finalGrade === '5.00' ? 'selected' : '' ?>>5.00</option>
-                            <option value="INC" <?= $finalGrade === 'INC' ? 'selected' : '' ?>>INC</option>
-                        </select>
-                    </td>
-                    <td>
-                        <select name="gpa[<?= $student['id'] ?>]" class="form-control grade-select"
-                            data-student-id='<?= $student['id'] ?>' data-type="overall">
-                            <option value="1.00" <?= $overallGrade === '1.00' ? 'selected' : '' ?>>1.00</option>
-                            <option value="1.25" <?= $overallGrade === '1.25' ? 'selected' : '' ?>>1.25</option>
-                            <option value="1.75" <?= $overallGrade === '1.75' ? 'selected' : '' ?>>1.75</option>
-                            <option value="2.00" <?= $overallGrade === '2.00' ? 'selected' : '' ?>>2.00</option>
-                            <option value="2.25" <?= $overallGrade === '2.25' ? 'selected' : '' ?>>2.25</option>
-                            <option value="2.50" <?= $overallGrade === '2.50' ? 'selected' : '' ?>>2.50</option>
-                            <option value="2.75" <?= $overallGrade === '2.75' ? 'selected' : '' ?>>2.75</option>
-                            <option value="3.00" <?= $overallGrade === '3.00' ? 'selected' : '' ?>>3.00</option>
-                            <option value="5.00" <?= $overallGrade === '5.00' ? 'selected' : '' ?>>5.00</option>
-                            <option value="INC" <?= $overallGrade === 'INC' ? 'selected' : '' ?>>INC</option>
-                            <option value="AW" <?= $overallGrade === 'AW' ? 'selected' : '' ?>>AW</option>
-                            <option value="UW" <?= $overallGrade === 'UW' ? 'selected' : '' ?>>UW</option>
-                        </select>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <tr>
-                <td colspan="21" class="text-center">No students enrolled.</td>
-            </tr>
-        <?php endif; ?>
-    </tbody>
-</table>
+                                                            if (in_array($meeting['id'], $processedMeetings)) continue;
+                                                            $processedMeetings[] = $meeting['id'];
+                                                            $meetingCount++;
+                                                        ?>
+                                                            <td scope="col text-center">
+                                                                <select name="attendance[<?= $student['id'] ?>][<?= $meeting['id'] ?>]"
+                                                                    class="form-control attendance-select"
+                                                                    data-student-id='<?= $student['id'] ?>' data-meeting-id='<?= $meeting['id'] ?>'>
+                                                                    <option value="present" <?= ($meeting['attendance_status'] === 'present') ? 'selected' : '' ?>>Present</option>
+                                                                    <option value="absent" <?= ($meeting['attendance_status'] === 'absent') ? 'selected' : '' ?>>Absent</option>
+                                                                </select>
+                                                            </td>
+                                                        <?php endforeach; ?>
+                                                        <td scope="col">
+                                                            <input type="number" name="total_presents[<?= $student['id'] ?>]"
+                                                                value="<?= $totalPresents ?>" class="form-control total-presents total-score" readonly>
+                                                        </td>
+                                                    <?php else: ?>
+                                                        <td colspan="1" class="text-center">No attendance records found for this record.</td>
+                                                    <?php endif; ?>
+
+                                                    <?php if (!empty($exams)): ?>
+                                                        <?php
+                                                        $examsTotal = 0;
+                                                        foreach ($exams as $exam) {
+                                                            $studentId = $student['id'];
+                                                            $examId = $exam['id'];
+                                                            $score = $studentScores[$student['id']][$exam['id']] ?? 0;
+                                                            $examsTotal += $score;
+                                                        ?>
+                                                            <td class='border-1'>
+                                                                <input type='number' name='scores[<?= $studentId ?>][<?= $examId ?>]'
+                                                                    value='<?= $score ?>' class='form-control score-input' min='0'
+                                                                    data-student-id='<?= $studentId ?>' data-activity-id='<?= $examId ?>'>
+                                                            </td>
+                                                        <?php } ?>
+                                                        <td class='border-1'>
+                                                            <input type='number' name='total[<?= $studentId ?>]'
+                                                                value='<?= $examsTotal ?>' class='form-control total-score' readonly>
+                                                        </td>
+                                                    <?php else: ?>
+                                                        <td colspan="<?= count($exams) ?>" class="text-center">No exams yet</td>
+                                                    <?php endif; ?>
+
+                                                    <td>
+                                                        <select name="midterms[<?= $student['id'] ?>]" class="form-control grade-select"
+                                                            data-student-id='<?= $student['id'] ?>' data-type="midterm">
+                                                            <option value="1.00" <?= $midtermGrade === '1.00' ? 'selected' : '' ?>>1.00</option>
+                                                            <option value="1.25" <?= $midtermGrade === '1.25' ? 'selected' : '' ?>>1.25</option>
+                                                            <option value="1.75" <?= $midtermGrade === '1.75' ? 'selected' : '' ?>>1.75</option>
+                                                            <option value="2.00" <?= $midtermGrade === '2.00' ? 'selected' : '' ?>>2.00</option>
+                                                            <option value="2.25" <?= $midtermGrade === '2.25' ? 'selected' : '' ?>>2.25</option>
+                                                            <option value="2.50" <?= $midtermGrade === '2.50' ? 'selected' : '' ?>>2.50</option>
+                                                            <option value="2.75" <?= $midtermGrade === '2.75' ? 'selected' : '' ?>>2.75</option>
+                                                            <option value="3.00" <?= $midtermGrade === '3.00' ? 'selected' : '' ?>>3.00</option>
+                                                            <option value="5.00" <?= $midtermGrade === '5.00' ? 'selected' : '' ?>>5.00</option>
+                                                            <option value="INC" <?= $midtermGrade === 'INC' ? 'selected' : '' ?>>INC</option>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <select name="finals[<?= $student['id'] ?>]" class="form-control grade-select"
+                                                            data-student-id='<?= $student['id'] ?>' data-type="final">
+                                                            <option value="1.00" <?= $finalGrade === '1.00' ? 'selected' : '' ?>>1.00</option>
+                                                            <option value="1.25" <?= $finalGrade === '1.25' ? 'selected' : '' ?>>1.25</option>
+                                                            <option value="1.75" <?= $finalGrade === '1.75' ? 'selected' : '' ?>>1.75</option>
+                                                            <option value="2.00" <?= $finalGrade === '2.00' ? 'selected' : '' ?>>2.00</option>
+                                                            <option value="2.25" <?= $finalGrade === '2.25' ? 'selected' : '' ?>>2.25</option>
+                                                            <option value="2.50" <?= $finalGrade === '2.50' ? 'selected' : '' ?>>2.50</option>
+                                                            <option value="2.75" <?= $finalGrade === '2.75' ? 'selected' : '' ?>>2.75</option>
+                                                            <option value="3.00" <?= $finalGrade === '3.00' ? 'selected' : '' ?>>3.00</option>
+                                                            <option value="5.00" <?= $finalGrade === '5.00' ? 'selected' : '' ?>>5.00</option>
+                                                            <option value="INC" <?= $finalGrade === 'INC' ? 'selected' : '' ?>>INC</option>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <select name="gpa[<?= $student['id'] ?>]" class="form-control grade-select"
+                                                            data-student-id='<?= $student['id'] ?>' data-type="overall">
+                                                            <option value="1.00" <?= $overallGrade === '1.00' ? 'selected' : '' ?>>1.00</option>
+                                                            <option value="1.25" <?= $overallGrade === '1.25' ? 'selected' : '' ?>>1.25</option>
+                                                            <option value="1.75" <?= $overallGrade === '1.75' ? 'selected' : '' ?>>1.75</option>
+                                                            <option value="2.00" <?= $overallGrade === '2.00' ? 'selected' : '' ?>>2.00</option>
+                                                            <option value="2.25" <?= $overallGrade === '2.25' ? 'selected' : '' ?>>2.25</option>
+                                                            <option value="2.50" <?= $overallGrade === '2.50' ? 'selected' : '' ?>>2.50</option>
+                                                            <option value="2.75" <?= $overallGrade === '2.75' ? 'selected' : '' ?>>2.75</option>
+                                                            <option value="3.00" <?= $overallGrade === '3.00' ? 'selected' : '' ?>>3.00</option>
+                                                            <option value="5.00" <?= $overallGrade === '5.00' ? 'selected' : '' ?>>5.00</option>
+                                                            <option value="INC" <?= $overallGrade === 'INC' ? 'selected' : '' ?>>INC</option>
+                                                            <option value="AW" <?= $overallGrade === 'AW' ? 'selected' : '' ?>>AW</option>
+                                                            <option value="UW" <?= $overallGrade === 'UW' ? 'selected' : '' ?>>UW</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        <?php else: ?>
+                                            <tr>
+                                                <td colspan="21" class="text-center">No students enrolled.</td>
+                                            </tr>
+                                        <?php endif; ?>
+                                    </tbody>
+                                </table>
 
 
                             </div>
@@ -706,200 +721,200 @@ GROUP BY type";
 
         </div>
         <script>
-        // Update Rubric
-        function updateRubric(type, value) {
-            let classId = new URLSearchParams(window.location.search).get('id');
-            fetch('update_rubric_lecture.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    body: `class_id=${classId}&type=${type}&value=${value}`
-                })
-                .then(response => response.text())
-                .then(data => console.log(data))
-                .catch(error => console.error('Error:', error));
-        }
-
-        // Update Scores
-        document.querySelectorAll('.score-input').forEach(input => {
-            input.addEventListener('change', function() {
-                const studentId = this.dataset.studentId;
-                const activityId = this.dataset.activityId;
-                const score = this.value;
-                const row = this.closest('tr');
-
-                fetch('processes/teachers/grading/update_scoring_lecture.php', {
+            // Update Rubric
+            function updateRubric(type, value) {
+                let classId = new URLSearchParams(window.location.search).get('id');
+                fetch('update_rubric_lecture.php', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/x-www-form-urlencoded'
                         },
-                        body: `student_id=${studentId}&activity_id=${activityId}&score=${score}`
+                        body: `class_id=${classId}&type=${type}&value=${value}`
                     })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            this.value = data.score;
-                            updateCategoryTotal(row, this);
-                            updateGrades(studentId, row);
-                        } else {
-                            console.error('Error updating score:', data.message);
-                        }
-                    })
-                    .catch(error => console.error('AJAX error:', error));
-            });
-        });
-
-        // Update Attendance
-        document.querySelectorAll('.attendance-select').forEach(select => {
-            select.addEventListener('change', function() {
-                const studentId = this.dataset.studentId;
-                const meetingId = this.dataset.meetingId;
-                const status = this.value;
-                const row = this.closest('tr');
-                let presentCount = 0;
-
-                row.querySelectorAll('.attendance-select').forEach(attSelect => {
-                    if (attSelect.value === 'present') presentCount++;
-                });
-                row.querySelector('.total-presents').value = presentCount;
-
-                fetch('processes/teachers/grading/update_attendance_lecture.php', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded'
-                        },
-                        body: `student_id=${studentId}&meeting_id=${meetingId}&status=${status}&class_id=${<?php echo $classId; ?>}`
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            updateGrades(studentId, row);
-                        } else {
-                            console.error('Error updating attendance:', data.message);
-                        }
-                    })
-                    .catch(error => console.error('AJAX error:', error));
-            });
-        });
-
-        // Update Grades with Locking Logic
-        document.querySelectorAll('.grade-select').forEach(select => {
-            // Initial check on page load
-            checkAndLockInputs(select);
-
-            select.addEventListener('change', function() {
-                const studentId = this.dataset.studentId;
-                const type = this.dataset.type;
-                const grade = this.value;
-                const row = this.closest('tr');
-
-                // Send manual grade update to server
-                fetch('processes/teachers/grading/update_grading_lecture.php', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded'
-                        },
-                        body: `student_id=${studentId}&type=${type}&grade=${grade}&class_id=${<?php echo $classId; ?>}`
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            this.value = data.grade;
-                            checkAndLockInputs(this); // Lock/unlock inputs based on grade
-                        } else {
-                            console.error('Error updating grade:', data.message);
-                        }
-                    })
-                    .catch(error => console.error('AJAX error:', error));
-            });
-        });
-
-        // Helper function to update category total
-        function updateCategoryTotal(row, changedInput) {
-            const allInputs = Array.from(row.querySelectorAll('.score-input'));
-            const changedIndex = allInputs.indexOf(changedInput);
-            let categoryInputs = [];
-            let totalInput;
-
-            if (changedIndex < <?php echo count($quizzes); ?>) {
-                categoryInputs = allInputs.slice(0, <?php echo count($quizzes); ?>);
-                totalInput = row.querySelectorAll('.total-score')[0];
-            } else if (changedIndex < <?php echo count($quizzes) + count($assignments); ?>) {
-                categoryInputs = allInputs.slice(<?php echo count($quizzes); ?>,
-                    <?php echo count($quizzes) + count($assignments); ?>);
-                totalInput = row.querySelectorAll('.total-score')[1];
-            } else if (changedIndex < <?php echo count($quizzes) + count($assignments) + count($activitiesAll); ?>) {
-                categoryInputs = allInputs.slice(<?php echo count($quizzes) + count($assignments); ?>,
-                    <?php echo count($quizzes) + count($activitiesAll); ?>);
-                totalInput = row.querySelectorAll('.total-score')[2];
-            } else {
-                categoryInputs = allInputs.slice(
-                    <?php echo count($quizzes) + count($assignments) + count($activitiesAll); ?>);
-                totalInput = row.querySelectorAll('.total-score')[3];
+                    .then(response => response.text())
+                    .then(data => console.log(data))
+                    .catch(error => console.error('Error:', error));
             }
 
-            let total = 0;
-            categoryInputs.forEach(input => {
-                total += parseInt(input.value) || 0;
-            });
-            if (totalInput) {
-                totalInput.value = total;
-            }
-        }
+            // Update Scores
+            document.querySelectorAll('.score-input').forEach(input => {
+                input.addEventListener('change', function() {
+                    const studentId = this.dataset.studentId;
+                    const activityId = this.dataset.activityId;
+                    const score = this.value;
+                    const row = this.closest('tr');
 
-        // Helper function to update grades (auto-calculation)
-        function updateGrades(studentId, row) {
-            const types = ['midterm', 'final', 'overall'];
-            types.forEach(type => {
-                fetch('processes/teachers/grading/update_grading_lecture.php', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded'
-                        },
-                        body: `student_id=${studentId}&type=${type}&grade=auto&class_id=${<?php echo $classId; ?>}`
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            const select = row.querySelector(`.grade-select[data-type="${type}"]`);
-                            if (select) {
-                                select.value = data.grade;
-                                checkAndLockInputs(select); // Check locking after auto-update
+                    fetch('processes/teachers/grading/update_scoring_lecture.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded'
+                            },
+                            body: `student_id=${studentId}&activity_id=${activityId}&score=${score}`
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                this.value = data.score;
+                                updateCategoryTotal(row, this);
+                                updateGrades(studentId, row);
+                            } else {
+                                console.error('Error updating score:', data.message);
                             }
-                        } else {
-                            console.error(`Error updating ${type} grade:`, data.message);
-                        }
-                    })
-                    .catch(error => console.error('AJAX error:', error));
+                        })
+                        .catch(error => console.error('AJAX error:', error));
+                });
             });
-        }
 
-        // Helper function to lock/unlock inputs based on grade
-        function checkAndLockInputs(select) {
-            const row = select.closest('tr');
-            const grade = select.value;
-            const scoreInputs = row.querySelectorAll('.score-input');
-            const attendanceSelects = row.querySelectorAll('.attendance-select');
+            // Update Attendance
+            document.querySelectorAll('.attendance-select').forEach(select => {
+                select.addEventListener('change', function() {
+                    const studentId = this.dataset.studentId;
+                    const meetingId = this.dataset.meetingId;
+                    const status = this.value;
+                    const row = this.closest('tr');
+                    let presentCount = 0;
 
-            if (grade === 'UW' || grade === 'AW') {
-                scoreInputs.forEach(input => input.disabled = true);
-                attendanceSelects.forEach(select => select.disabled = true);
-            } else {
-                scoreInputs.forEach(input => input.disabled = false);
-                attendanceSelects.forEach(select => select.disabled = false);
+                    row.querySelectorAll('.attendance-select').forEach(attSelect => {
+                        if (attSelect.value === 'present') presentCount++;
+                    });
+                    row.querySelector('.total-presents').value = presentCount;
+
+                    fetch('processes/teachers/grading/update_attendance_lecture.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded'
+                            },
+                            body: `student_id=${studentId}&meeting_id=${meetingId}&status=${status}&class_id=${<?php echo $classId; ?>}`
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                updateGrades(studentId, row);
+                            } else {
+                                console.error('Error updating attendance:', data.message);
+                            }
+                        })
+                        .catch(error => console.error('AJAX error:', error));
+                });
+            });
+
+            // Update Grades with Locking Logic
+            document.querySelectorAll('.grade-select').forEach(select => {
+                // Initial check on page load
+                checkAndLockInputs(select);
+
+                select.addEventListener('change', function() {
+                    const studentId = this.dataset.studentId;
+                    const type = this.dataset.type;
+                    const grade = this.value;
+                    const row = this.closest('tr');
+
+                    // Send manual grade update to server
+                    fetch('processes/teachers/grading/update_grading_lecture.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded'
+                            },
+                            body: `student_id=${studentId}&type=${type}&grade=${grade}&class_id=${<?php echo $classId; ?>}`
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                this.value = data.grade;
+                                checkAndLockInputs(this); // Lock/unlock inputs based on grade
+                            } else {
+                                console.error('Error updating grade:', data.message);
+                            }
+                        })
+                        .catch(error => console.error('AJAX error:', error));
+                });
+            });
+
+            // Helper function to update category total
+            function updateCategoryTotal(row, changedInput) {
+                const allInputs = Array.from(row.querySelectorAll('.score-input'));
+                const changedIndex = allInputs.indexOf(changedInput);
+                let categoryInputs = [];
+                let totalInput;
+
+                if (changedIndex < <?php echo count($quizzes); ?>) {
+                    categoryInputs = allInputs.slice(0, <?php echo count($quizzes); ?>);
+                    totalInput = row.querySelectorAll('.total-score')[0];
+                } else if (changedIndex < <?php echo count($quizzes) + count($assignments); ?>) {
+                    categoryInputs = allInputs.slice(<?php echo count($quizzes); ?>,
+                        <?php echo count($quizzes) + count($assignments); ?>);
+                    totalInput = row.querySelectorAll('.total-score')[1];
+                } else if (changedIndex < <?php echo count($quizzes) + count($assignments) + count($activitiesAll); ?>) {
+                    categoryInputs = allInputs.slice(<?php echo count($quizzes) + count($assignments); ?>,
+                        <?php echo count($quizzes) + count($activitiesAll); ?>);
+                    totalInput = row.querySelectorAll('.total-score')[2];
+                } else {
+                    categoryInputs = allInputs.slice(
+                        <?php echo count($quizzes) + count($assignments) + count($activitiesAll); ?>);
+                    totalInput = row.querySelectorAll('.total-score')[3];
+                }
+
+                let total = 0;
+                categoryInputs.forEach(input => {
+                    total += parseInt(input.value) || 0;
+                });
+                if (totalInput) {
+                    totalInput.value = total;
+                }
             }
-        }
+
+            // Helper function to update grades (auto-calculation)
+            function updateGrades(studentId, row) {
+                const types = ['midterm', 'final', 'overall'];
+                types.forEach(type => {
+                    fetch('processes/teachers/grading/update_grading_lecture.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded'
+                            },
+                            body: `student_id=${studentId}&type=${type}&grade=auto&class_id=${<?php echo $classId; ?>}`
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                const select = row.querySelector(`.grade-select[data-type="${type}"]`);
+                                if (select) {
+                                    select.value = data.grade;
+                                    checkAndLockInputs(select); // Check locking after auto-update
+                                }
+                            } else {
+                                console.error(`Error updating ${type} grade:`, data.message);
+                            }
+                        })
+                        .catch(error => console.error('AJAX error:', error));
+                });
+            }
+
+            // Helper function to lock/unlock inputs based on grade
+            function checkAndLockInputs(select) {
+                const row = select.closest('tr');
+                const grade = select.value;
+                const scoreInputs = row.querySelectorAll('.score-input');
+                const attendanceSelects = row.querySelectorAll('.attendance-select');
+
+                if (grade === 'UW' || grade === 'AW') {
+                    scoreInputs.forEach(input => input.disabled = true);
+                    attendanceSelects.forEach(select => select.disabled = true);
+                } else {
+                    scoreInputs.forEach(input => input.disabled = false);
+                    attendanceSelects.forEach(select => select.disabled = false);
+                }
+            }
         </script>
 
         <script src="js/app.js"></script>
 
         <script>
-function printDiv(divId) {
-    var content = document.getElementById(divId).innerHTML;
-    var printWindow = window.open('', '_blank');
-    printWindow.document.open();
-    printWindow.document.write(`
+            function printDiv(divId) {
+                var content = document.getElementById(divId).innerHTML;
+                var printWindow = window.open('', '_blank');
+                printWindow.document.open();
+                printWindow.document.write(`
         <html>
             <head>
                 <title>Print Content</title>
@@ -922,9 +937,9 @@ function printDiv(divId) {
             </body>
         </html>
     `);
-    printWindow.document.close();
-}
-</script>
+                printWindow.document.close();
+            }
+        </script>
         <?php
         include('processes/server/modals.php');
         ?>

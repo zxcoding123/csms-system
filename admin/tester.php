@@ -14,7 +14,7 @@ include('processes/server/conn.php');
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>WMSU - CCS | Student Management System</title>
+    <title>ADDU - CCS | Student Management System</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="css/app.css" rel="stylesheet">
@@ -55,7 +55,7 @@ include('processes/server/conn.php');
     <div class="wrapper">
         <?php
         include('sidebar.php')
-            ?>
+        ?>
 
         <div class="main">
             <nav class="navbar navbar-expand navbar-light navbar-bg">
@@ -63,7 +63,7 @@ include('processes/server/conn.php');
                     <i class="hamburger align-self-center"></i>
                 </a>
                 <img src="external/img/ccs_logo-removebg-preview.png" class="logo-small">
-                <span class="text-white">WMSU - Student Management System </span>
+                <span class="text-white">ADDU - Student Management System </span>
                 <div class="navbar-collapse collapse">
                     <?php
                     include('top-bar.php');
@@ -296,7 +296,7 @@ include('processes/server/conn.php');
 
                                                     // Update the year levels based on the selected course
                                                     document.getElementById('course-select').addEventListener('change',
-                                                        function () {
+                                                        function() {
                                                             selectedCourse = this.value;
                                                             const yearSelect = document.getElementById('year-select');
                                                             const bsitOptions = document.getElementById('year-bsit');
@@ -311,14 +311,14 @@ include('processes/server/conn.php');
 
                                                     // Fetch subjects based on the selected year
                                                     document.getElementById('year-select').addEventListener('change',
-                                                        function () {
+                                                        function() {
                                                             selectedYear = this.value;
                                                             const subjectSelect = document.getElementById(
                                                                 'subject-select');
 
                                                             // Fetch available subjects based on the selected class
                                                             fetch(
-                                                                `fetch_subjects.php?class=${encodeURIComponent(selectedYear)}`)
+                                                                    `fetch_subjects.php?class=${encodeURIComponent(selectedYear)}`)
                                                                 .then(response => response.json())
                                                                 .then(data => {
                                                                     subjectSelect.innerHTML =
@@ -347,7 +347,7 @@ include('processes/server/conn.php');
 
                                                     // Open modal automatically after selecting a subject
                                                     document.getElementById('subject-select').addEventListener('change',
-                                                        function () {
+                                                        function() {
                                                             const selectedSubject = this.options[this.selectedIndex]
                                                                 .text; // Get selected subject text
                                                             const selectedSubjectId = this
@@ -363,7 +363,7 @@ include('processes/server/conn.php');
 
                                                             // Fetch subject type from the selected subject
                                                             fetch(
-                                                                `getSubjectType.php?subjectId=${encodeURIComponent(selectedSubjectId)}`)
+                                                                    `getSubjectType.php?subjectId=${encodeURIComponent(selectedSubjectId)}`)
                                                                 .then(response => response.json())
                                                                 .then(data => {
                                                                     const subjectType = data
@@ -373,7 +373,7 @@ include('processes/server/conn.php');
                                                                     document.getElementById('classSelected').value =
                                                                         `${selectedYear}`;
                                                                     document.getElementById(
-                                                                        'selectedSubjectDropdown').value =
+                                                                            'selectedSubjectDropdown').value =
                                                                         selectedSubject;
                                                                     document.getElementById('selectedSubjectType')
                                                                         .value = subjectType;
@@ -382,7 +382,7 @@ include('processes/server/conn.php');
 
                                                                     // Fetch assigned adviser for the selected class (using GET)
                                                                     fetch(
-                                                                        `getAdviser.php?class=${encodeURIComponent(selectedClass)}`)
+                                                                            `getAdviser.php?class=${encodeURIComponent(selectedClass)}`)
 
                                                                         .then(response => response.json())
                                                                         .then(data => {
@@ -417,7 +417,7 @@ include('processes/server/conn.php');
 
                                                     // Open modal automatically after selecting a subject
                                                     document.getElementById('subject-select').addEventListener('change',
-                                                        function () {
+                                                        function() {
                                                             const selectedSubject = this.options[this.selectedIndex]
                                                                 .text; // Get selected subject text
                                                             const selectedSubjectId = this
@@ -430,7 +430,7 @@ include('processes/server/conn.php');
 
                                                             // Fetch subject type from the selected subject using getSubjectType.php
                                                             fetch(
-                                                                `getSubjectType.php?subjectId=${encodeURIComponent(selectedSubjectId)}`)
+                                                                    `getSubjectType.php?subjectId=${encodeURIComponent(selectedSubjectId)}`)
                                                                 .then(response => response.json())
                                                                 .then(data => {
                                                                     const subjectType = data.type ||
@@ -446,7 +446,7 @@ include('processes/server/conn.php');
 
                                                                     // Fetch assigned adviser for the selected class (using GET)
                                                                     fetch(
-                                                                        `getAdviser.php?class=${encodeURIComponent(selectedClass)}`)
+                                                                            `getAdviser.php?class=${encodeURIComponent(selectedClass)}`)
                                                                         .then(response => response.json())
                                                                         .then(data => {
                                                                             const adviserField = document
@@ -516,7 +516,7 @@ END;
 
                                         if ($stmt->rowCount() > 0) {
 
-                                            ?>
+                                    ?>
                                             <table id="classes" class=" responsive" style="width: 100%;">
                                                 <thead class="text-center">
                                                     <tr>
@@ -564,7 +564,7 @@ END;
                                                             $scheduleDetails[] = "<strong>" . htmlspecialchars($schedule['meeting_days']) . "</strong>: " . $formattedTime;
                                                         }
                                                         $scheduleInfo = implode("<br>", $scheduleDetails); // Convert array to HTML line breaks for display
-                                                        ?>
+                                                    ?>
 
                                                         <?php
                                                         $query1 = "SELECT fullName FROM staff_advising WHERE class_advising = :class";
@@ -709,7 +709,7 @@ END;
 
                                                         <script>
                                                             document.getElementById('disapproveReasonSelect').addEventListener('change',
-                                                                function () {
+                                                                function() {
                                                                     var otherReasonDiv = document.getElementById('otherReasonDiv');
                                                                     var otherReasonInput = document.getElementById('otherReason');
 
@@ -735,7 +735,7 @@ END;
                                                 </tbody>
                                             </table>
 
-                                            <?php
+                                    <?php
                                         } else {
                                             echo "<h1 class='text-center'>No classes available</h1>";
                                         }
@@ -779,7 +779,7 @@ END;
             $grade_checker_status = $row['grade_checker'];
 
             echo $classId . $className;
-            ?>
+    ?>
 
             <!-- View Modal -->
 
@@ -871,7 +871,7 @@ END;
                     });
                 }
             </script>
-            <?php
+    <?php
         }
     } catch (PDOException $e) {
         echo "Error: " . $e->getMessage();
@@ -888,7 +888,7 @@ END;
     $stmt = $pdo->query("SELECT * FROM classes");
     $staffStmt = $pdo->query("SELECT * FROM staff_accounts");
     $staffList = $staffStmt->fetchAll(PDO::FETCH_ASSOC);
-        $staffQuery = "SELECT id, fullName FROM staff_accounts";
+    $staffQuery = "SELECT id, fullName FROM staff_accounts";
     $staffStmt = $pdo->query($staffQuery);
     $staffMembers = $staffStmt->fetchAll(PDO::FETCH_ASSOC);
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -967,7 +967,7 @@ END;
                         <?php
                         // Assume the grade_checker is fetched from the database and is assigned to a variable
                         $gradeChecker = $grade_checker_status;  // Example value, replace it with actual value from database query
-                    
+
                         // Decide the appropriate link based on the class type
                         if ($classType == 'Laboratory') {
                             $href = 'lab_grades.php?id=' . $classId;  // Link for Laboratory classes
@@ -1057,15 +1057,15 @@ END;
 
                             <script>
                                 document.getElementById('classSelect<?php echo $classId; ?>').addEventListener('change',
-                                    function () {
+                                    function() {
                                         const selectedClass = this.value;
                                         fetch('getAdviserPost.php', {
-                                            method: 'POST',
-                                            headers: {
-                                                'Content-Type': 'application/x-www-form-urlencoded'
-                                            },
-                                            body: 'class=' + encodeURIComponent(selectedClass)
-                                        })
+                                                method: 'POST',
+                                                headers: {
+                                                    'Content-Type': 'application/x-www-form-urlencoded'
+                                                },
+                                                body: 'class=' + encodeURIComponent(selectedClass)
+                                            })
                                             .then(response => response.json())
                                             .then(data => {
                                                 const adviserField = document.getElementById(
@@ -1109,7 +1109,7 @@ END;
                                     <option value="Laboratory" <?php echo ($row['type'] === 'Laboratory') ? 'selected' : ''; ?>>Laboratory</option>
                                 </select>
                             </div>
-      
+
                             <div class="mb-3">
                                 <label for="editTeacher<?php echo $row['id']; ?>" class="form-label fw-bold">Select Teacher</label>
                                 <select class="form-select" id="editTeacher<?php echo $row['id']; ?>" name="teacher">
@@ -1138,13 +1138,13 @@ END;
                                 </select>
                             </div>
 
-                            	<!-- Class Description -->
-							<div class="mb-3">
-								<label for="classDesc" class="form-label bold">Class
-									Description:</label>
-								<textarea class="form-control" id="classDesc" name="classDesc"
-									required><?php echo htmlspecialchars($row['description']); ?></textarea>
-							</div>
+                            <!-- Class Description -->
+                            <div class="mb-3">
+                                <label for="classDesc" class="form-label bold">Class
+                                    Description:</label>
+                                <textarea class="form-control" id="classDesc" name="classDesc"
+                                    required><?php echo htmlspecialchars($row['description']); ?></textarea>
+                            </div>
 
 
 
@@ -1265,7 +1265,7 @@ END;
 
 
                         <script>
-                            document.getElementById('subjectName').addEventListener('change', function () {
+                            document.getElementById('subjectName').addEventListener('change', function() {
                                 const subjectName = this.value;
 
                                 const subjectTypeSelect = document.getElementById('subjectType');
@@ -1278,11 +1278,11 @@ END;
                                         `get_subject_type.php?subjectName=${encodeURIComponent(subjectName)}`;
 
                                     fetch(url, {
-                                        method: 'GET',
-                                        headers: {
-                                            'Content-Type': 'application/x-www-form-urlencoded'
-                                        }
-                                    })
+                                            method: 'GET',
+                                            headers: {
+                                                'Content-Type': 'application/x-www-form-urlencoded'
+                                            }
+                                        })
                                         .then(response => {
                                             if (!response.ok) {
                                                 throw new Error('Network response was not ok');
@@ -1372,15 +1372,15 @@ END;
     </div>
 
     <script>
-        document.getElementById('classSelectorModal').addEventListener('change', function () {
+        document.getElementById('classSelectorModal').addEventListener('change', function() {
             const selectedClass = this.value;
             fetch('getAdviserPost.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: 'class=' + encodeURIComponent(selectedClass)
-            })
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: 'class=' + encodeURIComponent(selectedClass)
+                })
                 .then(response => response.json())
                 .then(data => {
                     const adviserField = document.getElementById('assignedAdviserModal');
@@ -1406,9 +1406,9 @@ END;
             document.querySelector("#currentTime").textContent = "The current date and time is: " + newTime;
         }
         setInterval(getTime, 100);
-        $(document).ready(function () {
+        $(document).ready(function() {
             // Custom sorting for the 'status' column
-            $.fn.dataTable.ext.type.order['status-pre'] = function (data) {
+            $.fn.dataTable.ext.type.order['status-pre'] = function(data) {
                 if (data === 'pending') {
                     return 1;
                 } else if (data === 'accepted') {
@@ -1432,7 +1432,7 @@ END;
             });
 
             // Add dropdown for "Class Name" and "Semester" columns
-            $('#classes tfoot th').each(function (index) {
+            $('#classes tfoot th').each(function(index) {
                 var title = $(this).text();
 
                 if (title === 'Class Name') {
@@ -1477,25 +1477,25 @@ END;
             });
 
             // Implement search functionality for text inputs and dropdowns
-            table.columns().every(function () {
+            table.columns().every(function() {
                 var that = this;
 
                 // Search for text input
-                $('input', this.footer()).on('keyup change clear', function () {
+                $('input', this.footer()).on('keyup change clear', function() {
                     if (that.search() !== this.value) {
                         that.search(this.value).draw();
                     }
                 });
 
                 // Search for Class Name dropdown
-                $('select.class-name-selector', this.footer()).on('change', function () {
+                $('select.class-name-selector', this.footer()).on('change', function() {
                     if (that.search() !== this.value) {
                         that.search(this.value).draw();
                     }
                 });
 
                 // Search for Semester dropdown
-                $('select.semester-selector', this.footer()).on('change', function () {
+                $('select.semester-selector', this.footer()).on('change', function() {
                     if (that.search() !== this.value) {
                         that.search(this.value).draw();
                     }
@@ -1507,7 +1507,7 @@ END;
         });
 
 
-        document.getElementById('messageForm').addEventListener('submit', function (event) {
+        document.getElementById('messageForm').addEventListener('submit', function(event) {
             event.preventDefault();
             var messageText = document.getElementById('messageInput').value;
 

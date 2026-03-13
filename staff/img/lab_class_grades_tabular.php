@@ -13,7 +13,7 @@ include('processes/server/conn.php');
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>WMSU - CCS | Student Management System</title>
+    <title>ADDU - CCS | Student Management System</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="css/app.css" rel="stylesheet">
@@ -91,11 +91,11 @@ include('processes/server/conn.php');
                                     class="container text-center d-flex align-items-center justify-content-center my-3">
                                     <div class="row w-100 d-flex align-items-center justify-content-center">
                                         <div class="col-2 d-flex justify-content-center">
-                                            <img src="../external/img/wmsu_Logo-removebg-preview.png"
+                                            <img src="../external/img/ADDU_Logo-removebg-preview.png"
                                                 class="img-fluid small-logo">
                                         </div>
                                         <div class="col-8 text-center">
-                                            <h5 class="bold mb-1">Western Mindanao State University</h5>
+                                            <h5 class="bold mb-1">Ateneo de Davao University</h5>
                                             <h5 class="mb-1">College of Computing Studies</h5>
                                             <h5>Zamboanga City</h5>
                                         </div>
@@ -982,7 +982,6 @@ include('processes/server/conn.php');
                                                                     // Apply the attendance percentage to the grades based on the specific attendance type
                                                                     $grades['midterm'] += $attendancePercentage * ($percentiles[$attendanceType] / 100) / 2;
                                                                     $grades['final'] += $attendancePercentage * ($percentiles[$attendanceType] / 100) / 2;
-                                                            
                                                                 }
                                                             }
                                                         }
@@ -995,7 +994,7 @@ include('processes/server/conn.php');
                                                         // Calculate grades
                                                         $midtermGrade = calculateGrade($grades['midterm']);
                                                         $finalGrade = calculateGrade($grades['final']);
-                                                    
+
                                                         echo $finalGrade;
                                                         $midtermNumeric = floatval($midtermGrade);
                                                         $finalNumeric = floatval($finalGrade);
@@ -1258,7 +1257,7 @@ include('processes/server/conn.php');
 
                                                             <?php if ($hasBothLabAndLec): ?>
                                                                 <td <?php echo in_array($studentGrades[$student['student_id']]['overallGrade'], ['5.00', 'INC', 'UW', 'AW']) ? 'style="color: crimson;"' : ''; ?>>
-                                                                <?php echo  number_format($studentGrades[$student['student_id']]['overallGrade'],2); ?>
+                                                                    <?php echo  number_format($studentGrades[$student['student_id']]['overallGrade'], 2); ?>
                                                                 </td>
                                                             <?php endif; ?>
 

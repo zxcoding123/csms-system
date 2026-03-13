@@ -13,7 +13,7 @@ include('processes/server/conn.php');
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>WMSU - CCS | Student Management System</title>
+    <title>ADDU - CCS | Student Management System</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="css/app.css" rel="stylesheet">
@@ -153,7 +153,7 @@ include('processes/server/conn.php');
                             xhr.send('class_id=' + classId);
 
                             // Handle server response
-                            xhr.onload = function () {
+                            xhr.onload = function() {
                                 if (xhr.status === 200) {
                                     alert('Rubric successfully deleted.');
                                     // Optionally reload or update the page here to reflect changes
@@ -183,9 +183,6 @@ include('processes/server/conn.php');
 
                     // Total percentage (optional, you can decide how to use this or store)
                     $totalPercentage = $majorExamPercentage + $quizzesPercentage + $assignments_activities_attendancePercentage;
-
-
-
                 } else {
 
                     $majorExamPercentage = 40;
@@ -202,7 +199,7 @@ include('processes/server/conn.php');
                 $TruemajorExamPercentage = $majorExamPercentage / 100;  // 0.4
                 $TruequizzesPercentage = $quizzesPercentage / 100;      // 0.3
                 $Trueassignments_activities_attendancePercentage = $assignments_activities_attendancePercentage / 100; // 0.3
-                
+
                 $totalPercentage = $TruemajorExamPercentage + $TruequizzesPercentage + $Trueassignments_activities_attendancePercentage;
 
 
@@ -222,18 +219,18 @@ include('processes/server/conn.php');
                         if (majorExam && quizzes && assignments_activities_attendance) {
                             // Call AJAX to update the grading schema in the server
                             fetch('lecture_update_grading.php', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json'
-                                },
-                                body: JSON.stringify({
-                                    class_id: classId,
-                                    major_exam: majorExam,
-                                    assignments_activities_attendance: assignments_activities_attendance,
-                                    quizzes: quizzes
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    },
+                                    body: JSON.stringify({
+                                        class_id: classId,
+                                        major_exam: majorExam,
+                                        assignments_activities_attendance: assignments_activities_attendance,
+                                        quizzes: quizzes
 
+                                    })
                                 })
-                            })
                                 .then(response => response.json())
                                 .then(data => {
                                     if (data.success) {
@@ -262,11 +259,11 @@ include('processes/server/conn.php');
                                     class="container text-center d-flex align-items-center justify-content-center my-3">
                                     <div class="row w-100 d-flex align-items-center justify-content-center">
                                         <div class="col-2 d-flex justify-content-center">
-                                            <img src="../external/img/wmsu_Logo-removebg-preview.png"
+                                            <img src="../external/img/ADDU_Logo-removebg-preview.png"
                                                 class="img-fluid small-logo">
                                         </div>
                                         <div class="col-8 text-center">
-                                            <h5 class="bold mb-1">Western Mindanao State University</h5>
+                                            <h5 class="bold mb-1">Ateneo de Davao University</h5>
                                             <h5 class="mb-1">College of Computing Studies</h5>
                                             <h5>Zamboanga City</h5>
                                         </div>
@@ -357,14 +354,14 @@ include('processes/server/conn.php');
 
                                 <?php
                                 $class_id = $_GET['id']; // Example class ID (change as needed)
-                                
+
                                 // Fetch students
 
                                 // Step 1: Get all student IDs from student_enrollments for the given class_id
                                 $stmt = $pdo->prepare("SELECT student_id FROM students_enrollments WHERE class_id = ?");
                                 $stmt->execute([$classId]);
                                 $studentIds = $stmt->fetchAll(PDO::FETCH_COLUMN); // Fetch student IDs as an array
-                                
+
                                 if (!empty($studentIds)) {
                                     // Step 2: Convert IDs to placeholders for SQL IN clause
                                     $placeholders = implode(',', array_fill(0, count($studentIds), '?'));
@@ -391,7 +388,7 @@ include('processes/server/conn.php');
                                 // Organize activities by type
                                 $quizzes = $assignments = $activitiesAll = $exams = [];
                                 $activityIds = []; // Store activity IDs for filtering submissions
-                                
+
                                 foreach ($activities as $activity) {
                                     $activityIds[] = $activity['id']; // Collect activity IDs for filtering submissions
                                     switch ($activity['type']) {
@@ -482,15 +479,15 @@ include('processes/server/conn.php');
                                 $stmt->execute(['class_id' => $class_id]);
                                 $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-                                $totalQuizzes = $result['total_quizzes'] ?? 0;          
-                                $totalTripleA = ($result['total_assignments'] + 1) + ($result['total_activities'] + 1) + 2; 
+                                $totalQuizzes = $result['total_quizzes'] ?? 0;
+                                $totalTripleA = ($result['total_assignments'] + 1) + ($result['total_activities'] + 1) + 2;
                                 $totalExams = $result['total_exams'] ?? 0;
 
 
                                 //GRADER
-                                
+
                                 $classId = $_GET['id']; // Class ID from GET request
-                                
+
                                 // Fetch rubrics for grading
                                 $stmt = $pdo->prepare("SELECT * FROM lecture_rubrics WHERE class_id = :class_id");
                                 $stmt->execute(['class_id' => $classId]);
@@ -516,12 +513,12 @@ include('processes/server/conn.php');
                                 $activitiesStmt->execute([$class_id]);
                                 $activities = $activitiesStmt->fetchAll(PDO::FETCH_ASSOC);
 
-                             
+
 
                                 // Organize activities by type
                                 $quizzes = $assignments = $activitiesList = $exams = [];
                                 $activityIds = []; // Store activity IDs for filtering submissions
-                                
+
                                 foreach ($activities as $activity) {
                                     $activityIds[] = $activity['id']; // Collect activity IDs for filtering submissions
                                     switch ($activity['type']) {
@@ -554,7 +551,6 @@ include('processes/server/conn.php');
                                 $studentScores = [];
                                 foreach ($submissions as $submission) {
                                     $studentScores[$submission['student_id']][$submission['activity_id']] = $submission['score'];
-
                                 }
 
 
@@ -642,7 +638,7 @@ include('processes/server/conn.php');
                                                 $activityId = $activity['id'];
                                                 $maxPoints = $activity['max_points'];
                                                 $score = $studentScores[$studentId][$activityId] ?? 0; // Default to 0 if no score
-                                
+
                                                 if ($type === 'quiz') {
                                                     $totalQuizScore += $score;
                                                     $totalQuizMax += $maxPoints;
@@ -692,7 +688,6 @@ include('processes/server/conn.php');
 
                                     // Determine if grade is INC (Incomplete)
                                     $isIncomplete = ($totalExamMax == 0 || $totalQuizMax == 0 || $totalAaaMax == 0 || $totalMeetings == 0);
-
                                 }
 
                                 // Fetch student grades from the database
@@ -723,7 +718,7 @@ include('processes/server/conn.php');
                                             (<?php echo $quizzesPercentage ?>%)
                                         </th>
                                         <th class="border-1">Total</th>
-                                  
+
                                         <th class="border-1" colspan="
 
                                         <?php echo $totalTripleA ?>
@@ -765,7 +760,7 @@ include('processes/server/conn.php');
                                             </th>
                                         <?php endforeach; ?>
                                         <th class="border-1">
-                                        TOTAL <small>(ACT.)</small>
+                                            TOTAL <small>(ACT.)</small>
                                             <hr>
                                             <?= $totalPoints['activity'] ?>
                                         </th>
@@ -860,7 +855,7 @@ include('processes/server/conn.php');
 
                                             $assignmentTotal = 0;
                                             foreach ($assignments as $assignment) {
-                                            
+
                                                 $score = $studentScores[$student['id']][$assignment['id']] ?? 0;
                                                 $assignmentTotal += $score;
                                                 echo "<td class='border-1'> $score </td>";
@@ -872,7 +867,7 @@ include('processes/server/conn.php');
                                             echo "<td class='border-1'>$attendanceScore</td>";
                                             $activityTotal = 0;
                                             foreach ($activitiesAll as $activity) {
-                                            
+
                                                 $score = $studentScores[$student['id']][$activity['id']] ?? 0;
                                                 $activityTotal += $score;
                                                 echo "<td class='border-1'> $score </td>";

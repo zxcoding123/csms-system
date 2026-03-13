@@ -123,9 +123,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             $token = bin2hex(random_bytes(25)); // You can store this in your database for verification
 
-            // Validate WMSU email
+            // Validate ADDU email
             if (!str_ends_with($email, '@addu.edu.ph')) {
-                $_SESSION['STATUS'] = "EMAIL_NOT_WMSU";
+                $_SESSION['STATUS'] = "EMAIL_NOT_ADDU";
                 header("Location: ../index.php");
                 exit();
             }

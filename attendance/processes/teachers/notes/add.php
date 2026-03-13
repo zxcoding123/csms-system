@@ -1,9 +1,9 @@
 <?php
 session_Start();
-$host = 'localhost'; 
-$dbname = 'u351448361_csms_system'; 
-$username = 'u351448361_csms_admin'; 
-$password = 'WmsuDatabase009988'; 
+$host = 'localhost';
+$dbname = 'u351448361_csms_system';
+$username = 'u351448361_csms_admin';
+$password = 'ADDUDatabase009988';
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);

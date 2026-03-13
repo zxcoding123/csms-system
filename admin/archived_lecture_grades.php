@@ -1,8 +1,8 @@
 <?php
 session_start();
 if (!isset($_SESSION['admin_id'])) {
-	$_SESSION['STATUS'] = "ADMIN_NOT_LOGGED_IN";
-	header("Location: ../login/index.php");
+    $_SESSION['STATUS'] = "ADMIN_NOT_LOGGED_IN";
+    header("Location: ../login/index.php");
 }
 include('processes/server/conn.php');
 ?>
@@ -92,11 +92,11 @@ include('processes/server/conn.php');
                                     class="container text-center d-flex align-items-center justify-content-center my-3">
                                     <div class="row w-100 d-flex align-items-center justify-content-center">
                                         <div class="col-2 d-flex justify-content-center">
-                                            <img src="../external/img/wmsu_Logo-removebg-preview.png"
+                                            <img src="../external/img/ADDU_Logo-removebg-preview.png"
                                                 class="img-fluid small-logo">
                                         </div>
                                         <div class="col-8 text-center">
-                                            <h5 class="bold mb-1">Western Mindanao State University</h5>
+                                            <h5 class="bold mb-1">Ateneo de Davao University</h5>
                                             <h5 class="mb-1">College of Computing Studies</h5>
                                             <h5>Zamboanga City</h5>
                                         </div>
@@ -962,7 +962,6 @@ include('processes/server/conn.php');
                                             } elseif ($existingMidtermGrade === 'N/A' || $existingFinalGrade === 'N/A') {
                                                 $midtermGrade = $finalGrade = $overallGrade = 'N/A';
                                                 $status = $existingStatus;
-                                            
                                             } else {
                                                 // Check if grade needs to be calculated or is already available
                                                 if (in_array($existingStatus, ['for_approval', 'pending', 'final', 'accepted', 'saved'])) {
@@ -1037,7 +1036,6 @@ include('processes/server/conn.php');
                                                 $lecGrade = fetchGrade($lectureClassId, $studentId, $pdo);
                                                 $labGrade = fetchGrade($labClassId, $studentId, $pdo);
                                                 $combinedOverallGrade = calculateCombinedGrade($lecGrade, $labGrade);
-                                             
                                             }
 
                                             $studentGrades[$studentId] = [
@@ -1411,7 +1409,7 @@ include('processes/server/conn.php');
     <button id="buttonism" onclick="printDiv('printTable')" class="btn btn-primary mb-5 p-2 w-25 m-auto">
         <i class="bi bi-printer"></i> Print
     </button>
-  
+
 </div>
 </main>
 

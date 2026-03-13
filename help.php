@@ -8,7 +8,7 @@ include('processes/server/alert_system.php');
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>WMSU - CCS | Help Center</title>
+    <title>ADDU - CCS | Help Center</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -30,15 +30,18 @@ include('processes/server/alert_system.php');
             font-family: 'Poppins', sans-serif;
             background-color: #f8f9fa;
         }
+
         .faq-section {
             padding: 60px 0;
         }
+
         .faq-header {
             font-size: 2rem;
             font-weight: 700;
             text-align: center;
             margin-bottom: 20px;
         }
+
         .accordion-button {
             font-weight: 600;
         }
@@ -52,7 +55,7 @@ include('processes/server/alert_system.php');
     <div class="container faq-section">
         <h1 class="faq-header">Help Center</h1>
         <p class="text-center mb-5">Find answers to common questions and get assistance.</p>
-        
+
         <div class="accordion" id="faqAccordion">
             <div class="accordion-item">
                 <h2 class="accordion-header" id="headingOne">
@@ -75,7 +78,7 @@ include('processes/server/alert_system.php');
                 </h2>
                 <div id="faq2" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
                     <div class="accordion-body">
-                        You can reach us via email at <strong>support@wmsuccs.edu.ph</strong> or call us at <strong>(+63) 123-456-7890</strong>.
+                        You can reach us via email at <strong>support@ADDUccs.edu.ph</strong> or call us at <strong>(+63) 123-456-7890</strong>.
                     </div>
                 </div>
             </div>
@@ -98,7 +101,7 @@ include('processes/server/alert_system.php');
     <!-- Footer -->
     <footer class="bg-light text-center py-4">
         <div class="container">
-            <p class="mb-0">&copy; 2023 WMSU - CCS. All rights reserved.</p>
+            <p class="mb-0">&copy; 2023 ADDU - CCS. All rights reserved.</p>
         </div>
     </footer>
 

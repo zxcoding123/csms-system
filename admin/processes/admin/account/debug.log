@@ -1,6 +1,6 @@
 POST Data: Array
 (
-    [email] => test@wmsu.edu.ph
+    [email] => test@ADDU.edu.ph
     [password] => yassan12
     [first_name] => hahah
     [middle_name] => hahaha
@@ -12,7 +12,7 @@ POST Data: Array
 PDO Error: SQLSTATE[HY000]: General error: 1364 Field 'fullName' doesn't have a default value
 POST Data: Array
 (
-    [email] => test@wmsu.edu.ph
+    [email] => test@ADDU.edu.ph
     [password] => yassan12
     [first_name] => Ahmad
     [middle_name] => Pandaog
@@ -23,7 +23,7 @@ POST Data: Array
 
 POST Data: Array
 (
-    [email] => test@wmsu.edu.ph
+    [email] => test@ADDU.edu.ph
     [password] => yassan12
     [first_name] => Ahmad
     [middle_name] => Pandaog

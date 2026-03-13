@@ -6,7 +6,7 @@
             <p class="text-light time" id="currentTime"></p>
         </div>
         <div class="sidebar-brand text-center" href="index.html">
-        <?php
+            <?php
             $stmt = $pdo->prepare("SELECT picture FROM student_pictures WHERE user_id = :user_id");
             $stmt->execute([':user_id' => $_SESSION['user_id']]);
             $student = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -59,11 +59,11 @@
                     <i class="bi bi-person-circle"></i> Update Profile Picture
                 </button>
 
-                
+
             </div>
-            
+
         </div>
-            <ul class="sidebar-nav">
+        <ul class="sidebar-nav">
             <li class="sidebar-header">
                 Pages
             </li>
@@ -133,7 +133,6 @@ if (isset($_SESSION['student_id'])) {
 
     // If no data is found, redirect or handle the error
     if (!$studentData) {
-
     }
 }
 ?>
@@ -178,8 +177,8 @@ if (isset($_SESSION['student_id'])) {
 
                     <!-- Student Email Field -->
                     <div class="mb-3">
-                        <label for="studentEmail" class="form-label">WMSU Email</label>
-                        <input type="email" class="form-control"  readonly
+                        <label for="studentEmail" class="form-label">ADDU Email</label>
+                        <input type="email" class="form-control" readonly
                             value="<?php echo htmlspecialchars($prevStudentData['email'] ?? ''); ?>">
                     </div>
 
@@ -329,7 +328,7 @@ if (isset($_SESSION['student_id'])) {
 
 <script>
     // Event listener for form submission
-    document.getElementById('changePasswordForm').addEventListener('submit', function (event) {
+    document.getElementById('changePasswordForm').addEventListener('submit', function(event) {
         var newPassword = document.getElementById('newPassword').value;
         var confirmPassword = document.getElementById('confirmPassword').value;
 
@@ -385,9 +384,9 @@ if (isset($_SESSION['student_id'])) {
                             accept="image/*">
                     </div>
                     <button type="submit" class="btn btn-primary">Upload</button>
-                     
+
                 </form>
-                 <a href="reset_profile_picture.php"><button class="btn btn-warning">Reset</button></a>
+                <a href="reset_profile_picture.php"><button class="btn btn-warning">Reset</button></a>
 
             </div>
         </div>
@@ -395,27 +394,27 @@ if (isset($_SESSION['student_id'])) {
 </div>
 
 <script>
-<?php if (isset($_SESSION['STATUS'])): ?>
-    <?php
+    <?php if (isset($_SESSION['STATUS'])): ?>
+        <?php
         $status = $_SESSION['STATUS'];
         unset($_SESSION['STATUS']); // unset immediately
-    ?>
+        ?>
 
-    <?php if ($status === "PICTURE_REMOVED_SUCCESFUL"): ?>
-        Swal.fire({
-            icon: 'success',
-            title: 'Success',
-            text: 'Picture was removed successfully!',
-            confirmButtonColor: '#3085d6'
-        });
-    <?php elseif ($status === "PICTURE_REMOVED_UNSUCCESFUL"): ?>
-        Swal.fire({
-            icon: 'error',
-            title: 'Failed',
-            text: 'No picture found or removal failed!',
-            confirmButtonColor: '#d33'
-        });
+        <?php if ($status === "PICTURE_REMOVED_SUCCESFUL"): ?>
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: 'Picture was removed successfully!',
+                confirmButtonColor: '#3085d6'
+            });
+        <?php elseif ($status === "PICTURE_REMOVED_UNSUCCESFUL"): ?>
+            Swal.fire({
+                icon: 'error',
+                title: 'Failed',
+                text: 'No picture found or removal failed!',
+                confirmButtonColor: '#d33'
+            });
+        <?php endif; ?>
+
     <?php endif; ?>
-
-<?php endif; ?>
 </script>

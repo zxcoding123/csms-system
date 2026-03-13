@@ -2,7 +2,7 @@
 session_start();
 if (!isset($_SESSION['teacher_id'])) {
     $_SESSION['STATUS'] = "TEACHER_NOT_LOGGED_IN";
-	header("Location: ../login/index.php");
+    header("Location: ../login/index.php");
 }
 
 include('processes/server/conn.php');
@@ -14,7 +14,7 @@ include('processes/server/conn.php');
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>WMSU - CCS | Comprehensive Student Management System</title>
+    <title>ADDU - CCS | Comprehensive Student Management System</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="css/app.css" rel="stylesheet">
@@ -56,7 +56,7 @@ include('processes/server/conn.php');
     <div class="wrapper">
         <?php
         include('sidebar.php')
-            ?>
+        ?>
 
         <div class="main">
             <nav class="navbar navbar-expand navbar-light navbar-bg">
@@ -64,130 +64,130 @@ include('processes/server/conn.php');
                     <i class="hamburger align-self-center"></i>
                 </a>
                 <img src="external/img/ccs_logo-removebg-preview.png" class="logo-small">
-                <span class="text-white">WMSU - Comprehensive Student Management System </span>
+                <span class="text-white">ADDU - Comprehensive Student Management System </span>
                 <div class="navbar-collapse collapse">
-					<?php include('top-bar.php') ?>
-				</div>
+                    <?php include('top-bar.php') ?>
+                </div>
             </nav>
 
             <main class="content">
-            <div id="page-content-wrapper">
-    <div class="container-fluid">
-        <div class="card">
-            <div class="card-body">
-                <h2>Class Advising</h2>
-                <p>Manage student advising and assign them to appropriate classes.</p>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-body">
-                <h1>Adviser Dashboard Overview</h1>
-                <?php
-                // Fetching the teacher's full name from the session
-                $teacher_id = $_SESSION['teacher_id'];
-                try {
-                    $stmt = $pdo->prepare("SELECT fullName FROM staff_accounts WHERE id = :teacher_id");
-                    $stmt->bindParam(':teacher_id', $teacher_id);
-                    $stmt->execute();
-                    $teacher = $stmt->fetch(PDO::FETCH_ASSOC);
-                    if ($teacher) {
-                        echo '<p>Welcome, ' . htmlspecialchars($teacher['fullName']) . '!</p>';
-                    } else {
-                        echo '<p>Welcome, Teacher!</p>';
-                    }
-                } catch (PDOException $e) {
-                    echo "Error: " . $e->getMessage();
-                }
-                ?>
-                <p>Here's an overview of your class and student-related tasks.</p>
-
-                <!-- Dashboard Summary -->
-                <div class="row mb-4">
-                    <div class="col">
-                        <div class="card bg-light">
+                <div id="page-content-wrapper">
+                    <div class="container-fluid">
+                        <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">Class Overview</h5>
+                                <h2>Class Advising</h2>
+                                <p>Manage student advising and assign them to appropriate classes.</p>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-body">
+                                <h1>Adviser Dashboard Overview</h1>
                                 <?php
-                                // Check if the teacher is logged in and their ID is available
-                                if (isset($_SESSION['teacher_id'])) {
-                                    $teacher_id = $_SESSION['teacher_id'];
-                                    try {
-                                        // Query to get the teacher's assigned class from the staff_accounts table
-                                        $stmt = $pdo->prepare("SELECT class FROM staff_accounts WHERE id = :teacher_id");
-                                        $stmt->bindParam(':teacher_id', $teacher_id);
-                                        $stmt->execute();
-
-                                        // Fetch the teacher's class assignment
-                                        $teacher = $stmt->fetch(PDO::FETCH_ASSOC);
-                                        if ($teacher && isset($teacher['class'])) {
-                                            $className = $teacher['class'];
-
-                                            echo $className;
-
-                                            // Query the 'classes' table to fetch class details
-                                            $classStmt = $pdo->prepare("SELECT id, name, subject, teacher FROM classes WHERE name = :className");
-                                            $classStmt->bindParam(':className', $className);
-                                            $classStmt->execute();
-
-                                            $classes = $classStmt->fetchAll(PDO::FETCH_ASSOC);
-
-                                            if ($classes) {
-                                                echo '<ul>';
-                                                foreach ($classes as $classDetails) {
-                                                    // Display each class and make it clickable
-                                                    echo '<li><a href="view_actual_class.php?class_id=' . htmlspecialchars($classDetails['id']) . '">' . htmlspecialchars($classDetails['name']) . ' - ' . htmlspecialchars($classDetails['subject']) . ' (Teacher: ' . htmlspecialchars($classDetails['teacher']) . ')</a></li>';
-                                                }
-                                                echo '</ul>';
-                                            } else {
-                                                echo '<p>No classes found for the teacher.</p>';
-                                            }
-                                        } else {
-                                            echo '<p>No class assigned to this teacher.</p>';
-                                        }
-                                    } catch (PDOException $e) {
-                                        echo "Error: " . $e->getMessage();
+                                // Fetching the teacher's full name from the session
+                                $teacher_id = $_SESSION['teacher_id'];
+                                try {
+                                    $stmt = $pdo->prepare("SELECT fullName FROM staff_accounts WHERE id = :teacher_id");
+                                    $stmt->bindParam(':teacher_id', $teacher_id);
+                                    $stmt->execute();
+                                    $teacher = $stmt->fetch(PDO::FETCH_ASSOC);
+                                    if ($teacher) {
+                                        echo '<p>Welcome, ' . htmlspecialchars($teacher['fullName']) . '!</p>';
+                                    } else {
+                                        echo '<p>Welcome, Teacher!</p>';
                                     }
-                                } else {
-                                    echo '<p>Please log in to view class details.</p>';
+                                } catch (PDOException $e) {
+                                    echo "Error: " . $e->getMessage();
                                 }
                                 ?>
+                                <p>Here's an overview of your class and student-related tasks.</p>
+
+                                <!-- Dashboard Summary -->
+                                <div class="row mb-4">
+                                    <div class="col">
+                                        <div class="card bg-light">
+                                            <div class="card-body">
+                                                <h5 class="card-title">Class Overview</h5>
+                                                <?php
+                                                // Check if the teacher is logged in and their ID is available
+                                                if (isset($_SESSION['teacher_id'])) {
+                                                    $teacher_id = $_SESSION['teacher_id'];
+                                                    try {
+                                                        // Query to get the teacher's assigned class from the staff_accounts table
+                                                        $stmt = $pdo->prepare("SELECT class FROM staff_accounts WHERE id = :teacher_id");
+                                                        $stmt->bindParam(':teacher_id', $teacher_id);
+                                                        $stmt->execute();
+
+                                                        // Fetch the teacher's class assignment
+                                                        $teacher = $stmt->fetch(PDO::FETCH_ASSOC);
+                                                        if ($teacher && isset($teacher['class'])) {
+                                                            $className = $teacher['class'];
+
+                                                            echo $className;
+
+                                                            // Query the 'classes' table to fetch class details
+                                                            $classStmt = $pdo->prepare("SELECT id, name, subject, teacher FROM classes WHERE name = :className");
+                                                            $classStmt->bindParam(':className', $className);
+                                                            $classStmt->execute();
+
+                                                            $classes = $classStmt->fetchAll(PDO::FETCH_ASSOC);
+
+                                                            if ($classes) {
+                                                                echo '<ul>';
+                                                                foreach ($classes as $classDetails) {
+                                                                    // Display each class and make it clickable
+                                                                    echo '<li><a href="view_actual_class.php?class_id=' . htmlspecialchars($classDetails['id']) . '">' . htmlspecialchars($classDetails['name']) . ' - ' . htmlspecialchars($classDetails['subject']) . ' (Teacher: ' . htmlspecialchars($classDetails['teacher']) . ')</a></li>';
+                                                                }
+                                                                echo '</ul>';
+                                                            } else {
+                                                                echo '<p>No classes found for the teacher.</p>';
+                                                            }
+                                                        } else {
+                                                            echo '<p>No class assigned to this teacher.</p>';
+                                                        }
+                                                    } catch (PDOException $e) {
+                                                        echo "Error: " . $e->getMessage();
+                                                    }
+                                                } else {
+                                                    echo '<p>Please log in to view class details.</p>';
+                                                }
+                                                ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="card bg-light">
+                                            <div class="card-body">
+                                                <h5 class="card-title">Student Performance</h5>
+                                                <p>Total Students Monitored: 50</p>
+                                                <p>Average Class Performance: 85%</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col">
-                        <div class="card bg-light">
+
+                        <!-- Class Management Section -->
+                        <div class="card mt-4">
                             <div class="card-body">
-                                <h5 class="card-title">Student Performance</h5>
-                                <p>Total Students Monitored: 50</p>
-                                <p>Average Class Performance: 85%</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                                <h5 class="card-title">Manage Your Classes</h5>
+                                <p>Below is a list of classes you are managing. Click on a class to view more details.</p>
 
-        <!-- Class Management Section -->
-        <div class="card mt-4">
-            <div class="card-body">
-                <h5 class="card-title">Manage Your Classes</h5>
-                <p>Below is a list of classes you are managing. Click on a class to view more details.</p>
+                                <?php
+                                // Assuming you have already established the $pdo connection
+                                $teacher_id = $_SESSION['teacher_id']; // Get the teacher ID from the session
+                                try {
+                                    // Get teacher's full name
+                                    $teacher_stmt = $pdo->prepare("SELECT fullName FROM staff_accounts WHERE id = :teacher_id");
+                                    $teacher_stmt->execute(['teacher_id' => $teacher_id]);
+                                    $teacher = $teacher_stmt->fetch(PDO::FETCH_ASSOC);
+                                    $teacher_name = $teacher['fullName'];
 
-                <?php
-                // Assuming you have already established the $pdo connection
-                $teacher_id = $_SESSION['teacher_id']; // Get the teacher ID from the session
-                try {
-                    // Get teacher's full name
-                    $teacher_stmt = $pdo->prepare("SELECT fullName FROM staff_accounts WHERE id = :teacher_id");
-                    $teacher_stmt->execute(['teacher_id' => $teacher_id]);
-                    $teacher = $teacher_stmt->fetch(PDO::FETCH_ASSOC);
-                    $teacher_name = $teacher['fullName'];
+                                    echo $teacher_name;
 
-                    echo $teacher_name;
-
-                    // Query to fetch the classes the teacher is managing
-                    $class_stmt = $pdo->prepare("
+                                    // Query to fetch the classes the teacher is managing
+                                    $class_stmt = $pdo->prepare("
                         SELECT 
                             c.id AS id,
                             c.name AS class_name,
@@ -196,26 +196,26 @@ include('processes/server/conn.php');
                         FROM classes c
                         WHERE c.teacher = :teacher_name
                     ");
-                    $class_stmt->execute(['teacher_name' => $teacher_name]);
-                    $classes = $class_stmt->fetchAll(PDO::FETCH_ASSOC);
+                                    $class_stmt->execute(['teacher_name' => $teacher_name]);
+                                    $classes = $class_stmt->fetchAll(PDO::FETCH_ASSOC);
 
-                    if ($classes) {
-                        echo '<ul>';
-                        foreach ($classes as $class) {
-                            echo '<li><a href="view_actual_class.php?class_id=' . htmlspecialchars($class['id']) . '">' . htmlspecialchars($class['class_name']) . ' - ' . htmlspecialchars($class['subject_name']) . ' (Teacher: ' . htmlspecialchars($class['class_teacher']) . ')</a></li>';
-                        }
-                        echo '</ul>';
-                    } else {
-                        echo '<p>No classes assigned to this teacher.</p>';
-                    }
-                } catch (PDOException $e) {
-                    echo "Error: " . $e->getMessage();
-                }
-                ?>
-            </div>
-        </div>
-    </div>
-</div>
+                                    if ($classes) {
+                                        echo '<ul>';
+                                        foreach ($classes as $class) {
+                                            echo '<li><a href="view_actual_class.php?class_id=' . htmlspecialchars($class['id']) . '">' . htmlspecialchars($class['class_name']) . ' - ' . htmlspecialchars($class['subject_name']) . ' (Teacher: ' . htmlspecialchars($class['class_teacher']) . ')</a></li>';
+                                        }
+                                        echo '</ul>';
+                                    } else {
+                                        echo '<p>No classes assigned to this teacher.</p>';
+                                    }
+                                } catch (PDOException $e) {
+                                    echo "Error: " . $e->getMessage();
+                                }
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
         </div>
         </main>
@@ -242,7 +242,7 @@ include('processes/server/conn.php');
     </script>
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             // Initialize DataTable
             $('#classesTable').DataTable({
                 "paging": true,

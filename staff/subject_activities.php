@@ -47,7 +47,7 @@ include('processes/server/conn.php');
         border-bottom: 1px solid black;
     }
 
-   .btn-csms {
+    .btn-csms {
         background-color: #10177a;
         color: white;
         border: 1px solid white;
@@ -444,10 +444,10 @@ include('processes/server/conn.php');
                                         <!-- Header Section -->
                                         <div style="text-align: center; margin-bottom: 20px; font-family: Arial;"">
         <div style=" display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                                            <img src="external/img/wmsu_logo-removebg-preview.png" alt="WMSU Logo"
+                                            <img src="external/img/ADDU_logo-removebg-preview.png" alt="ADDU Logo"
                                                 style="height: 80px; width: auto;">
                                             <div>
-                                                <h3 style="margin: 0;">Western Mindanao State University</h3>
+                                                <h3 style="margin: 0;">Ateneo de Davao University</h3>
                                                 <h4 style="margin: 0;">College of Computing Studies</h4>
                                             </div>
                                             <img src="external/img/ccs_logo-removebg-preview.png" alt="CCS Logo"

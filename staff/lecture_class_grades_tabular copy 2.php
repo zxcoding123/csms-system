@@ -13,7 +13,7 @@ include('processes/server/conn.php');
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>WMSU - CCS | Student Management System</title>
+    <title>ADDU - CCS | Student Management System</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="css/app.css" rel="stylesheet">
@@ -86,7 +86,7 @@ include('processes/server/conn.php');
                 include('processes/server/conn.php');
 
                 $class_id = $_GET['id']; // Get the class_id from the URL or form
-                
+
 
                 $stmt = $pdo->prepare("SELECT major_exam, quizzes, assignments_activities_attendance FROM lecture_rubrics WHERE class_id = :class_id");
                 $stmt->execute([':class_id' => $class_id]);
@@ -159,7 +159,7 @@ include('processes/server/conn.php');
                             xhr.send('class_id=' + classId);
 
                             // Handle server response
-                            xhr.onload = function () {
+                            xhr.onload = function() {
                                 if (xhr.status === 200) {
                                     alert('Rubric successfully deleted.');
                                     // Optionally reload or update the page here to reflect changes
@@ -182,7 +182,7 @@ include('processes/server/conn.php');
 
                 // Check if rubrics are available
                 if ($rubrics) {
-                    echo" may rubrics";
+                    echo " may rubrics";
                     // Calculate percentage based on the retrieved rubrics
                     $majorExamPercentage = isset($rubrics['major_exam']) ? floatval($rubrics['major_exam']) : 0;
                     $quizzesPercentage = isset($rubrics['quizzes']) ? floatval($rubrics['quizzes']) : 0;
@@ -190,11 +190,8 @@ include('processes/server/conn.php');
 
                     // Total percentage (optional, you can decide how to use this or store)
                     $totalPercentage = $majorExamPercentage + $quizzesPercentage + $assignments_activities_attendancePercentage;
-
-
-
                 } else {
-                    echo" no rubrics";
+                    echo " no rubrics";
                     $majorExamPercentage = 40;
                     $quizzesPercentage = 30;
                     $assignments_activities_attendancePercentage = 30;
@@ -211,7 +208,7 @@ include('processes/server/conn.php');
                 $Trueassignments_activities_attendancePercentage = $assignments_activities_attendancePercentage / 100; // 0.3
 
                 $totalPercentage = $TruemajorExamPercentage + $TruequizzesPercentage + $Trueassignments_activities_attendancePercentage;
-                
+
 
 
 
@@ -229,18 +226,18 @@ include('processes/server/conn.php');
                         if (majorExam && quizzes && assignments_activities_attendance) {
                             // Call AJAX to update the grading schema in the server
                             fetch('lecture_update_grading.php', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json'
-                                },
-                                body: JSON.stringify({
-                                    class_id: classId,
-                                    major_exam: majorExam,
-                                    assignments_activities_attendance: assignments_activities_attendance,
-                                    quizzes: quizzes
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    },
+                                    body: JSON.stringify({
+                                        class_id: classId,
+                                        major_exam: majorExam,
+                                        assignments_activities_attendance: assignments_activities_attendance,
+                                        quizzes: quizzes
 
+                                    })
                                 })
-                            })
                                 .then(response => response.json())
                                 .then(data => {
                                     if (data.success) {
@@ -272,11 +269,11 @@ include('processes/server/conn.php');
                                     class="container text-center d-flex align-items-center justify-content-center my-3">
                                     <div class="row w-100 d-flex align-items-center justify-content-center">
                                         <div class="col-2 d-flex justify-content-center">
-                                            <img src="../external/img/wmsu_Logo-removebg-preview.png"
+                                            <img src="../external/img/ADDU_Logo-removebg-preview.png"
                                                 class="img-fluid small-logo">
                                         </div>
                                         <div class="col-8 text-center">
-                                            <h5 class="bold mb-1">Western Mindanao State University</h5>
+                                            <h5 class="bold mb-1">Ateneo de Davao University</h5>
                                             <h5 class="mb-1">College of Computing Studies</h5>
                                             <h5>Zamboanga City</h5>
                                         </div>
