@@ -1,0 +1,45 @@
+POST Data: Array
+(
+    [email] => test@wmsu.edu.ph
+    [password] => yassan12
+    [first_name] => hahah
+    [middle_name] => hahaha
+    [last_name] => haha
+    [phone_number] => +639536640199
+    [gender] => Male
+)
+
+PDO Error: SQLSTATE[HY000]: General error: 1364 Field 'fullName' doesn't have a default value
+POST Data: Array
+(
+    [email] => test@wmsu.edu.ph
+    [password] => yassan12
+    [first_name] => Ahmad
+    [middle_name] => Pandaog
+    [last_name] => Aquino
+    [phone_number] => +639536640199
+    [gender] => Male
+)
+
+POST Data: Array
+(
+    [email] => test@wmsu.edu.ph
+    [password] => yassan12
+    [first_name] => Ahmad
+    [middle_name] => Pandaog
+    [last_name] => Aquino
+    [phone_number] => +639636640199
+    [gender] => Male
+)
+
+POST Data: Array
+(
+    [email] => paps@gmail.com
+    [password] => 123123
+    [first_name] => paps
+    [middle_name] => paps
+    [last_name] => paps
+    [phone_number] => +639658246598
+    [gender] => Male
+)
+
