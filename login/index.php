@@ -1,6 +1,8 @@
 <?php
 session_start();
 include('processes/conn.php');
+$pdo = Database::getConnection();
+
 
 $stmt = $pdo->prepare("
     UPDATE classes_meetings
@@ -33,13 +35,24 @@ $stmt->execute();
 </head>
 
 <header>
-    <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid d-flex">
-            <a class="navbar-brand" href="../index.php">
-                <img src="external/img/ADNU_Logo.png" class="img-fluid logo">
+    <nav class="navbar navbar-expand-lg  py-2">
+        <div class="container-fluid">
+            <!-- Logo -->
+            <a class="navbar-brand d-flex align-items-center" href="../index.php">
+                <img src="external/img/ADNU_Logo.png" alt="ADNU Logo" class="img-fluid" style="max-height:50px;">
             </a>
-            <div class="mx-auto">
-                Student Management System
+
+            <!-- Mobile toggle button -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+                aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Collapsible content -->
+            <div class="collapse navbar-collapse justify-content-center" id="navbarContent">
+                <span class="navbar-text fw-bold text-center text-light">
+                    Student Management System
+                </span>
             </div>
         </div>
     </nav>
@@ -47,60 +60,54 @@ $stmt->execute();
 
 <body>
     <div class="container-fluid login-container">
-        <div class="row d-flex justify-content-center align-items-center  min-vh-100 px-3">
-            <div class="col-lg-6 col-md-8 col-sm-12 p-4">
+        <div class="row min-vh-100 justify-content-center align-items-center px-3">
+            <!-- Left Column: Login Form -->
+            <div class="col-lg-6 col-md-8 col-12 p-4">
                 <div data-aos="fade-right">
-                    <div class="d-flex justify-content-center align-items-center">
-                           <small><a href="../index.php" class="gb"><i class="bi bi-arrow-left-circle-fill"></i> Go back</a></small>
+                    <div class="d-flex justify-content-center mb-3">
+                        <small><a href="../index.php" class="gb">
+                                <i class="bi bi-arrow-left-circle-fill"></i> Go back
+                            </a></small>
                     </div>
-                 
-                    <div class="d-flex mb-3 justify-content-center align-items-center">
-                        <img src="external/img/ADNU_Logo.png" class="img-fluid big-logo me-2" alt="ADNU Logo">
-                        <img src="external/img/ADNU_CCS_Logo.png" class="img-fluid big-logo" alt="CCS Logo">
+
+                    <div class="d-flex justify-content-center align-items-center mb-3 gap-2 flex-wrap">
+                        <img src="external/img/ADNU_Logo.png" class="img-fluid" style="max-width:100px;" alt="ADNU Logo">
+                        <img src="external/img/ADNU_CCS_Logo.png" class="img-fluid" style="max-width:100px;" alt="CCS Logo">
                     </div>
-                <h3 class="text-center bold">Welcome to AdNU - CCS</h3>
-                                    <p class="text-center text-muted">Login your account by filling out the form below</p>
+
+                    <h3 class="text-center fw-bold mb-2">Welcome to AdNU - CCS</h3>
+                    <p class="text-center text-muted mb-4">Login your account by filling out the form below</p>
+
                     <form action="processes/login.php" method="POST" class="login-container-with-input">
-                        <label class="bold">EMAIL</label>
-
-                        <input class="input-control" name="email" type="email" placeholder="Email" required>
-                        <br> <br>
-                        <label class="bold">PASSWORD</label>
-
-
-                        <!-- password box -->
-                        <input type="password"
-                            id="password"
-                            name="password"
-                            class="input-control mb-2"
-                            placeholder="Create a password"
-                            required>
-
-                        <!-- animated toggle switch -->
-                        <div class="form-check form-switch mb-3 text-left">
-                            <input class="form-check-input toggle-switch"
-                                type="checkbox"
-                                id="showPassword"
-                                onclick="togglePasswordVisibility()">
-                            <label class="form-check-label ms-2" for="showPassword">
-                                Show Password
-                            </label>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Email</label>
+                            <input type="email" class="form-control" name="email" placeholder="Email" required>
                         </div>
 
-                        <div class=" d-flex justify-content-between mb-3">
-                            <a href="create_account.php" class="gb-link me-auto">Create an Account</a>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Password</label>
+                            <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+                        </div>
+
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" type="checkbox" id="showPassword" onclick="togglePasswordVisibility()">
+                            <label class="form-check-label" for="showPassword">Show Password</label>
+                        </div>
+
+                        <div class="d-flex justify-content-between mb-3 flex-wrap gap-2">
+                            <a href="create_account.php" class="gb-link">Create an Account</a>
                             <a data-bs-toggle="modal" data-bs-target="#resetPasswordModal" class="gb-link">Forgot your password?</a>
                         </div>
 
-                        <input type="submit" value="Login" class="login-btn w-100">
+                        <button type="submit" class="btn btn-primary w-100">Login</button>
                     </form>
                 </div>
             </div>
 
             <!-- Right Column: Image -->
-            <div class="col-lg d-none d-lg-flex justify-content-center align-items-center m-20">
+            <div class="col-lg d-none d-lg-flex justify-content-center align-items-center">
                 <div data-aos="fade-left">
-                    <img src=" external/img/login.png" class="img-fluid w-100" alt="ADNU Login Banner" style="border-radius: 5%;">
+                    <img src="external/img/login.png" class="img-fluid rounded" alt="ADNU Login Banner">
                 </div>
             </div>
         </div>

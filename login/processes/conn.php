@@ -1,29 +1,27 @@
 <?php
+class Database
+{
+    private static $instance = null;
 
-// $host = '151.106.112.223'; 
-// $dbname = 'csms_system';   
-// $username = 'remote_user';  
-// $password = 'your_remote_password'; 
 
-?>
+    public static function getConnection()
+    {
+        if (self::$instance === null) {
+            $host = $_ENV['DB_HOST'] ?? 'localhost';
+            $dbname = $_ENV['DB_NAME'] ?? 'csms_system';
+            $username = $_ENV['DB_USER'] ?? 'root';
+            $password = $_ENV['DB_PASS'] ?? '';
 
-<?php
+            $options = [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                PDO::ATTR_EMULATE_PREPARES => false,
+            ];
 
-$host = 'localhost';  // Your VPS’s public IP
-$dbname = 'csms_system';    // Your database name
-$username = 'root';  // Remote user we created
-$password = ''; // Password for remote_user
+            $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8mb4";
+            self::$instance = new PDO($dsn, $username, $password, $options);
+        }
 
-try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-    
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);  // Ensures exceptions are thrown
-
-    
-    $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-
-} catch (PDOException $e) {
-    echo "Connection failed: " . $e->getMessage();
+        return self::$instance;
+    }
 }
-?>
-

@@ -25,9 +25,9 @@ session_start();
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
-
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
 </head>
@@ -162,8 +162,6 @@ session_start();
                                             <label for="role" class="form-label bold">Role</label>
                                             <select class="selector" id="role" name="role" required onchange="updateFormFields()">
                                                 <option value="" disabled selected>Select Role</option>
-                                                <option value="admin">Administrator</option>
-                                                <option value="staff">Staff</option>
                                                 <option value="student">Student</option>
                                             </select>
                                         </div>
@@ -258,7 +256,7 @@ session_start();
                 </div>
                 <div class="mb-3">
                     <label for="year_level" class="form-label bold">Year Level</label>
-                    <select class="selector" id="year_level" name="year_level" required>
+                    <select class="selector" id="year_level" name="year_level" requifred>
                         <option value="" disabled selected>Select Year Level</option>
                         <option value="1st Year">1st Year</option>
                         <option value="2nd Year">2nd Year</option>
@@ -272,11 +270,12 @@ session_start();
     </script>
 
     <script>
-        // Attach the submit event to the form
         document.getElementById('registrationForm').addEventListener('submit', function(e) {
-            e.preventDefault(); // Prevent default submission to show the popup
+            e.preventDefault();
 
-            // Show SweetAlert2 Loading Dialog
+            const form = e.target;
+            const formData = new FormData(form);
+
             Swal.fire({
                 title: 'Submitting...',
                 text: 'Please wait while we process your registration.',
@@ -284,19 +283,48 @@ session_start();
                 allowOutsideClick: false,
                 showConfirmButton: false,
                 didOpen: () => {
-                    Swal.showLoading(); // Show loading spinner
+                    Swal.showLoading();
 
-                    // Simulate form submission by manually submitting it after showing the alert
-                    setTimeout(() => {
-                        e.target.submit();
-                    }, 2000); // Simulate a 2-second delay (for demo purposes)
+                    fetch(form.action, {
+                            method: 'POST',
+                            body: formData
+                        })
+                        .then(response => response.json()) // expect JSON from PHP
+                        .then(data => {
+                            Swal.close();
+
+                            if (data.success) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Success!',
+                                    text: data.message || 'Registration completed!'
+                                }).then(() => {
+                                    form.reset(); // optional
+                                });
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error',
+                                    text: data.message || 'Something went wrong.'
+                                });
+                            }
+                        })
+                        .catch(error => {
+                            Swal.close();
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Request Failed',
+                                text: 'Server error. Please try again.'
+                            });
+                            console.error(error);
+                        });
                 }
             });
         });
     </script>
 
 
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
@@ -307,10 +335,6 @@ session_start();
 
             // Optional: subtle animation highlight
             field.classList.toggle('password-visible', toggleEl.checked);
-        }
-
-        function goBack() {
-            window.location.href = "student_login_page.php";
         }
         AOS.init();
     </script>

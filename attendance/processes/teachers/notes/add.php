@@ -1,9 +1,14 @@
 <?php
-session_Start();
-$host = 'localhost';
-$dbname = 'u351448361_csms_system';
-$username = 'u351448361_csms_admin';
-$password = 'ADDUDatabase009988';
+session_start();
+// $host = 'localhost';
+// $dbname = 'u351448361_csms_system';
+// $username = 'u351448361_csms_admin';
+// $password = 'ADDUDatabase009988';
+
+$host = 'localhost';  // Your VPS’s public IP
+$dbname = 'csms_system';    // Your database name
+$username = 'root';  // Remote user we created
+$password = ''; // Password for remote_user
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);

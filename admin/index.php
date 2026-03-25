@@ -1,10 +1,8 @@
 <?php
 session_start();
-if (!isset($_SESSION['admin_id'])) {
-	$_SESSION['STATUS'] = "ADMIN_NOT_LOGGED_IN";
-	header("Location: ../login/index.php");
-}
 include('processes/server/conn.php');
+require '../app/helpers/auth.php'; // adjust path to your file
+requireRole('admin'); // ensures only admins can access
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -133,7 +131,7 @@ include('processes/server/conn.php');
 											</div>
 										</div>
 
-										
+
 
 
 
@@ -304,40 +302,40 @@ include('processes/server/conn.php');
 											</div>
 										</div>
 
-											<?php
-										
-												// Query to get the total number of students
-												$stmt = $pdo->query("SELECT COUNT(*) AS total_posts FROM posts");
-												$result = $stmt->fetch(PDO::FETCH_ASSOC);
+										<?php
 
-												// Get the total count
-												$totalPosts = $result['total_posts'] ?? 0;
-												?>
-<div class="card">
-  <div class="card-body">
-    <div class="row mb-3">
-      <div class="col ">
-        <h5 class="card-title">Total Posts</h5>
-      </div>
-      <div class="col-auto">
-        <div class="stat text-primary">
-          <i class="bi bi-stickies-fill"></i>
-        </div>
-      </div>
-    </div>
+										// Query to get the total number of students
+										$stmt = $pdo->query("SELECT COUNT(*) AS total_posts FROM posts");
+										$result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    <h1 >
-      <?php echo $totalPosts; ?>
-    </h1>
+										// Get the total count
+										$totalPosts = $result['total_posts'] ?? 0;
+										?>
+										<div class="card">
+											<div class="card-body">
+												<div class="row mb-3">
+													<div class="col ">
+														<h5 class="card-title">Total Posts</h5>
+													</div>
+													<div class="col-auto">
+														<div class="stat text-primary">
+															<i class="bi bi-stickies-fill"></i>
+														</div>
+													</div>
+												</div>
 
-    
-  </div>
-</div>
+												<h1>
+													<?php echo $totalPosts; ?>
+												</h1>
+
+
+											</div>
+										</div>
 
 
 									</div>
 
-									
+
 									<hr>
 
 									<div class="row">

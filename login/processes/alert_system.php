@@ -101,17 +101,12 @@ try {
 
             // Commit the transaction
             $pdo->commit();
-
-
         } else {
-    
         }
     } else {
-       
     }
 } catch (PDOException $e) {
     $pdo->rollBack();
-
 }
 
 try {
@@ -214,13 +209,9 @@ try {
 
             // Commit transaction
             $pdo->commit();
-
-      
         } else {
-          
         }
     } else {
-
     }
 } catch (PDOException $e) {
     // Rollback transaction on error
@@ -228,7 +219,7 @@ try {
         $pdo->rollBack();
     }
     // Log the error
-   
+
 }
 
 
@@ -247,6 +238,4 @@ try {
         $_SESSION['STATUS'] = "SEMESTER_ENDED_NOTICE";
     }
 } catch (PDOException $e) {
-
 }
-?>

@@ -1,11 +1,8 @@
 <?php
 session_start();
-if (!isset($_SESSION['admin_id'])) {
-	$_SESSION['STATUS'] = "ADMIN_NOT_LOGGED_IN";
-	header("Location: admin_login_page.php");
-}
-
 include('processes/server/conn.php');
+require '../app/helpers/auth.php'; // adjust path to your file
+requireRole('admin'); // ensures only admins can access
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,7 +12,7 @@ include('processes/server/conn.php');
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>AdNU - CCS | Student Management System</title>
-    <link rel="icon" href="../external/img/favicon-32x32.png" type="image/x-icon">
+	<link rel="icon" href="../external/img/favicon-32x32.png" type="image/x-icon">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 	<link href="css/app.css" rel="stylesheet">
@@ -54,84 +51,86 @@ include('processes/server/conn.php');
 </style>
 
 <style>
-.responsive-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 0 0 1em 0;
-}
+	.responsive-table {
+		width: 100%;
+		border-collapse: collapse;
+		margin: 0 0 1em 0;
+	}
 
-/* Ensure table header and footer cells are centered where needed */
-.responsive-table th.text-center,
-.responsive-table td.text-center {
-    text-align: center;
-}
+	/* Ensure table header and footer cells are centered where needed */
+	.responsive-table th.text-center,
+	.responsive-table td.text-center {
+		text-align: center;
+	}
 
-/* Style for table headers */
-.responsive-table th {
-    background-color: #f5f5f5;
-    font-weight: bold;
-    padding: 8px;
-    border: 1px solid #ddd;
-}
+	/* Style for table headers */
+	.responsive-table th {
+		background-color: #f5f5f5;
+		font-weight: bold;
+		padding: 8px;
+		border: 1px solid #ddd;
+	}
 
-/* Style for table cells */
-.responsive-table td {
-    padding: 8px;
-    border: 1px solid #ddd;
-}
+	/* Style for table cells */
+	.responsive-table td {
+		padding: 8px;
+		border: 1px solid #ddd;
+	}
 
-/* Container for responsive behavior */
-.table-wrapper {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    margin-bottom: 1em;
-}
+	/* Container for responsive behavior */
+	.table-wrapper {
+		overflow-x: auto;
+		-webkit-overflow-scrolling: touch;
+		margin-bottom: 1em;
+	}
 
-/* Minimum width to ensure all content is visible */
-.responsive-table {
-    min-width: 800px; /* Adjust based on your content */
-}
+	/* Minimum width to ensure all content is visible */
+	.responsive-table {
+		min-width: 800px;
+		/* Adjust based on your content */
+	}
 
-/* Button spacing */
-.responsive-table td .btn {
-    margin: 2px;
-}
+	/* Button spacing */
+	.responsive-table td .btn {
+		margin: 2px;
+	}
 
-/* Media query for smaller screens */
-@media screen and (max-width: 768px) {
-    .responsive-table th,
-    .responsive-table td {
-        font-size: 14px;
-    }
-    
-    .responsive-table td .btn {
-        padding: 4px 8px;
-        font-size: 12px;
-    }
-    
-    /* Stack buttons vertically on very small screens */
-    @media screen and (max-width: 480px) {
-        .responsive-table td .btn {
-            display: block;
-            width: 100%;
-            margin: 2px 0;
-        }
-    }
-}
+	/* Media query for smaller screens */
+	@media screen and (max-width: 768px) {
+
+		.responsive-table th,
+		.responsive-table td {
+			font-size: 14px;
+		}
+
+		.responsive-table td .btn {
+			padding: 4px 8px;
+			font-size: 12px;
+		}
+
+		/* Stack buttons vertically on very small screens */
+		@media screen and (max-width: 480px) {
+			.responsive-table td .btn {
+				display: block;
+				width: 100%;
+				margin: 2px 0;
+			}
+		}
+	}
 </style>
 
 <body>
 	<div class="wrapper">
 		<?php
 		include('sidebar.php')
-			?>
+		?>
 
 		<div class="main">
 			<nav class="navbar navbar-expand navbar-light navbar-bg">
 				<a class="sidebar-toggle js-sidebar-toggle">
 					<i class="hamburger align-self-center"></i>
 				</a>
-			       <img src="external/img/ADNU_Logo.png" class="logo-small">
+				<img src="external/img/ADNU_Logo.png" class="logo-small">
 				<span class="text-white"><b>AdNU</b> - Student Management System </span>
 				<div class="navbar-collapse collapse">
 					<?php
@@ -272,7 +271,7 @@ include('processes/server/conn.php');
 											xhr.open('POST', 'change_status.php', true);
 											xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-											xhr.onload = function () {
+											xhr.onload = function() {
 												if (xhr.status === 200) {
 													console.log("Status update response:", xhr.responseText);
 													location.reload(); // Reload the page to show the updated status
@@ -281,7 +280,7 @@ include('processes/server/conn.php');
 												}
 											};
 
-											xhr.onerror = function () {
+											xhr.onerror = function() {
 												console.error("Request failed");
 											};
 
@@ -352,7 +351,7 @@ include('processes/server/conn.php');
 						</div>
 
 						<script>
-							document.addEventListener('DOMContentLoaded', function () {
+							document.addEventListener('DOMContentLoaded', function() {
 								const departmentSelect1 = document.getElementById('department-1');
 								const classSelect1 = document.getElementById('class-1');
 
@@ -378,7 +377,7 @@ include('processes/server/conn.php');
 
 									// If a valid department is selected, update the class options
 									if (classes[department]) {
-										classes[department].forEach(function (classOption) {
+										classes[department].forEach(function(classOption) {
 											const option = document.createElement('option');
 											option.value = classOption;
 											option.textContent = classOption;
@@ -391,7 +390,7 @@ include('processes/server/conn.php');
 								}
 
 								// Event listener for when the department changes
-								departmentSelect1.addEventListener('change', function () {
+								departmentSelect1.addEventListener('change', function() {
 									const selectedDepartment = departmentSelect1.value;
 									updateClassOptions(selectedDepartment);
 								});
@@ -459,13 +458,13 @@ include('processes/server/conn.php');
 			document.querySelector("#currentTime").textContent = "The current date and time is: " + newTime;
 		}
 		setInterval(getTime, 100);
-		$(document).ready(function () {
+		$(document).ready(function() {
 			var table = $('#teachers').DataTable({
 				responsive: true,
 			});
 
 			// Loop through each footer element
-			$('#teachers tfoot th').each(function (index) {
+			$('#teachers tfoot th').each(function(index) {
 				var title = $(this).text(); // Get column title
 
 				// Decide which column should have a dropdown
@@ -515,18 +514,18 @@ include('processes/server/conn.php');
 			});
 
 			// Apply search logic
-			table.columns().every(function () {
+			table.columns().every(function() {
 				var that = this;
 
 				// Search for text input
-				$('input', this.footer()).on('keyup change clear', function () {
+				$('input', this.footer()).on('keyup change clear', function() {
 					if (that.search() !== this.value) {
 						that.search(this.value).draw();
 					}
 				});
 
 				// Search for dropdown
-				$('select', this.footer()).on('change', function () {
+				$('select', this.footer()).on('change', function() {
 					if (that.search() !== this.value) {
 						that.search(this.value).draw();
 					}
@@ -538,30 +537,30 @@ include('processes/server/conn.php');
 	</script>
 
 
-<?php
-$sql = "SELECT * FROM staff_accounts";
-$stmt = $pdo->query($sql);
+	<?php
+	$sql = "SELECT * FROM staff_accounts";
+	$stmt = $pdo->query($sql);
 
-while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-    // Pre-select the department, gender, and phone number if they exist in the record
-    $selectedDepartment = $row['department'];
-    $selectedGender = $row['gender'];
-    $selectedPhoneNumber = $row['phone_number'];
+	while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+		// Pre-select the department, gender, and phone number if they exist in the record
+		$selectedDepartment = $row['department'];
+		$selectedGender = $row['gender'];
+		$selectedPhoneNumber = $row['phone_number'];
 
-    // Construct the teacher's full name
-    $fullName = $row['first_name'] . ' ' . ($row['middle_name'] ? $row['middle_name'] . ' ' : '') . $row['last_name'];
+		// Construct the teacher's full name
+		$fullName = $row['first_name'] . ' ' . ($row['middle_name'] ? $row['middle_name'] . ' ' : '') . $row['last_name'];
 
-    // Fetch all unique class advising options
-    $all_classes_stmt = $pdo->prepare("SELECT DISTINCT class_advising FROM staff_advising");
-    $all_classes_stmt->execute();
-    $all_classes = $all_classes_stmt->fetchAll(PDO::FETCH_COLUMN);
+		// Fetch all unique class advising options
+		$all_classes_stmt = $pdo->prepare("SELECT DISTINCT class_advising FROM staff_advising");
+		$all_classes_stmt->execute();
+		$all_classes = $all_classes_stmt->fetchAll(PDO::FETCH_COLUMN);
 
-    // Fetch the classes this teacher advises
-    $teacher_classes_stmt = $pdo->prepare("SELECT class_advising FROM staff_advising WHERE fullName = :fullName");
-    $teacher_classes_stmt->execute([':fullName' => $fullName]);
-    $teacher_classes = $teacher_classes_stmt->fetchAll(PDO::FETCH_COLUMN);
+		// Fetch the classes this teacher advises
+		$teacher_classes_stmt = $pdo->prepare("SELECT class_advising FROM staff_advising WHERE fullName = :fullName");
+		$teacher_classes_stmt->execute([':fullName' => $fullName]);
+		$teacher_classes = $teacher_classes_stmt->fetchAll(PDO::FETCH_COLUMN);
 
-    echo '
+		echo '
     <div class="modal fade" id="editModal' . $row['id'] . '" tabindex="-1" aria-labelledby="exampleModalLabel' . $row['id'] . '" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -600,10 +599,10 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                             <select class="form-control" name="class[]" id="class-' . $row['id'] . '" multiple>
                                 <optgroup label="Past Selected Classes">
                                     ';
-                                    foreach ($teacher_classes as $class) {
-                                        echo '<option style="background-color:lightgrey"value="' . htmlspecialchars($class) . '" selected>' . htmlspecialchars($class) . '</option>';
-                                    }
-                                    echo '
+		foreach ($teacher_classes as $class) {
+			echo '<option style="background-color:lightgrey"value="' . htmlspecialchars($class) . '" selected>' . htmlspecialchars($class) . '</option>';
+		}
+		echo '
                                 </optgroup>
                                 <optgroup label="Department-Specific Classes" id="dept-classes-' . $row['id'] . '">
                                     <!-- Populated by JavaScript -->
@@ -643,8 +642,8 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         </div>
     </div>';
 
-    // Password toggler JavaScript
-    echo "
+		// Password toggler JavaScript
+		echo "
         <script>
         document.addEventListener('DOMContentLoaded', () => {
             const togglerPassword = document.querySelector('#togglerPassword" . $row['id'] . "');
@@ -662,8 +661,8 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         </script>
     ";
 
-    // Department-class linkage JavaScript with optgroup separation
-    echo '
+		// Department-class linkage JavaScript with optgroup separation
+		echo '
     <script>
     document.addEventListener("DOMContentLoaded", function () {
         const departmentSelect = document.getElementById("department-' . $row['id'] . '");
@@ -715,26 +714,26 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         });
     });
     </script>';
-}
-?><?php
-$sql = "SELECT * FROM staff_accounts";
-$stmt = $pdo->query($sql);
+	}
+	?><?php
+		$sql = "SELECT * FROM staff_accounts";
+		$stmt = $pdo->query($sql);
 
-while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-    // Pre-select fields
-    $selectedDepartment = $row['department'];
-    $selectedGender = $row['gender'];
-    $selectedPhoneNumber = $row['phone_number'];
+		while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+			// Pre-select fields
+			$selectedDepartment = $row['department'];
+			$selectedGender = $row['gender'];
+			$selectedPhoneNumber = $row['phone_number'];
 
-    // Construct full name
-    $fullName = trim($row['first_name'] . ' ' . ($row['middle_name'] ? $row['middle_name'] . ' ' : '') . $row['last_name']);
+			// Construct full name
+			$fullName = trim($row['first_name'] . ' ' . ($row['middle_name'] ? $row['middle_name'] . ' ' : '') . $row['last_name']);
 
-    // Fetch the classes this teacher advises
-    $teacher_classes_stmt = $pdo->prepare("SELECT class_advising FROM staff_advising WHERE fullName = :fullName");
-    $teacher_classes_stmt->execute([':fullName' => $fullName]);
-    $teacher_classes = $teacher_classes_stmt->fetchAll(PDO::FETCH_COLUMN);
+			// Fetch the classes this teacher advises
+			$teacher_classes_stmt = $pdo->prepare("SELECT class_advising FROM staff_advising WHERE fullName = :fullName");
+			$teacher_classes_stmt->execute([':fullName' => $fullName]);
+			$teacher_classes = $teacher_classes_stmt->fetchAll(PDO::FETCH_COLUMN);
 
-    echo '
+			echo '
     <div class="modal fade" id="viewModal' . $row['id'] . '" tabindex="-1" aria-labelledby="exampleModalLabel' . $row['id'] . '" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -765,27 +764,27 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                     </div>
                     <div class="mb-3">
                     <label class="form-label bold">Class Advisory</label>';
-                    
-                    if (empty($teacher_classes)) {
-                        echo '<p class="text-muted"><em>No assigned classes</em></p>';
-                    } else {
-                        echo '<div class="table-responsive">
+
+			if (empty($teacher_classes)) {
+				echo '<p class="text-muted"><em>No assigned classes</em></p>';
+			} else {
+				echo '<div class="table-responsive">
                                 <table class="table table-bordered text-center">
                                     <tbody>
                                         <tr>';
-                        foreach ($teacher_classes as $index => $class) {
-                            echo '<td style="background-color:white !important">' . htmlspecialchars($class) . '</td>';
-                            if (($index + 1) % 3 == 0) {
-                                echo '</tr t"><tr>';
-                            }
-                        }
-                        echo '                </tr>
+				foreach ($teacher_classes as $index => $class) {
+					echo '<td style="background-color:white !important">' . htmlspecialchars($class) . '</td>';
+					if (($index + 1) % 3 == 0) {
+						echo '</tr t"><tr>';
+					}
+				}
+				echo '                </tr>
                                     </tbody>
                                 </table>
                               </div>';
-                    }
+			}
 
-                echo '
+			echo '
                 </div>
                     <div class="mb-3">
                         <label class="form-label bold">Gender</label>
@@ -802,8 +801,8 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             </div>
         </div>
     </div>';
-}
-?>
+		}
+		?>
 
 	<script>
 		function getTime() {
@@ -815,7 +814,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
 		setInterval(getTime, 100);
 
-		document.addEventListener('DOMContentLoaded', function () {
+		document.addEventListener('DOMContentLoaded', function() {
 			const semesterSelect = document.getElementById('semester');
 			const availableClassesSelect = document.getElementById('availableClasses');
 			const assignedClassesContainer = document.getElementById('assignedClassesContainer');
@@ -827,7 +826,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 			};
 
 			// Update available classes based on selected semester
-			semesterSelect.addEventListener('change', function () {
+			semesterSelect.addEventListener('change', function() {
 				const selectedSemester = semesterSelect.value;
 
 				// Clear previous options
@@ -835,7 +834,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
 				// Add new options based on selected semester
 				if (classes[selectedSemester]) {
-					classes[selectedSemester].forEach(function (className) {
+					classes[selectedSemester].forEach(function(className) {
 						const option = document.createElement('option');
 						option.value = className;
 						option.textContent = className;
@@ -875,7 +874,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
 			// Remove class
 			document.querySelectorAll('.remove-btn').forEach(button => {
-				button.addEventListener('click', function () {
+				button.addEventListener('click', function() {
 					const row = this.closest('tr');
 					row.parentNode.removeChild(row);
 					checkSelections();
@@ -888,7 +887,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
 		function hidePasswordsOnLoad() {
 			var passwordCells = document.querySelectorAll('span[data-password]');
-			passwordCells.forEach(function (passwordCell) {
+			passwordCells.forEach(function(passwordCell) {
 				var password = passwordCell.getAttribute('data-password');
 				passwordCell.textContent = '*'.repeat(password.length);
 				passwordCell.setAttribute('data-hidden', 'true');
@@ -952,7 +951,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 	</script>
 
 	<script>
-		document.getElementById('messageForm').addEventListener('submit', function (event) {
+		document.getElementById('messageForm').addEventListener('submit', function(event) {
 			event.preventDefault(); // Prevent form submission
 
 			// Get the message from the textarea
