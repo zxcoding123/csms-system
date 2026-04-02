@@ -1,53 +1,61 @@
 <?php
-require_once 'conn.php'; // Include database connection
+require_once '../../processes/server/conn.php';
 session_start();
 
-if (isset($_GET['email'])) {
-    $email = $_GET['email'];
-
-    try {
-        // Check if the email exists in the database
-        $query = "SELECT * FROM students WHERE email = :email";
-        $stmt = $pdo->prepare($query);
-        $stmt->execute([':email' => $email]);
-        $user = $stmt->fetch();
-
-        if ($user) {
-            // Check if the user is already activated
-            if ($user['status'] == 'active') {
-                $_SESSION['STATUS'] = "EMAIL_ALREADY_ACTIVE";
-                header("Location: ../index.php"); // Redirect to result page
-                exit();
-            }
-
-            // Set the user as activated (assuming there's a status column in your database)
-            $query = "UPDATE students SET status = 'active' WHERE email = :email";
-            $stmt = $pdo->prepare($query);
-            $stmt->execute([':email' => $email]);
-
-            // Check if the update was successful
-            if ($stmt->rowCount() > 0) {
-                $_SESSION['STATUS'] = "EMAIL_ACTIVATED_SUCCESSFULLY";
-                header("Location: ../index.php"); // Redirect to result page
-                exit();
-            } else {
-                $_SESSION['STATUS'] = "ACTIVATION_FAILED";
-                header("Location: ../index.php"); // Redirect to result page
-                exit();
-            }
-        } else {
-            $_SESSION['STATUS'] = "EMAIL_NOT_REGISTERED";
-            header("Location: ../index.php"); // Redirect to result page
-            exit();
-        }
-    } catch (PDOException $e) {
-        $_SESSION['STATUS'] = "ERROR";
-        header("Location: ../index.php"); // Redirect to result page
-        exit();
-    }
-} else {
-    $_SESSION['STATUS'] = "NO_EMAIL_PROVIDED";
+if (!isset($_GET['token'])) {
+    $_SESSION['STATUS'] = "INVALID_REQUEST";
     header("Location: ../index.php"); // Redirect to result page
-    exit();
+    exit("Invalid activation link.");
 }
-?>
+
+$token = $_GET['token'];
+
+try {
+    // 1. Find student with this token
+    $stmt = $pdo->prepare("
+        SELECT s.*, u.email 
+        FROM students s
+        JOIN users u ON s.user_id = u.id
+        WHERE s.activation_token = :token
+        LIMIT 1
+    ");
+    $stmt->execute([':token' => $token]);
+    $student = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$student) {
+        $_SESSION['STATUS'] = "INVALID_OR_EXPIRED_TOKEN";
+        header("Location: ../index.php"); // Redirect to result page
+        exit("Invalid or expired activation link.");
+    }
+
+    // 2. Check if already active
+    if ($student['status'] === 'active') {
+        $_SESSION['STATUS'] = "ALREADY_ACTIVATED";
+        header("Location: ../index.php"); // Redirect to result page
+        exit("Account already activated.");
+    }
+
+    // 3. Activate account
+    $stmt = $pdo->prepare("
+        UPDATE students 
+        SET status = 'active',
+            activation_token = NULL
+        WHERE id = :id
+    ");
+    $stmt->execute([':id' => $student['id']]);
+
+    if ($stmt->rowCount() > 0) {
+        $_SESSION['STATUS'] = "ACTIVATION_SUCCESS";
+        header("Location: ../index.php"); // Redirect to result page
+        exit("Account successfully activated!");
+    } else {
+        $_SESSION['STATUS'] = "ACTIVATION_FAILED";
+        header("Location: ../index.php"); // Redirect to result page
+        exit("Activation failed. Please try again.");
+    }
+} catch (PDOException $e) {
+    $_SESSION['STATUS'] = "ERROR";
+    error_log($e->getMessage());
+    header("Location: ../index.php"); // Redirect to result page
+    exit("Server error.");
+}

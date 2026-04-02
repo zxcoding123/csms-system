@@ -2,15 +2,20 @@
 require_once 'conn.php';
 require_once '../../app/services/RegistrationService.php';
 
-header('Content-Type: application/json');
+require_once '../../app/bootstrap.php';
+require_once '../../vendor/autoload.php';
 
+header('Content-Type: application/json');
 
 try {
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
         throw new Exception("INVALID_REQUEST");
     }
     $pdo = Database::getConnection();
-    $service = new RegistrationService($pdo);
+
+
+    $mailService = new MailService();
+    $service = new RegistrationService($pdo, $mailService);
 
     // You may sanitize here if needed
     $service->register($_POST);
@@ -44,6 +49,7 @@ try {
 
     echo json_encode([
         'success' => false,
-        'message' => $e->getMessage() // TEMP: show real error
+        'message' => $message
     ]);
+    exit;
 }

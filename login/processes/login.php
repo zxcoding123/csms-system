@@ -1,6 +1,6 @@
 <?php
 require 'conn.php';
-require '../../app/services/AuthService.php'; // adjust path as needed
+require '../../app/services/AuthService.php';
 
 $pdo = Database::getConnection();
 $auth = new AuthService($pdo);

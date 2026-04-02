@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 include('processes/conn.php');
 $pdo = Database::getConnection();
 

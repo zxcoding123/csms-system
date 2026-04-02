@@ -1,33 +1,25 @@
 <?php
 
+
+require_once __DIR__ . '/../DTO/EmailDTO.php';
+require_once __DIR__ . '/MailService.php';
+require_once __DIR__ . '/../Helpers/TemplateHelper.php';
+
+use App\DTO\EmailDTO;
+
 class RegistrationService
 {
     private PDO $pdo;
+    private MailService $mailService;
 
-    public function __construct(PDO $pdo)
+    public function __construct(PDO $pdo, MailService $mailService)
     {
         $this->pdo = $pdo;
-    }
-
-    private function getAdminIds(): array
-    {
-        $stmt = $this->pdo->query("SELECT id FROM admin"); // or SELECT id
-        return $stmt->fetchAll(PDO::FETCH_COLUMN);
-    }
-
-    private function buildFullName(string $first, string $middle, string $last): string
-    {
-        // Remove extra spaces and avoid double spaces if middle is empty
-        return trim(
-            $first . ' ' .
-                ($middle ? $middle . ' ' : '') .
-                $last
-        );
+        $this->mailService = $mailService;
     }
 
     public function register(array $data): void
     {
-        // Normalize + build full name
         $data = array_map('trim', $data);
 
         $data['fullName'] = $this->buildFullName(
@@ -43,15 +35,20 @@ class RegistrationService
         try {
             $userId = $this->createUser($data);
 
-            match ($data['role']) {
-                'staff' => $this->createStaff($userId, $data),
-                'student' => $this->createStudent($userId, $data),
-                default => throw new Exception("INVALID_ROLE")
-            };
+            if ($data['role'] === 'staff') {
+                $this->createStaff($userId, $data);
+            } elseif ($data['role'] === 'student') {
+                $token = $this->createStudent($userId, $data);
+            } else {
+                throw new Exception("INVALID_ROLE");
+            }
 
             $this->createNotification($data['role'], $data['fullName']);
 
             $this->pdo->commit();
+
+            // ✅ pass token here
+            $this->sendRegistrationEmail($data, $token);
         } catch (Exception $e) {
             $this->pdo->rollBack();
             throw $e;
@@ -64,10 +61,11 @@ class RegistrationService
             throw new Exception("EMPTY_FIELDS");
         }
 
-        if ($data['password'] !== $data['confirm_password']) {
+        if ($data['password'] !== ($data['confirm_password'] ?? '')) {
             throw new Exception("PASSWORD_NOT_SAME");
         }
 
+        // Check duplicate email
         $stmt = $this->pdo->prepare("SELECT COUNT(*) FROM users WHERE email = ?");
         $stmt->execute([$data['email']]);
 
@@ -75,15 +73,8 @@ class RegistrationService
             throw new Exception("EMAIL_ALREADY_EXISTS");
         }
 
+        // Student-specific validation
         if ($data['role'] === 'student') {
-            if (!str_ends_with($data['email'], '@addu.edu.ph')) {
-                throw new Exception("EMAIL_NOT_ADDU");
-            }
-
-            if (!preg_match('/\d+/', $data['email'], $matches) || $matches[0] !== $data['student_id']) {
-                throw new Exception("NOT_SAME_ID");
-            }
-
             $stmt = $this->pdo->prepare("SELECT COUNT(*) FROM students WHERE student_id = ?");
             $stmt->execute([$data['student_id']]);
 
@@ -106,21 +97,21 @@ class RegistrationService
             $data['role'],
         ]);
 
-        return $this->pdo->lastInsertId();
+        return (int)$this->pdo->lastInsertId();
     }
-
 
     private function createStaff(int $userId, array $data): void
     {
         $stmt = $this->pdo->prepare("
-            INSERT INTO staff_accounts (user_id, first_name, middle_name, last_name, fullName, department, phone_number, gender)
+            INSERT INTO staff_accounts 
+            (user_id, first_name, middle_name, last_name, fullName, department, phone_number, gender)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?)
         ");
 
         $stmt->execute([
             $userId,
             $data['firstName'],
-            $data['middleName'],
+            $data['middleName'] ?? '',
             $data['lastName'],
             $data['fullName'],
             $data['department'] ?? '',
@@ -129,7 +120,7 @@ class RegistrationService
         ]);
     }
 
-    private function createStudent(int $userId, array $data): void
+    private function createStudent(int $userId, array $data)
     {
         $token = bin2hex(random_bytes(25));
 
@@ -137,13 +128,14 @@ class RegistrationService
             INSERT INTO students (
                 user_id, first_name, middle_name, last_name,
                 student_id, gender, course, year_level, activation_token
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         ");
 
         $stmt->execute([
             $userId,
             $data['firstName'],
-            $data['middleName'],
+            $data['middleName'] ?? '',
             $data['lastName'],
             $data['student_id'],
             $data['gender'],
@@ -151,6 +143,8 @@ class RegistrationService
             $data['year_level'],
             $token
         ]);
+
+        return $token;
     }
 
     private function createNotification(string $role, string $fullName): void
@@ -160,15 +154,17 @@ class RegistrationService
             'student' => 'New Student Account Registration'
         ];
 
-        $adminIds = $this->getAdminIds();
+        $stmt = $this->pdo->query("SELECT id FROM admin");
+        $adminIds = $stmt->fetchAll(PDO::FETCH_COLUMN);
 
-        $stmt = $this->pdo->prepare("
-        INSERT INTO admin_notifications (admin_id, type, title, link, description, date, status)
-        VALUES (?, ?, ?, ?, ?, NOW(), 'unread')
-    ");
+        $insert = $this->pdo->prepare("
+            INSERT INTO admin_notifications 
+            (admin_id, type, title, link, description, date, status)
+            VALUES (?, ?, ?, ?, ?, NOW(), 'unread')
+        ");
 
         foreach ($adminIds as $adminId) {
-            $stmt->execute([
+            $insert->execute([
                 $adminId,
                 $role,
                 $titles[$role],
@@ -176,5 +172,32 @@ class RegistrationService
                 "A new $role account registered: $fullName"
             ]);
         }
+    }
+
+    private function sendRegistrationEmail(array $data, ?string $token = null): void
+    {
+        $body = TemplateHelper::activation(
+            $data['fullName'],
+            $data['email'],
+            $token ?? ''
+        );
+
+        $emailDTO = new EmailDTO(
+            $data['email'],
+            "Activate Your Account",
+            $body,
+            "CSMS System"
+        );
+
+        $sent = $this->mailService->send($emailDTO);
+
+        if (!$sent) {
+            error_log("Email failed: " . $data['email']);
+        }
+    }
+
+    private function buildFullName(string $first, string $middle, string $last): string
+    {
+        return trim($first . ' ' . ($middle ? $middle . ' ' : '') . $last);
     }
 }

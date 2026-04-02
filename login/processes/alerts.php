@@ -21,6 +21,17 @@ if (isset($_SESSION['STATUS']) && $_SESSION['STATUS'] == 'ADMIN_NOT_LOGGED_IN') 
     </script>
     ";
     unset($_SESSION['STATUS']);
+} elseif (isset($_SESSION['STATUS']) && $_SESSION['STATUS'] == 'INVALID_OR_EXPIRED_TOKEN') {
+    echo "
+    <script>
+        Swal.fire({
+            title: 'Invalid or Expired Token',
+            text: 'The link you used is no longer valid or has already expired. Please request a new one.',
+            icon: 'error'
+        });
+    </script>
+    ";
+    unset($_SESSION['STATUS']);
 } elseif (isset($_SESSION['STATUS']) && $_SESSION['STATUS'] == 'EMAIL_NOT_ADDU') {
     echo "
     <script>
